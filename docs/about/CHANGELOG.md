@@ -1,5 +1,10 @@
 # Changelog About
 
+## 2026-08-31 - Status dan Skala Responsif
+
+- Menambahkan status sebagai baris metadata setelah lokasi, dengan config manual, dot tiga state, rotasi Available, dan typing aksesibel.
+- Merapikan grid metadata agar wrap hanya saat mobile sempit serta memperbesar quote pada landscape, tablet, dan desktop.
+
 ## 2026-08-29 - Baseline Final
 
 - Menambahkan section About bergaya editorial tanpa portrait kedua atau kumpulan card.

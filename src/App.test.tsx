@@ -665,6 +665,9 @@ describe("App", () => {
     );
     expect(experienceSection?.querySelectorAll("ul > li")).toHaveLength(3);
     expect(experienceSection?.querySelector(".experience-rail")).toBeInTheDocument();
+    expect(
+      experienceSection?.querySelector(".experience-glass-panel"),
+    ).toHaveClass("rounded-2xl", "border");
     expect(experienceSection?.querySelector(".experience-record")).not.toHaveClass(
       "border-y",
     );
@@ -716,21 +719,24 @@ describe("App", () => {
   it("renders the rotating status as metadata after Based In", () => {
     vi.useFakeTimers();
     const { container } = renderApp();
-    const liveStatus = screen
-      .getByText("Let's collaborate")
-      .closest('[aria-live="polite"]');
+    const liveStatus = screen.getByLabelText("Let's collaborate");
     const statusDot = container.querySelector(".about-status-dot");
     const aboutStatus = container.querySelector<HTMLElement>(".about-status");
     const basedIn = screen.getByText("North Sumatera, Indonesia");
     const statusLabel = screen.getByText("Status");
 
     expect(liveStatus).toHaveAttribute("aria-atomic", "true");
-    expect(liveStatus).toHaveClass(
+    expect(liveStatus).toHaveAttribute("aria-live", "polite");
+    expect(liveStatus).toHaveAttribute("aria-atomic", "true");
+    expect(liveStatus.parentElement).toHaveClass(
       "about-status-text",
       "whitespace-normal",
       "sm:whitespace-nowrap",
     );
-    expect(screen.getByText("Let's collaborate")).toHaveClass(
+    const typingText = container.querySelector(".about-status-typing");
+
+    expect(typingText).toHaveAttribute("data-message", "Let's collaborate");
+    expect(typingText).toHaveClass(
       "about-status-typing",
       "whitespace-normal",
       "sm:whitespace-nowrap",
@@ -764,9 +770,15 @@ describe("App", () => {
       vi.advanceTimersByTime(rotatingStatusMotion.intervalMs);
     });
 
-    expect(screen.getByText("Open for work")).toBeInTheDocument();
-    expect(screen.getByText("Open for work")).toHaveClass(
-      "about-status-typing",
+    expect(screen.getByLabelText("Open for work")).toBeInTheDocument();
+    expect(typingText).toHaveAttribute("data-message", "Open for work");
+
+    act(() => {
+      vi.advanceTimersByTime("Open for work".length * 32);
+    });
+
+    expect(container.querySelector(".about-status-typed")).toHaveTextContent(
+      "Open for work",
     );
     expect(statusDot).toBeInTheDocument();
   });
@@ -784,15 +796,15 @@ describe("App", () => {
       vi.advanceTimersByTime(rotatingStatusMotion.intervalMs);
     });
 
-    expect(screen.getByText("Let's collaborate")).toBeInTheDocument();
-    expect(screen.queryByText("Open for work")).not.toBeInTheDocument();
+    expect(screen.getByLabelText("Let's collaborate")).toBeInTheDocument();
+    expect(screen.queryByLabelText("Open for work")).not.toBeInTheDocument();
 
     act(() => intersections.trigger(aboutStatus as Element, true));
     act(() => {
       vi.advanceTimersByTime(rotatingStatusMotion.intervalMs);
     });
 
-    expect(screen.getByText("Open for work")).toBeInTheDocument();
+    expect(screen.getByLabelText("Open for work")).toBeInTheDocument();
   });
 
   it("renders busy and unavailable as static manual status states", () => {
@@ -807,13 +819,13 @@ describe("App", () => {
     const busyStatus = document.querySelector(".about-status");
 
     expect(busyStatus).toHaveAttribute("data-status", "busy");
-    expect(screen.getByText("Currently busy")).toBeInTheDocument();
+    expect(screen.getByLabelText("Currently busy")).toBeInTheDocument();
 
     act(() => {
       vi.advanceTimersByTime(rotatingStatusMotion.intervalMs * 2);
     });
 
-    expect(screen.getByText("Currently busy")).toBeInTheDocument();
+    expect(screen.getByLabelText("Currently busy")).toBeInTheDocument();
 
     rerender(
       <ThemeProvider>
@@ -827,7 +839,9 @@ describe("App", () => {
       "data-status",
       "unavailable",
     );
-    expect(screen.getByText("Not available right now")).toBeInTheDocument();
+    expect(
+      screen.getByLabelText("Not available right now"),
+    ).toBeInTheDocument();
   });
 
   it("opens the global chat shell with every unavailable action explicit", async () => {
@@ -1108,7 +1122,7 @@ describe("App", () => {
     expect(window.localStorage.getItem(LANGUAGE_STORAGE_KEY)).toBe("id");
     expect(screen.getByText("Pengembang Front-End")).toBeInTheDocument();
     expect(screen.getByText("Lihat Karya Saya")).toBeInTheDocument();
-    expect(screen.getByText("Mari berkolaborasi")).toBeInTheDocument();
+    expect(screen.getByLabelText("Mari berkolaborasi")).toBeInTheDocument();
     expect(document.querySelector(".about-status")).toHaveAttribute(
       "data-status",
       "available",

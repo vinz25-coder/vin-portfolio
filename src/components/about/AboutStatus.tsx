@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import {
   availabilityStatus,
   type AvailabilityStatus,
 } from "../../data/availability";
 import { useLanguage } from "../../hooks/useLanguage";
+import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import { rotatingStatusMotion } from "../../motion/constants";
 
 interface AboutStatusProps {
@@ -13,9 +14,11 @@ interface AboutStatusProps {
 
 export function AboutStatus({ status = availabilityStatus }: AboutStatusProps) {
   const { copy } = useLanguage();
+  const prefersReducedMotion = usePrefersReducedMotion();
   const statusRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [visibleCharacterCount, setVisibleCharacterCount] = useState(0);
   const messages = copy.availability.messages;
 
   useEffect(() => {
@@ -55,9 +58,34 @@ export function AboutStatus({ status = availabilityStatus }: AboutStatusProps) {
     status === "available"
       ? (messages[activeIndex] ?? messages[0] ?? "")
       : copy.availability[status];
-  const typingStyle = {
-    "--about-status-characters": Math.max(activeMessage.length, 1),
-  } as CSSProperties;
+
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      setVisibleCharacterCount(activeMessage.length);
+      return;
+    }
+
+    setVisibleCharacterCount(0);
+
+    if (!isVisible || activeMessage.length === 0) {
+      return;
+    }
+
+    const intervalId = window.setInterval(() => {
+      setVisibleCharacterCount((currentCount) => {
+        if (currentCount >= activeMessage.length) {
+          window.clearInterval(intervalId);
+          return currentCount;
+        }
+
+        return currentCount + 1;
+      });
+    }, 32);
+
+    return () => window.clearInterval(intervalId);
+  }, [activeMessage, isVisible, prefersReducedMotion]);
+
+  const visibleMessage = activeMessage.slice(0, visibleCharacterCount);
 
   return (
     <div
@@ -69,17 +97,22 @@ export function AboutStatus({ status = availabilityStatus }: AboutStatusProps) {
         aria-hidden="true"
         className="about-status-dot mt-[0.4em] size-2 shrink-0 rounded-full sm:mt-0"
       />
-      <span
-        aria-live="polite"
-        aria-atomic="true"
-        className="about-status-text relative inline-flex min-w-0 overflow-visible font-inherit leading-snug text-inherit whitespace-normal sm:whitespace-nowrap"
-      >
+      <span className="about-status-text relative inline-grid min-w-0 overflow-visible font-inherit leading-snug text-inherit whitespace-normal sm:whitespace-nowrap">
         <span
-          key={`${activeIndex}-${activeMessage}`}
-          style={typingStyle}
-          className="about-status-typing relative block whitespace-normal sm:whitespace-nowrap"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          aria-label={activeMessage}
+          className="sr-only"
+        />
+        <span
+          aria-hidden="true"
+          data-message={activeMessage}
+          className="about-status-typing col-start-1 row-start-1 inline-grid whitespace-normal sm:whitespace-nowrap"
         >
-          {activeMessage}
+          <span className="about-status-typed col-start-1 row-start-1 w-fit">
+            {visibleMessage}
+          </span>
         </span>
       </span>
     </div>

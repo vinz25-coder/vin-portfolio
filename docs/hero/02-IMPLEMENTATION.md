@@ -4,15 +4,14 @@
 
 ## Struktur
 
-| Bagian                 | Tanggung jawab                                        |
-| ---------------------- | ----------------------------------------------------- |
-| `Hero.tsx`             | Komposisi dan navbar state tanpa overlay batas.       |
-| `HeroHeader.tsx`       | Logo, nav, bahasa, tema, menu responsif, dan scroll.  |
-| `HeroContent.tsx`      | Eyebrow, heading, deskripsi, dan CTA.                 |
-| `HeroPortrait.tsx`     | Responsive image, crossfade, mask, dan parallax.      |
-| `HeroSidebar.tsx`      | Link sosial fixed, tooltip, dan focus lintas section. |
-| `AvailabilityCard.tsx` | Status bergilir dan lokasi.                           |
-| Root `App`             | Scanner, blur tepi, social rail, chat, dan cursor.    |
+| Bagian             | Tanggung jawab                                        |
+| ------------------ | ----------------------------------------------------- |
+| `Hero.tsx`         | Komposisi dan navbar state tanpa overlay batas.       |
+| `HeroHeader.tsx`   | Logo, nav, bahasa, tema, menu responsif, dan scroll.  |
+| `HeroContent.tsx`  | Eyebrow, heading, deskripsi, dan CTA.                 |
+| `HeroPortrait.tsx` | Responsive image, crossfade, mask, dan parallax.      |
+| `HeroSidebar.tsx`  | Link sosial fixed, tooltip, dan focus lintas section. |
+| Root `App`         | Scanner, blur tepi, social rail, chat, dan cursor.    |
 
 ## Data dan State
 
@@ -39,12 +38,6 @@
 - `ViewportEdgeBlur` berada di root agar aturan ini otomatis berlaku untuk semua section.
 - Posisi awal dan gap transparan antarkelompok tidak berubah pada semua breakpoint.
 
-## Availability Card
-
-- Surface glass berada pada pseudo-element statis agar `backdrop-filter` tidak berbagi transform entrance dengan layer teks.
-- Motion entrance diterapkan pada content wrapper, bukan shell backdrop card.
-- Rotasi status dijeda melalui `IntersectionObserver` ketika card keluar viewport dan dilanjutkan dari pesan aktif saat kembali terlihat.
-
 ## Transisi Section
 
 - Hero dan section berikutnya memakai background transparan di atas scanner global.
@@ -70,6 +63,11 @@ Portrait tidak memakai scale overscan agar tepi gambar tidak terpotong oleh bord
 - Canvas Scanner mendengar `pointermove` pasif pada `window`, bukan event langsung pada canvas, sehingga uniform mouse tetap hidup tanpa menghalangi link, CTA, atau kontrol lain.
 - `pointerleave` pada document root menurunkan mouse-active secara gradual; listener dilepas saat cleanup.
 - Scanner tidak dirender saat reduced motion dan tetap menggunakan satu instance global untuk seluruh section.
+
+## Chat Global
+
+- Trigger mengambang berada di pojok kanan bawah pada tablet dan desktop; tablet memakai target 64px, desktop 56px.
+- Mobile ringkas membuka chat melalui Guestbook pada menu navigasi.
 
 ## Pemeliharaan
 
