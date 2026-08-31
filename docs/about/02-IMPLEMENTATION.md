@@ -50,6 +50,7 @@ Narasi dan metadata tetap di `About.tsx` selama belum membutuhkan perilaku terpi
 - `dl` metadata dan `ol` prinsip memakai `about-glass-panel` dengan surface transparan, border halus, shadow ringan, dan backdrop blur berbasis token tema.
 - Metadata memakai grid label/value responsif; lokasi dan status boleh wrap natural pada mobile sempit dan kembali satu baris mulai `sm`.
 - Status dikontrol melalui `src/data/availability.ts`; Available berotasi 3,5 detik dan typing 32ms/karakter, sedangkan Busy/Unavailable statis. Observer menjeda rotasi di luar viewport dan reduced motion menampilkan teks penuh.
+- Caret `about-status-typed::after` memakai `color-mix(in srgb, var(--color-text-primary) 72%, transparent)`, bukan `--color-accent-500` atau token warna status. Blink 800ms dipertahankan; dot tetap menjadi satu-satunya pembawa makna warna status.
 - Prinsip memakai grid dua kolom mulai `sm`: nomor selebar 3,5rem dan konten bertumpuk; pemisah hanya memakai border netral.
 - Baris heading kiri dirender langsung pada state final dan tidak bergantung pada `whileInView`, sehingga tidak dapat tertahan dalam keadaan transparan ketika observer terlambat atau gagal terpicu.
 - Quote memakai `useScroll({ target, offset: ["start 0.85", "end 0.35"] })` dan `useSpring` dengan stiffness 70, damping 20, serta mass 0,35 untuk menghaluskan progress.

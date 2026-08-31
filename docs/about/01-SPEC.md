@@ -39,6 +39,7 @@ Menjelaskan profil, cara berpikir, dan nilai profesional Evindo Amanda setelah H
 - Tidak ada animasi ambient berulang.
 - Reduced motion menampilkan quote penuh tanpa highlight progresif.
 - Status Available merotasi empat pesan dengan typing ringan; Busy dan Unavailable memakai teks statis melalui config manual.
+- Caret typing tidak memakai aksen merah/amber atau warna status. Warnanya mengikuti teks utama theme-aware dengan opacity sekitar 72%, sehingga dot tetap menjadi satu-satunya indikator kondisi Available, Busy, atau Unavailable.
 
 ## Kriteria Selesai
 
@@ -65,6 +66,7 @@ Menjelaskan profil, cara berpikir, dan nilai profesional Evindo Amanda setelah H
 - Metadata: fokus Front-End, pendekatan presisi dan aksesibel, lokasi Indonesia, serta status.
 - Prinsip: Design to Code, interaksi bermakna, dan performa sejak awal.
 - Metadata memakai empat baris: fokus, pendekatan, lokasi, dan status.
+- Hierarki visual status memisahkan fungsi warna: dot menyampaikan kondisi, teks menyampaikan pesan, dan caret netral hanya menandai proses typing.
 - Metadata dan prinsip kerja memakai panel glass terpisah yang subtil.
 - Prinsip mempertahankan nomor `01-03`, divider netral, serta layout dua kolom: nomor di kiri dan konten bertumpuk di kanan agar tidak overlap.
 - Copy tersedia dalam ID/EN dan tidak memuat statistik atau klaim pengalaman.
