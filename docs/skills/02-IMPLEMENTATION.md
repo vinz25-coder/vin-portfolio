@@ -16,13 +16,15 @@
 
 ## Data dan Ikon
 
-- `SkillCategory`: `frontend | backend | styling | tools`.
+- `SkillCategory`: `frontend | backend | styling | tools | ai`.
 - `SkillFilter`: `all | SkillCategory`.
 - `SkillItem`: `id`, `category`, `label`, icon/asset definition, optional `brandColor`, dan optional `themeAware`.
 - Category UI menambahkan pseudo-filter `all`; item data tidak menyimpan category `all`.
 - Gunakan `simple-icons` untuk logo resmi yang tersedia.
 - GitHub memakai SVG resmi dengan `currentColor`, bukan hex hitam brand.
 - Motion dan React Bits memakai aset resmi lokal yang divalidasi dari sumber resmi; Figma memakai SVG multicolor resmi lokal.
+- React Bits dan Figma ditandai `themeAware` agar trace netral; artwork React Bits tetap monokrom dan artwork Figma tetap multicolor.
+- ChatGPT memakai OpenAI Blossom resmi; Codex memakai app icon resmi; Claude, OpenCode, Hermes, dan 9Router memakai product icon resmi lokal.
 - Jangan memakai fallback logo generik setelah aset resmi tersedia.
 
 ## Locale
@@ -49,9 +51,12 @@
 - Item index datar tanpa rounded card besar, angka kategori, deskripsi kategori berulang, atau surface dekoratif.
 - Logo 22-26px dan nama memakai font display; label kategori tidak diulang pada setiap item.
 - Filter berupa tab teks dengan marker/underline aktif, bukan pill tebal.
+- Tablist memakai `flex-nowrap` pada semua breakpoint, spacing ringkas, dan `overflow-x-auto`; `AI Tools` selalu berada di kanan `Tools & Workflow` dalam baris yang sama.
 - Pada breakpoint `xl`, filter berada di kolom kanan tepat di atas technical index; pada viewport lebih kecil filter tetap berada sebelum index.
-- Saat `All` aktif pada mobile, CSS menyembunyikan item ketiga dan seterusnya per kategori. Tombol `aria-expanded`/`aria-controls` membuka seluruh 13 item; mulai `sm` semua item selalu terlihat dan tombol disembunyikan.
-- Brand Trace memakai `--skill-brand`, pseudo-element rail/wash, tanpa glow atau divider per item. Reduced motion menghapus transform ikon dan nama.
+- Saat `All` aktif pada mobile, CSS menyembunyikan item ketiga dan seterusnya per kategori. Tombol `aria-expanded`/`aria-controls` membuka seluruh 19 item; mulai `sm` semua item selalu terlihat dan tombol disembunyikan.
+- Brand Trace memisahkan `--skill-brand` untuk warna ikon dan `--skill-trace` untuk rail/wash; logo satu warna memakai warna brand, sedangkan logo multicolor/monokrom theme-aware memakai `--color-text-primary`.
+- Motion memakai `color-mix()` antara kuning brand dan teks utama untuk trace light mode, lalu kuning brand asli pada dark mode; aset logo tidak diubah.
+- Grid item tetap dua kolom mulai `sm`; tiga kolom tidak dipakai karena panel index desktop berada di kolom kanan section.
 
 ## Motion
 
@@ -71,10 +76,11 @@
 ## Testing
 
 - Struktur heading dan aksen EN/ID.
-- Total 13 teknologi dan kategori masing-masing.
+- Total 19 teknologi dan kategori masing-masing.
 - Supabase tanpa status Planned.
 - Figma multicolor tersedia pada Tools & Workflow; ESLint, Prettier, dan npm tidak ditampilkan.
 - Logo GitHub theme-aware dan Motion/React Bits memakai aset resmi.
+- Enam AI Tools memakai aset produk resmi dan dapat difilter sebagai satu kategori.
 - Filter All dan setiap kategori, termasuk preview/expand mobile dan reset expand.
 - Keyboard tab navigation dan roving tabindex.
 - Mobile Skills child navigation dan About parent active state.

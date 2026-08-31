@@ -27,28 +27,35 @@ Menampilkan toolkit yang digunakan Evindo Amanda sebagai technical index editori
 
 ## Data Awal
 
-| Kategori         | Teknologi                             |
-| ---------------- | ------------------------------------- |
-| Frontend         | React, TypeScript, JavaScript, HTML   |
-| Backend          | Supabase                              |
-| Styling & Motion | CSS, Tailwind CSS, Motion, React Bits |
-| Tools & Workflow | Vite, Git, GitHub, Figma              |
+| Kategori         | Teknologi                                         |
+| ---------------- | ------------------------------------------------- |
+| Frontend         | React, TypeScript, JavaScript, HTML               |
+| Backend          | Supabase                                          |
+| Styling & Motion | CSS, Tailwind CSS, Motion, React Bits             |
+| Tools & Workflow | Vite, Git, GitHub, Figma                          |
+| AI Tools         | ChatGPT, Codex, Claude, OpenCode, Hermes, 9Router |
 
-- Total baseline: 13 teknologi.
+- Total baseline: 19 teknologi.
 - Supabase ditampilkan sebagai toolkit aktif tanpa badge `Planned`.
 - GitHub memakai bentuk logo resmi dengan `currentColor` agar kontras pada light dan dark mode.
 - Figma memakai aset SVG multicolor resmi; Motion dan React Bits memakai aset resmi lokal.
+- Figma multicolor dan React Bits monokrom memakai Brand Trace netral; ungu `#A259FF` tidak dipakai sebagai warna representatif keduanya.
 - Semua logo berasal dari aset resmi atau package ikon resmi; jangan membuat logo interpretatif.
+- ChatGPT memakai OpenAI Blossom resmi; Codex memakai app icon resmi yang berbeda dari ChatGPT.
+- Claude, OpenCode, Hermes, dan 9Router memakai product icon resmi masing-masing.
 
 ## Interaksi
 
-- Filter: `All/Semua`, `Frontend`, `Backend`, `Styling & Motion`, dan `Tools & Workflow`.
+- Filter: `All/Semua`, `Frontend`, `Backend`, `Styling & Motion`, `Tools & Workflow`, dan `AI Tools`.
+- Semua filter tetap dalam satu baris horizontal; `AI Tools` berada tepat setelah `Tools & Workflow` dan tidak turun ke baris kedua.
 - `All/Semua` aktif secara default.
 - Filter memperbarui index tanpa reload atau state global.
 - Tab mendukung mouse, touch, `ArrowLeft`, `ArrowRight`, `Home`, dan `End` dengan roving tabindex.
 - Item informatif memakai cursor default dan tidak berpura-pura sebagai link.
 - Filter memakai Editorial Track Reveal: hover memberi tint aksen dan underline parsial; active memakai teks utama, tint tipis, dan underline penuh.
 - Item memakai Brand Trace Hover: rail vertikal dan wash 6% mengikuti warna brand, ikon naik 1px/scale 1,04, dan nama bergeser 2px tanpa berubah warna.
+- Logo multicolor/monokrom theme-aware (Figma, React Bits, GitHub, ChatGPT, OpenCode, dan Hermes) memakai rail serta wash netral mengikuti warna teks tema, bukan warna representatif atau aksen merah/amber.
+- Motion mempertahankan logo kuning resmi; trace dark mode tetap kuning dan trace light mode mencampur kuning dengan teks utama agar kontras pada latar krem.
 - Tidak ada glow ikon atau divider per item; satu divider netral dipakai per kelompok kategori.
 - Pergantian filter memakai fade dan translate ringan; reduced motion mengganti daftar langsung tanpa translate.
 
@@ -61,14 +68,15 @@ Menampilkan toolkit yang digunakan Evindo Amanda sebagai technical index editori
 
 ## Responsif
 
-| Rentang       | Perilaku                                                                                 |
-| ------------- | ---------------------------------------------------------------------------------------- |
-| `<640px`      | Satu kolom; filter horizontal scroll; preview All sekitar 7 item dengan expand/collapse. |
-| `640-1023px`  | Satu kolom dengan index dua kolom per kategori bila ruang cukup.                         |
-| `1024-1279px` | Komposisi satu kolom lebar; index dua kolom.                                             |
-| `>=1280px`    | Grid asimetris: heading kiri; filter dan technical index kanan.                          |
+| Rentang       | Perilaku                                                                         |
+| ------------- | -------------------------------------------------------------------------------- |
+| `<640px`      | Satu kolom; filter horizontal scroll; preview All 9 item dengan expand/collapse. |
+| `640-1023px`  | Satu kolom dengan index dua kolom per kategori bila ruang cukup.                 |
+| `1024-1279px` | Komposisi satu kolom lebar; index dua kolom.                                     |
+| `>=1280px`    | Grid asimetris: heading kiri; filter dan technical index kanan.                  |
 
 - Heading memakai natural wrapping tanpa clip atau line break manual.
+- Baris filter dapat digeser horizontal bila viewport tidak cukup, tanpa wrapping atau horizontal page overflow.
 - Index tidak boleh menyebabkan horizontal page overflow.
 - Padding dan alignment mengikuti About.
 
@@ -82,7 +90,8 @@ Menampilkan toolkit yang digunakan Evindo Amanda sebagai technical index editori
 
 ## Kriteria Selesai
 
-- Semua 13 teknologi tampil pada kategori yang benar.
+- Semua 19 teknologi tampil pada kategori yang benar.
+- Index mempertahankan dua kolom mulai tablet; tiga kolom tidak digunakan agar nama dan target hover tetap lega.
 - Supabase tidak memakai status Planned.
 - Motion dan React Bits memakai aset resmi yang tervalidasi.
 - GitHub terbaca pada light dan dark mode.
