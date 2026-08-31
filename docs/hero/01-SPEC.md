@@ -11,6 +11,7 @@ Memperkenalkan Evindo Amanda sebagai pengembang front-end melalui komposisi edit
 
 - Header fixed terdiri dari kelompok mengambang independen: logo, navigasi, bahasa ID/EN, dan tema.
 - Saat scroll, setiap kelompok mempertahankan glassmorphism sendiri tanpa surface full-width penghubung.
+- Navbar memakai depth shadow netral tanpa glow; state aktif dan hover ditandai aksen tipis serta indikator garis pendek.
 - Logo tidak pernah mendapat frame, background, border, atau blur pada posisi scroll mana pun; logo menjadi link kembali ke Hero paling atas.
 - Strip full-width menginterpolasi opacity dan blur secara kontinu berdasarkan posisi scroll.
 - Batas bawah strip memakai mask gradient agar blur memudar tanpa garis keras; strip tetap tanpa warna, border, atau shadow.

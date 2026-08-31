@@ -1,5 +1,14 @@
 # Changelog Hero
 
+## 2026-08-31 - Pembaruan Social Nav
+
+- Mengganti LinkedIn nonaktif dengan profil X aktif `@yhvnz_` pada sidebar dan menu mobile.
+
+## 2026-08-31 - Refinement Interaksi Navbar
+
+- Mempertahankan glass effect navbar dan mengganti glow putih saat scroll dengan neutral depth shadow.
+- Menggunakan aksen tipis serta garis pendek untuk state aktif/hover; item Projects nonaktif tidak lagi memberi feedback interaktif.
+
 ## 2026-08-29 - Baseline Final
 
 ### Visual dan Layout
