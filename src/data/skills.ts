@@ -17,6 +17,7 @@ export const skillCategories = [
   "backend",
   "styling",
   "tools",
+  "ai",
 ] as const;
 
 export type SkillCategory = (typeof skillCategories)[number];
@@ -69,7 +70,7 @@ export const skills: readonly SkillItem[] = [
     category: "styling",
     label: "React Bits",
     assetSrc: "/skills/react-bits.png",
-    brandColor: "#A259FF",
+    themeAware: true,
   },
   fromSimpleIcon("vite", "tools", "Vite", siVite),
   fromSimpleIcon("git", "tools", "Git", siGit),
@@ -79,6 +80,48 @@ export const skills: readonly SkillItem[] = [
     category: "tools",
     label: "Figma",
     assetSrc: "/skills/figma.svg",
-    brandColor: "#A259FF",
+    themeAware: true,
+  },
+  {
+    id: "chatgpt",
+    category: "ai",
+    label: "ChatGPT",
+    assetSrc: "/skills/chatgpt.png",
+    themeAware: true,
+  },
+  {
+    id: "codex",
+    category: "ai",
+    label: "Codex",
+    assetSrc: "/skills/codex.png",
+    brandColor: "#635BFF",
+  },
+  {
+    id: "claude",
+    category: "ai",
+    label: "Claude",
+    assetSrc: "/skills/claude.svg",
+    brandColor: "#D97757",
+  },
+  {
+    id: "opencode",
+    category: "ai",
+    label: "OpenCode",
+    assetSrc: "/skills/opencode.svg",
+    themeAware: true,
+  },
+  {
+    id: "hermes",
+    category: "ai",
+    label: "Hermes",
+    assetSrc: "/skills/hermes.png",
+    themeAware: true,
+  },
+  {
+    id: "9router",
+    category: "ai",
+    label: "9Router",
+    assetSrc: "/skills/9router.svg",
+    brandColor: "#E56A4A",
   },
 ];

@@ -9,15 +9,20 @@ interface SkillIndexItemProps {
 
 interface SkillStyle extends CSSProperties {
   "--skill-brand"?: string;
+  "--skill-trace"?: string;
 }
 
 export function SkillIndexItem({
   item,
   mobileOverflow = false,
 }: SkillIndexItemProps) {
-  const style: SkillStyle =
-    item.brandColor && !item.themeAware
-      ? { "--skill-brand": item.brandColor }
+  const style: SkillStyle = item.themeAware
+    ? { "--skill-trace": "var(--color-text-primary)" }
+    : item.brandColor
+      ? {
+          "--skill-brand": item.brandColor,
+          "--skill-trace": item.brandColor,
+        }
       : {};
 
   return (

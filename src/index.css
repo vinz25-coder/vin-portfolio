@@ -295,7 +295,7 @@ body {
   left: 0;
   z-index: 1;
   width: 2px;
-  background: var(--skill-brand, var(--color-accent-500));
+  background: var(--skill-trace, var(--color-text-primary));
   content: "";
   opacity: 0;
   transform: scaleY(0);
@@ -310,12 +310,18 @@ body {
   inset: 0;
   background: linear-gradient(90deg,
       color-mix(in srgb,
-        var(--skill-brand, var(--color-accent-500)) 6%,
+        var(--skill-trace, var(--color-text-primary)) 6%,
         transparent) 0%,
       transparent 72%);
   content: "";
   opacity: 0;
   transition: opacity 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root:not(.dark) .skill-index-item[data-skill="motion"] {
+  --skill-trace: color-mix(in srgb,
+      var(--skill-brand) 72%,
+      var(--color-text-primary));
 }
 
 .skill-index-name {
@@ -402,14 +408,12 @@ body {
   }
 
   .experience-record:hover .experience-spine {
-    background-color: color-mix(
-      in srgb,
-      var(--color-accent-500) 54%,
-      var(--color-border)
-    );
+    background-color: color-mix(in srgb,
+        var(--color-accent-500) 54%,
+        var(--color-border));
   }
 
-  .experience-contribution:hover > span {
+  .experience-contribution:hover>span {
     background-color: var(--color-accent-500);
   }
 }
@@ -593,9 +597,7 @@ body {
 .hero-nav-item[data-active="true"] {
   color: var(--color-accent-500);
   font-weight: 600;
-  background-color: color-mix(in srgb,
-      var(--color-accent-500) 6%,
-      transparent);
+  background-color: color-mix(in srgb, var(--color-accent-500) 6%, transparent);
 }
 
 .hero-nav-item.active::after,
@@ -711,7 +713,9 @@ body {
   width: 1px;
   height: 0.9em;
   margin-left: 0.12em;
-  background-color: color-mix(in srgb, var(--color-accent-500) 72%, transparent);
+  background-color: color-mix(in srgb,
+      var(--color-text-primary) 72%,
+      transparent);
   content: "";
   animation: about-status-caret-blink 800ms step-end infinite;
   vertical-align: -0.05em;
@@ -936,6 +940,7 @@ body {
 }
 
 @keyframes about-status-caret-blink {
+
   0%,
   45% {
     opacity: 1;
@@ -1219,7 +1224,6 @@ body {
     width: 2.5rem;
     height: 2.5rem;
   }
-
 }
 
 @media (min-width: 1024px) {

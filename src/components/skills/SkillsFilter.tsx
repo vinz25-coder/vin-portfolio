@@ -57,7 +57,7 @@ export function SkillsFilter({
     <div
       role="tablist"
       aria-label={ariaLabel}
-      className="skills-filter -mx-5 flex gap-6 overflow-x-auto px-5 pb-2 sm:mx-0 sm:flex-wrap sm:px-0"
+      className="skills-filter -mx-5 flex flex-nowrap gap-2 overflow-x-auto px-5 pb-2 sm:mx-0 sm:px-0 xl:justify-between"
     >
       {tabs.map((filter) => {
         const isActive = filter === activeFilter;
@@ -79,7 +79,7 @@ export function SkillsFilter({
             aria-controls={panelId}
             tabIndex={isActive ? 0 : -1}
             data-active={isActive}
-            className="skills-filter-tab relative min-h-11 shrink-0 rounded-md border-b border-transparent px-3 py-2 text-sm font-semibold whitespace-nowrap text-text-secondary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-500"
+            className="skills-filter-tab relative min-h-11 shrink-0 rounded-md border-b border-transparent px-2 py-2 text-sm font-semibold whitespace-nowrap text-text-secondary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-500"
             onClick={() => onChange(filter)}
             onKeyDown={(event) => handleKeyDown(event, filter)}
           >

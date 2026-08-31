@@ -507,8 +507,8 @@ describe("App", () => {
         .getByTestId("skills-section-label")
         .querySelector(".skills-label-part"),
     ).toHaveTextContent("Skills");
-    expect(skillsSection?.querySelectorAll("[data-skill]")).toHaveLength(13);
-    expect(skillsSection?.querySelectorAll("h3")).toHaveLength(4);
+    expect(skillsSection?.querySelectorAll("[data-skill]")).toHaveLength(19);
+    expect(skillsSection?.querySelectorAll("h3")).toHaveLength(5);
     expect(
       skillsSection?.querySelector('[data-skill="react"]'),
     ).not.toHaveTextContent("Frontend");
@@ -523,9 +523,11 @@ describe("App", () => {
     ).toHaveAttribute("src", "/skills/figma.svg");
     expect(skillsSection?.querySelector('[data-skill="react"]')).toHaveStyle({
       "--skill-brand": "#61DAFB",
+      "--skill-trace": "#61DAFB",
     });
     expect(skillsSection?.querySelector('[data-skill="motion"]')).toHaveStyle({
       "--skill-brand": "#FFF312",
+      "--skill-trace": "#FFF312",
     });
     expect(
       skillsSection?.querySelector('[data-skill="eslint"]'),
@@ -543,8 +545,49 @@ describe("App", () => {
       skillsSection?.querySelector('[data-skill="react-bits"] img'),
     ).toHaveAttribute("src", "/skills/react-bits.png");
     expect(
+      skillsSection?.querySelector('[data-skill="react-bits"]'),
+    ).toHaveStyle({ "--skill-trace": "var(--color-text-primary)" });
+    expect(skillsSection?.querySelector('[data-skill="figma"]')).toHaveStyle({
+      "--skill-trace": "var(--color-text-primary)",
+    });
+    expect(
       skillsSection?.querySelector('[data-skill="github"] .skill-index-icon'),
     ).toHaveClass("text-text-primary");
+    expect(skillsSection?.querySelector('[data-skill="github"]')).toHaveStyle({
+      "--skill-trace": "var(--color-text-primary)",
+    });
+    expect(
+      skillsSection?.querySelector('[data-skill="chatgpt"] img'),
+    ).toHaveAttribute("src", "/skills/chatgpt.png");
+    expect(skillsSection?.querySelector('[data-skill="chatgpt"]')).toHaveStyle({
+      "--skill-trace": "var(--color-text-primary)",
+    });
+    expect(
+      skillsSection?.querySelector('[data-skill="codex"] img'),
+    ).toHaveAttribute("src", "/skills/codex.png");
+    expect(
+      skillsSection?.querySelector('[data-skill="claude"] img'),
+    ).toHaveAttribute("src", "/skills/claude.svg");
+    expect(
+      skillsSection?.querySelector('[data-skill="opencode"] img'),
+    ).toHaveAttribute("src", "/skills/opencode.svg");
+    expect(skillsSection?.querySelector('[data-skill="opencode"]')).toHaveStyle(
+      { "--skill-trace": "var(--color-text-primary)" },
+    );
+    expect(
+      skillsSection?.querySelector('[data-skill="hermes"] img'),
+    ).toHaveAttribute("src", "/skills/hermes.png");
+    expect(skillsSection?.querySelector('[data-skill="hermes"]')).toHaveStyle({
+      "--skill-trace": "var(--color-text-primary)",
+    });
+    expect(
+      skillsSection?.querySelector('[data-skill="9router"] img'),
+    ).toHaveAttribute("src", "/skills/9router.svg");
+    const skillsFilter = screen.getByRole("tablist", {
+      name: "Filter skills by category",
+    });
+    expect(skillsFilter).toHaveClass("flex-nowrap");
+    expect(skillsFilter).not.toHaveClass("sm:flex-wrap");
   });
 
   it("filters Skills with accessible keyboard tabs", async () => {
@@ -552,6 +595,7 @@ describe("App", () => {
     const allTab = screen.getByRole("tab", { name: "All" });
     const frontendTab = screen.getByRole("tab", { name: "Frontend" });
     const stylingTab = screen.getByRole("tab", { name: "Styling & Motion" });
+    const aiTab = screen.getByRole("tab", { name: "AI Tools" });
 
     expect(allTab).toHaveAttribute("aria-selected", "true");
     expect(allTab).toHaveAttribute("tabindex", "0");
@@ -571,6 +615,16 @@ describe("App", () => {
     });
     expect(screen.getByText("React Bits")).toBeInTheDocument();
     expect(screen.queryByText("Supabase")).not.toBeInTheDocument();
+
+    fireEvent.click(aiTab);
+
+    await waitFor(() => {
+      expect(
+        screen.getByTestId("skills-index").querySelectorAll("[data-skill]"),
+      ).toHaveLength(6);
+    });
+    expect(screen.getByText("ChatGPT")).toBeInTheDocument();
+    expect(screen.getByText("9Router")).toBeInTheDocument();
   });
 
   it("collapses the All preview only on mobile", () => {
@@ -580,7 +634,7 @@ describe("App", () => {
     const expandButton = screen.getByRole("button", { name: "View More" });
 
     expect(index).toHaveAttribute("data-mobile-expanded", "false");
-    expect(index.querySelectorAll(".skill-mobile-overflow")).toHaveLength(6);
+    expect(index.querySelectorAll(".skill-mobile-overflow")).toHaveLength(10);
     expect(expandButton).toHaveClass("sm:hidden");
     expect(expandButton).toHaveAttribute("aria-expanded", "false");
     expect(expandButton).toHaveAttribute("aria-controls", "skills-index-list");
@@ -652,9 +706,7 @@ describe("App", () => {
       "owner-operated-dashboard",
     );
     expect(experienceSection).toHaveTextContent("Nov 2025 – Present");
-    expect(experienceSection).toHaveTextContent(
-      "Independent Web Developer",
-    );
+    expect(experienceSection).toHaveTextContent("Independent Web Developer");
     expect(experienceSection).toHaveTextContent("Internal Business Project");
     expect(experienceSection).toHaveTextContent("ALAM BARU");
     expect(experienceSection).toHaveTextContent(
@@ -664,21 +716,22 @@ describe("App", () => {
       "Internal Dashboard · North Sumatra, Indonesia",
     );
     expect(experienceSection?.querySelectorAll("ul > li")).toHaveLength(3);
-    expect(experienceSection?.querySelector(".experience-rail")).toBeInTheDocument();
+    expect(
+      experienceSection?.querySelector(".experience-rail"),
+    ).toBeInTheDocument();
     expect(
       experienceSection?.querySelector(".experience-glass-panel"),
     ).toHaveClass("rounded-2xl", "border");
-    expect(experienceSection?.querySelector(".experience-record")).not.toHaveClass(
-      "border-y",
-    );
+    expect(
+      experienceSection?.querySelector(".experience-record"),
+    ).not.toHaveClass("border-y");
     expect(experienceSection?.querySelector("img")).toBeNull();
     expect(skillsSection).not.toBeNull();
     expect(experienceSection).not.toBeNull();
     expect(
       (skillsSection as Element).compareDocumentPosition(
         experienceSection as Node,
-      ) &
-        Node.DOCUMENT_POSITION_FOLLOWING,
+      ) & Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
   });
 

@@ -82,12 +82,14 @@ export interface HeroCopy {
       backend: string;
       styling: string;
       tools: string;
+      ai: string;
     };
     groups: {
       frontend: string;
       backend: string;
       styling: string;
       tools: string;
+      ai: string;
     };
     filterLabel: string;
     panelLabel: string;
