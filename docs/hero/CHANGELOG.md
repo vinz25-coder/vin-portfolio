@@ -6,9 +6,8 @@
 
 ## 2026-08-31 - Refinement Interaksi Navbar
 
-- Mempertahankan glass effect navbar sambil mengganti glow putih saat scroll dengan neutral depth shadow yang lebih tenang.
-- Mengganti glow nav aktif dengan accent wash tipis dan indikator garis pendek serta memberi hover parsial pada link aktif.
-- Menambahkan hover aksen restrained pada kontrol kanan dan menghapus feedback hover dari item Projects yang masih nonaktif.
+- Mempertahankan glass effect navbar dan mengganti glow putih saat scroll dengan neutral depth shadow.
+- Menggunakan aksen tipis serta garis pendek untuk state aktif/hover; item Projects nonaktif tidak lagi memberi feedback interaktif.
 
 ## 2026-08-29 - Baseline Final
 
