@@ -9,6 +9,7 @@ import {
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import App from "./App";
+import { AboutStatus } from "./components/about/AboutStatus";
 import {
   LANGUAGE_STORAGE_KEY,
   LanguageProvider,
@@ -284,7 +285,7 @@ describe("App", () => {
     expect(projectsLink).toHaveAttribute("tabindex", "-1");
     expect(projectsLink).toHaveClass("hero-nav-item");
     expect(projectsLink).not.toHaveAttribute("href");
-    expect(screen.getByLabelText("Availability")).toBeInTheDocument();
+    expect(document.querySelector(".about-status")).toBeInTheDocument();
     expect(screen.getByAltText("Evindo Amanda")).toHaveAttribute(
       "src",
       "/logo-light.svg",
@@ -441,7 +442,8 @@ describe("App", () => {
     expect(quote).toHaveClass(
       "text-left",
       "max-w-[24ch]",
-      "text-[clamp(1.625rem,2.4vw,2.5rem)]",
+      "about-quote",
+      "text-[1.625rem]",
       "text-text-primary",
     );
     expect(quote).toHaveAttribute("data-scroll-highlight", "true");
@@ -505,8 +507,8 @@ describe("App", () => {
         .getByTestId("skills-section-label")
         .querySelector(".skills-label-part"),
     ).toHaveTextContent("Skills");
-    expect(skillsSection?.querySelectorAll("[data-skill]")).toHaveLength(13);
-    expect(skillsSection?.querySelectorAll("h3")).toHaveLength(4);
+    expect(skillsSection?.querySelectorAll("[data-skill]")).toHaveLength(19);
+    expect(skillsSection?.querySelectorAll("h3")).toHaveLength(5);
     expect(
       skillsSection?.querySelector('[data-skill="react"]'),
     ).not.toHaveTextContent("Frontend");
@@ -521,9 +523,11 @@ describe("App", () => {
     ).toHaveAttribute("src", "/skills/figma.svg");
     expect(skillsSection?.querySelector('[data-skill="react"]')).toHaveStyle({
       "--skill-brand": "#61DAFB",
+      "--skill-trace": "#61DAFB",
     });
     expect(skillsSection?.querySelector('[data-skill="motion"]')).toHaveStyle({
       "--skill-brand": "#FFF312",
+      "--skill-trace": "#FFF312",
     });
     expect(
       skillsSection?.querySelector('[data-skill="eslint"]'),
@@ -541,8 +545,49 @@ describe("App", () => {
       skillsSection?.querySelector('[data-skill="react-bits"] img'),
     ).toHaveAttribute("src", "/skills/react-bits.png");
     expect(
+      skillsSection?.querySelector('[data-skill="react-bits"]'),
+    ).toHaveStyle({ "--skill-trace": "var(--color-text-primary)" });
+    expect(skillsSection?.querySelector('[data-skill="figma"]')).toHaveStyle({
+      "--skill-trace": "var(--color-text-primary)",
+    });
+    expect(
       skillsSection?.querySelector('[data-skill="github"] .skill-index-icon'),
     ).toHaveClass("text-text-primary");
+    expect(skillsSection?.querySelector('[data-skill="github"]')).toHaveStyle({
+      "--skill-trace": "var(--color-text-primary)",
+    });
+    expect(
+      skillsSection?.querySelector('[data-skill="chatgpt"] img'),
+    ).toHaveAttribute("src", "/skills/chatgpt.png");
+    expect(skillsSection?.querySelector('[data-skill="chatgpt"]')).toHaveStyle({
+      "--skill-trace": "var(--color-text-primary)",
+    });
+    expect(
+      skillsSection?.querySelector('[data-skill="codex"] img'),
+    ).toHaveAttribute("src", "/skills/codex.png");
+    expect(
+      skillsSection?.querySelector('[data-skill="claude"] img'),
+    ).toHaveAttribute("src", "/skills/claude.svg");
+    expect(
+      skillsSection?.querySelector('[data-skill="opencode"] img'),
+    ).toHaveAttribute("src", "/skills/opencode.svg");
+    expect(skillsSection?.querySelector('[data-skill="opencode"]')).toHaveStyle(
+      { "--skill-trace": "var(--color-text-primary)" },
+    );
+    expect(
+      skillsSection?.querySelector('[data-skill="hermes"] img'),
+    ).toHaveAttribute("src", "/skills/hermes.png");
+    expect(skillsSection?.querySelector('[data-skill="hermes"]')).toHaveStyle({
+      "--skill-trace": "var(--color-text-primary)",
+    });
+    expect(
+      skillsSection?.querySelector('[data-skill="9router"] img'),
+    ).toHaveAttribute("src", "/skills/9router.svg");
+    const skillsFilter = screen.getByRole("tablist", {
+      name: "Filter skills by category",
+    });
+    expect(skillsFilter).toHaveClass("flex-nowrap");
+    expect(skillsFilter).not.toHaveClass("sm:flex-wrap");
   });
 
   it("filters Skills with accessible keyboard tabs", async () => {
@@ -550,6 +595,7 @@ describe("App", () => {
     const allTab = screen.getByRole("tab", { name: "All" });
     const frontendTab = screen.getByRole("tab", { name: "Frontend" });
     const stylingTab = screen.getByRole("tab", { name: "Styling & Motion" });
+    const aiTab = screen.getByRole("tab", { name: "AI Tools" });
 
     expect(allTab).toHaveAttribute("aria-selected", "true");
     expect(allTab).toHaveAttribute("tabindex", "0");
@@ -569,6 +615,16 @@ describe("App", () => {
     });
     expect(screen.getByText("React Bits")).toBeInTheDocument();
     expect(screen.queryByText("Supabase")).not.toBeInTheDocument();
+
+    fireEvent.click(aiTab);
+
+    await waitFor(() => {
+      expect(
+        screen.getByTestId("skills-index").querySelectorAll("[data-skill]"),
+      ).toHaveLength(6);
+    });
+    expect(screen.getByText("ChatGPT")).toBeInTheDocument();
+    expect(screen.getByText("9Router")).toBeInTheDocument();
   });
 
   it("collapses the All preview only on mobile", () => {
@@ -578,7 +634,7 @@ describe("App", () => {
     const expandButton = screen.getByRole("button", { name: "View More" });
 
     expect(index).toHaveAttribute("data-mobile-expanded", "false");
-    expect(index.querySelectorAll(".skill-mobile-overflow")).toHaveLength(6);
+    expect(index.querySelectorAll(".skill-mobile-overflow")).toHaveLength(10);
     expect(expandButton).toHaveClass("sm:hidden");
     expect(expandButton).toHaveAttribute("aria-expanded", "false");
     expect(expandButton).toHaveAttribute("aria-controls", "skills-index-list");
@@ -650,9 +706,7 @@ describe("App", () => {
       "owner-operated-dashboard",
     );
     expect(experienceSection).toHaveTextContent("Nov 2025 – Present");
-    expect(experienceSection).toHaveTextContent(
-      "Independent Web Developer",
-    );
+    expect(experienceSection).toHaveTextContent("Independent Web Developer");
     expect(experienceSection).toHaveTextContent("Internal Business Project");
     expect(experienceSection).toHaveTextContent("ALAM BARU");
     expect(experienceSection).toHaveTextContent(
@@ -662,18 +716,22 @@ describe("App", () => {
       "Internal Dashboard · North Sumatra, Indonesia",
     );
     expect(experienceSection?.querySelectorAll("ul > li")).toHaveLength(3);
-    expect(experienceSection?.querySelector(".experience-rail")).toBeInTheDocument();
-    expect(experienceSection?.querySelector(".experience-record")).not.toHaveClass(
-      "border-y",
-    );
+    expect(
+      experienceSection?.querySelector(".experience-rail"),
+    ).toBeInTheDocument();
+    expect(
+      experienceSection?.querySelector(".experience-glass-panel"),
+    ).toHaveClass("rounded-2xl", "border");
+    expect(
+      experienceSection?.querySelector(".experience-record"),
+    ).not.toHaveClass("border-y");
     expect(experienceSection?.querySelector("img")).toBeNull();
     expect(skillsSection).not.toBeNull();
     expect(experienceSection).not.toBeNull();
     expect(
       (skillsSection as Element).compareDocumentPosition(
         experienceSection as Node,
-      ) &
-        Node.DOCUMENT_POSITION_FOLLOWING,
+      ) & Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
   });
 
@@ -711,57 +769,132 @@ describe("App", () => {
     expect(experienceLink).toHaveAttribute("aria-current", "page");
   });
 
-  it("rotates localized availability messages without moving the status dot", () => {
+  it("renders the rotating status as metadata after Based In", () => {
     vi.useFakeTimers();
     const { container } = renderApp();
-    const liveStatus = screen
-      .getByText("Available for work")
-      .closest('[aria-live="polite"]');
-    const statusDot = container.querySelector(".availability-status-dot");
-    const availabilityCard = screen.getByLabelText("Availability");
+    const liveStatus = screen.getByLabelText("Let's collaborate");
+    const statusDot = container.querySelector(".about-status-dot");
+    const aboutStatus = container.querySelector<HTMLElement>(".about-status");
+    const basedIn = screen.getByText("North Sumatera, Indonesia");
+    const statusLabel = screen.getByText("Status");
 
     expect(liveStatus).toHaveAttribute("aria-atomic", "true");
-    expect(liveStatus).toHaveClass(
-      "availability-status-text",
-      "sm:min-h-10",
-      "sm:items-center",
-      "lg:min-h-0",
+    expect(liveStatus).toHaveAttribute("aria-live", "polite");
+    expect(liveStatus).toHaveAttribute("aria-atomic", "true");
+    expect(liveStatus.parentElement).toHaveClass(
+      "about-status-text",
+      "whitespace-normal",
+      "sm:whitespace-nowrap",
     );
-    expect(
-      Array.from(availabilityCard.querySelectorAll("p")).find(
-        (paragraph) => paragraph.textContent === "Indonesia",
-      ),
-    ).toHaveClass("sm:min-h-10", "lg:min-h-0");
+    const typingText = container.querySelector(".about-status-typing");
+
+    expect(typingText).toHaveAttribute("data-message", "Let's collaborate");
+    expect(typingText).toHaveClass(
+      "about-status-typing",
+      "whitespace-normal",
+      "sm:whitespace-nowrap",
+    );
+    expect(aboutStatus).toHaveClass(
+      "whitespace-normal",
+      "sm:whitespace-nowrap",
+    );
+    expect(statusLabel.closest("div")?.previousElementSibling).toBe(
+      basedIn.closest("div"),
+    );
+    expect(basedIn.closest("dd")).toHaveClass(
+      "whitespace-normal",
+      "sm:whitespace-nowrap",
+    );
+    expect(basedIn.parentElement?.parentElement).toHaveClass(
+      "whitespace-normal",
+      "sm:whitespace-nowrap",
+    );
+    expect(statusLabel.closest("div")).toContainElement(aboutStatus);
+    expect(aboutStatus?.parentElement).toHaveClass(
+      "font-display",
+      "text-base",
+      "font-semibold",
+    );
+    expect(aboutStatus?.parentElement).not.toHaveClass("sm:text-lg");
+    expect(aboutStatus).toHaveAttribute("data-status", "available");
     expect(statusDot).toBeInTheDocument();
 
     act(() => {
       vi.advanceTimersByTime(rotatingStatusMotion.intervalMs);
     });
 
-    expect(screen.getByText("Let's collaborate")).toBeInTheDocument();
+    expect(screen.getByLabelText("Open for work")).toBeInTheDocument();
+    expect(typingText).toHaveAttribute("data-message", "Open for work");
+
+    act(() => {
+      vi.advanceTimersByTime("Open for work".length * 32);
+    });
+
+    expect(container.querySelector(".about-status-typed")).toHaveTextContent(
+      "Open for work",
+    );
     expect(statusDot).toBeInTheDocument();
   });
 
-  it("pauses availability rotation while the card is outside the viewport", () => {
+  it("pauses status rotation while the About status is outside the viewport", () => {
     vi.useFakeTimers();
     const intersections = mockIntersectionObservers();
     renderApp();
-    const availabilityCard = screen.getByLabelText("Availability");
+    const aboutStatus = document.querySelector(".about-status");
 
-    act(() => intersections.trigger(availabilityCard, false));
+    expect(aboutStatus).not.toBeNull();
+
+    act(() => intersections.trigger(aboutStatus as Element, false));
     act(() => {
       vi.advanceTimersByTime(rotatingStatusMotion.intervalMs);
     });
 
-    expect(screen.getByText("Available for work")).toBeInTheDocument();
-    expect(screen.queryByText("Let's collaborate")).not.toBeInTheDocument();
+    expect(screen.getByLabelText("Let's collaborate")).toBeInTheDocument();
+    expect(screen.queryByLabelText("Open for work")).not.toBeInTheDocument();
 
-    act(() => intersections.trigger(availabilityCard, true));
+    act(() => intersections.trigger(aboutStatus as Element, true));
     act(() => {
       vi.advanceTimersByTime(rotatingStatusMotion.intervalMs);
     });
 
-    expect(screen.getByText("Let's collaborate")).toBeInTheDocument();
+    expect(screen.getByLabelText("Open for work")).toBeInTheDocument();
+  });
+
+  it("renders busy and unavailable as static manual status states", () => {
+    vi.useFakeTimers();
+    const { rerender } = render(
+      <ThemeProvider>
+        <LanguageProvider>
+          <AboutStatus status="busy" />
+        </LanguageProvider>
+      </ThemeProvider>,
+    );
+    const busyStatus = document.querySelector(".about-status");
+
+    expect(busyStatus).toHaveAttribute("data-status", "busy");
+    expect(screen.getByLabelText("Currently busy")).toBeInTheDocument();
+
+    act(() => {
+      vi.advanceTimersByTime(rotatingStatusMotion.intervalMs * 2);
+    });
+
+    expect(screen.getByLabelText("Currently busy")).toBeInTheDocument();
+
+    rerender(
+      <ThemeProvider>
+        <LanguageProvider>
+          <AboutStatus status="unavailable" />
+        </LanguageProvider>
+      </ThemeProvider>,
+    );
+
+    expect(document.querySelector(".about-status")).toHaveAttribute(
+      "data-status",
+      "unavailable",
+    );
+    expect(
+      screen.getByLabelText("Not available right now"),
+    ).toBeInTheDocument();
   });
 
   it("opens the global chat shell with every unavailable action explicit", async () => {
@@ -872,11 +1005,16 @@ describe("App", () => {
 
   it("keeps widget hide controls out of tablet and desktop layouts", () => {
     mockMediaPreferences({ desktopViewport: true });
-    renderApp();
+    const { container } = renderApp();
+    const chatRoot = container.querySelector(".floating-chat-root");
 
     expect(
       screen.getByRole("button", { name: "Open discussion chat" }),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Open discussion chat" }),
+    ).toHaveClass("size-14", "sm:size-16", "lg:size-14");
+    expect(chatRoot).toHaveClass("sm:right-6", "sm:bottom-6");
     expect(
       screen.queryByRole("button", { name: "Hide chat widget" }),
     ).not.toBeInTheDocument();
@@ -1037,8 +1175,11 @@ describe("App", () => {
     expect(window.localStorage.getItem(LANGUAGE_STORAGE_KEY)).toBe("id");
     expect(screen.getByText("Pengembang Front-End")).toBeInTheDocument();
     expect(screen.getByText("Lihat Karya Saya")).toBeInTheDocument();
-    expect(screen.getByText("Tersedia untuk bekerja")).toBeInTheDocument();
-    expect(screen.getByLabelText("Ketersediaan")).toBeInTheDocument();
+    expect(screen.getByLabelText("Mari berkolaborasi")).toBeInTheDocument();
+    expect(document.querySelector(".about-status")).toHaveAttribute(
+      "data-status",
+      "available",
+    );
     expect(
       screen.getByRole("heading", {
         name: "Saya mengubah desain menjadi kode yang berfungsi.",
@@ -1371,20 +1512,17 @@ describe("App", () => {
     expect(header).toHaveAttribute("data-landscape-nav-visible", "true");
   });
 
-  it("keeps the mobile portrait before the status without floating social navigation", () => {
+  it("keeps the mobile portrait in Hero without the former availability card", () => {
     mockMediaPreferences({ desktopViewport: false });
     renderApp();
     const portraitShell = screen
       .getByTestId("portrait-parallax")
       .closest(".hero-portrait-shell");
-    const availabilityCard = screen.getByLabelText("Availability");
 
-    expect(portraitShell?.nextElementSibling).toBe(availabilityCard);
+    expect(portraitShell?.nextElementSibling).toBeNull();
     expect(screen.getByTestId("portrait-bottom-mask")).toHaveClass(
       "hero-portrait-mask",
     );
-    expect(availabilityCard).toHaveClass("justify-self-center");
-    expect(availabilityCard).toHaveClass("sm:justify-self-end");
     expect(screen.queryByLabelText("Social profiles")).not.toBeInTheDocument();
     expect(document.querySelector(".hero-portrait-image-fade")).toBeNull();
   });

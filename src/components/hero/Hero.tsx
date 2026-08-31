@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 
-import { AvailabilityCard } from "./AvailabilityCard";
 import { HeroContent } from "./HeroContent";
 import { HeroHeader } from "./HeroHeader";
 import { HeroPortrait } from "./HeroPortrait";
@@ -47,7 +46,6 @@ export function Hero() {
         <div className="hero-layout relative z-10 grid grid-cols-1 px-3 pt-24 min-[320px]:px-5 sm:min-h-svh sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] sm:gap-x-6 sm:pt-15 sm:pr-12 sm:pb-0 sm:pl-16 lg:contents">
           <HeroContent />
           <HeroPortrait parallaxTargetRef={heroRef} />
-          <AvailabilityCard />
         </div>
       </section>
     </>

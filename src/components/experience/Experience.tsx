@@ -57,7 +57,7 @@ export function Experience() {
             <span className="experience-spine absolute top-4 bottom-0 left-1/2 w-px -translate-x-1/2 bg-border" />
           </div>
 
-          <div className="col-start-2 row-start-2 mt-7 min-w-0 sm:col-start-3 sm:row-start-1 sm:mt-0">
+          <div className="experience-glass-panel col-start-2 row-start-2 mt-7 min-w-0 rounded-2xl border p-5 sm:col-start-3 sm:row-start-1 sm:mt-0 sm:p-6 lg:p-7">
             <h3 className="font-display text-xl leading-tight font-semibold tracking-[-0.025em] sm:text-2xl">
               {experienceCopy.role}
             </h3>

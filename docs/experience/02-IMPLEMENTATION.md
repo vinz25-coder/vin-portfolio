@@ -24,7 +24,8 @@ Komponen entry terpisah tidak dibuat selama hanya ada satu record dan tidak ada 
 - Root transparan memakai padding dan alignment yang sama dengan About dan Skills.
 - Label section menjadi heading `h2` kecil; tidak memakai display heading pemasaran tambahan.
 - Mulai `sm`, record memakai grid metadata, rail, dan detail; mobile memakai rail di kiri dengan konten linear.
-- Record tidak memakai border pembungkus, rounded card, atau surface solid.
+- Record tidak memakai pembungkus card; hanya kolom detail memakai glass tipis dengan border token, radius sedang, dan surface transparan.
+- Metadata, node, dan rail tetap di luar glass. Panel tidak memakai glow atau hover elevation.
 - Periode memakai ukuran body semibold dengan aksen; role memakai display typography sekitar 20-24px.
 - Contribution list menjadi bullet vertikal dengan natural wrapping.
 - Tidak ada slot kosong, logo, badge, screenshot, atau CTA menuju section yang belum tersedia.
@@ -65,6 +66,12 @@ Komponen entry terpisah tidak dibuat selama hanya ada satu record dan tidak ada 
 5. Tambahkan test struktur, locale, dan active state.
 6. Jalankan quality gates.
 7. Pertahankan dokumen dan changelog selaras pada revisi yang disetujui.
+
+## Revisi Glass Detail
+
+- Kolom detail memakai class `experience-glass-panel` dengan tint surface transparan, blur ringan, inset highlight, dan shadow yang sangat lembut.
+- Glass diterapkan pada semua breakpoint dengan padding responsif; struktur grid record dan timeline tidak berubah.
+- Scanner global tetap terlihat melalui panel dan treatment memiliki pasangan light/dark melalui token yang sudah ada.
 
 ## Batas Pemeliharaan
 

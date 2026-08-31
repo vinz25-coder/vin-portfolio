@@ -66,7 +66,7 @@ export function AboutQuote({ quote }: AboutQuoteProps) {
       <p
         ref={quoteRef}
         data-testid="about-quote"
-        className="mt-16 max-w-[24ch] text-left font-display text-[clamp(1.625rem,2.4vw,2.5rem)] leading-[1.2] font-medium tracking-[-0.035em] text-text-primary sm:mt-20"
+        className="about-quote mt-16 max-w-[24ch] text-left font-display text-[1.625rem] leading-[1.2] font-medium tracking-[-0.035em] text-text-primary sm:mt-20"
       >
         {quote}
       </p>
@@ -78,7 +78,7 @@ export function AboutQuote({ quote }: AboutQuoteProps) {
       ref={quoteRef}
       data-testid="about-quote"
       data-scroll-highlight="true"
-      className="mt-16 max-w-[24ch] text-left font-display text-[clamp(1.625rem,2.4vw,2.5rem)] leading-[1.2] font-medium tracking-[-0.035em] text-text-primary sm:mt-20"
+      className="about-quote mt-16 max-w-[24ch] text-left font-display text-[1.625rem] leading-[1.2] font-medium tracking-[-0.035em] text-text-primary sm:mt-20"
     >
       <span className="sr-only">{quote}</span>
       <span aria-hidden="true">

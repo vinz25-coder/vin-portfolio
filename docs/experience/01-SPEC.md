@@ -13,7 +13,7 @@ Menampilkan pengalaman praktis Evindo Amanda dalam membangun sistem internal unt
 - Layout desktop tiga kolom: periode dan konteks di kiri, node serta garis timeline di tengah, lalu role dan kontribusi di kanan.
 - Role menjadi elemen tipografi utama dengan skala profesional yang tenang; periode tampil kecil memakai aksen tema.
 - Seluruh informasi selalu terbuka tanpa accordion, filter, logo, atau placeholder pengalaman.
-- Background transparan agar scanner global tetap berlanjut.
+- Background section transparan agar scanner global tetap berlanjut; kolom detail memakai glass tipis sebagai pemisah informasi utama dari metadata timeline.
 - Struktur dapat menerima pengalaman nyata baru kelak tanpa menampilkan slot kosong sekarang.
 
 ## Copy
@@ -52,6 +52,7 @@ Menampilkan pengalaman praktis Evindo Amanda dalam membangun sistem internal unt
 - Entrance memakai fade dan translate vertikal ringan untuk record dan bullet kontribusi.
 - Garis timeline muncul secara tenang bersama record; tidak memakai loop atau scroll progress.
 - Fine-pointer hover hanya memperjelas node dan garis timeline tanpa glow atau menyiratkan aksi klik.
+- Glass hanya membungkus kolom detail, memakai tint dan blur ringan tanpa glow atau perubahan elevasi saat hover.
 - Reduced motion menghapus translate dan stagger; seluruh informasi tetap langsung tersedia.
 - Konten penting tidak bergantung pada animasi untuk dapat dibaca.
 
@@ -67,6 +68,7 @@ Menampilkan pengalaman praktis Evindo Amanda dalam membangun sistem internal unt
 - Natural wrapping digunakan untuk role dan deskripsi pada kedua bahasa.
 - Section tidak boleh menyebabkan horizontal overflow.
 - Padding dan alignment mengikuti About dan Skills.
+- Pada mobile, metadata dan rail tetap di luar glass agar urutan timeline terbaca jelas.
 
 ## Navigasi
 

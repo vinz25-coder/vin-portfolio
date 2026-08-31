@@ -9,6 +9,7 @@
 | `About.tsx`           | Root section, layout, heading hierarchy, dan composition. |
 | `AboutPrinciples.tsx` | Tiga prinsip kerja bernomor.                              |
 | `AboutQuote.tsx`      | Quote bilingual dan highlight kata berbasis scroll.       |
+| `AboutStatus.tsx`     | Status manual, rotasi pesan, typing, dan dot state.       |
 
 Narasi dan metadata tetap di `About.tsx` selama belum membutuhkan perilaku terpisah. Hindari komponen wrapper satu kali.
 
@@ -47,11 +48,14 @@ Narasi dan metadata tetap di `About.tsx` selama belum membutuhkan perilaku terpi
 - Accessible name heading dibentuk dari ketiga fragmen tanpa spasi punctuation yang keliru; visual fragments ditandai dekoratif agar pembaca layar menerima satu kalimat utuh.
 - Grid desktop memberi kolom heading rasio 1,15 dan gap responsif 5-9rem; font size baseline dipertahankan dan ruang tambahan diambil dari kolom detail.
 - `dl` metadata dan `ol` prinsip memakai `about-glass-panel` dengan surface transparan, border halus, shadow ringan, dan backdrop blur berbasis token tema.
+- Metadata memakai grid label/value responsif; lokasi dan status boleh wrap natural pada mobile sempit dan kembali satu baris mulai `sm`.
+- Status dikontrol melalui `src/data/availability.ts`; Available berotasi 3,5 detik dan typing 32ms/karakter, sedangkan Busy/Unavailable statis. Observer menjeda rotasi di luar viewport dan reduced motion menampilkan teks penuh.
+- Caret `about-status-typed::after` memakai `color-mix(in srgb, var(--color-text-primary) 72%, transparent)`, bukan `--color-accent-500` atau token warna status. Blink 800ms dipertahankan; dot tetap menjadi satu-satunya pembawa makna warna status.
 - Prinsip memakai grid dua kolom mulai `sm`: nomor selebar 3,5rem dan konten bertumpuk; pemisah hanya memakai border netral.
 - Baris heading kiri dirender langsung pada state final dan tidak bergantung pada `whileInView`, sehingga tidak dapat tertahan dalam keadaan transparan ketika observer terlambat atau gagal terpicu.
 - Quote memakai `useScroll({ target, offset: ["start 0.85", "end 0.35"] })` dan `useSpring` dengan stiffness 70, damping 20, serta mass 0,35 untuk menghaluskan progress.
 - Setiap kata memetakan progress overlap ke opacity 0,24-1; kata biasa memakai `--color-text-primary`, sedangkan `feel alive`/`terasa hidup` memakai `--color-accent-500`.
-- Quote memakai ukuran responsif `clamp(1.625rem, 2.4vw, 2.5rem)`, lebar maksimum 24ch, wrapping natural, dan jarak `mt-16 sm:mt-20` dari heading.
+- Quote tetap 1,625rem pada mobile portrait, lalu meningkat bertahap pada landscape, tablet, desktop, dan desktop lebar; lebar maksimum tetap 24ch.
 - Visual word spans ditandai dekoratif dan teks penuh tersedia untuk teknologi asistif. Reduced motion merender paragraf penuh tanpa motion values atau pemisahan visual per kata.
 
 ## Pemeliharaan

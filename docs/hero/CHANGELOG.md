@@ -1,5 +1,10 @@
 # Changelog Hero
 
+## 2026-08-31 - Penyederhanaan Hero
+
+- Menghapus Availability Card beserta lokasi dan memindahkan status ke metadata About.
+- Menyamakan posisi chat tablet ke pojok kanan bawah dan menyesuaikan ukuran trigger per perangkat.
+
 ## 2026-08-31 - Pembaruan Social Nav
 
 - Mengganti LinkedIn nonaktif dengan profil X aktif `@yhvnz_` pada sidebar dan menu mobile.

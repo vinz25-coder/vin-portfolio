@@ -21,13 +21,10 @@
   --color-particle-core: #ffffff;
   --color-available-start: #22c55e;
   --color-available-end: #4ade80;
-  --color-available-text: color-mix(in srgb,
-      var(--color-available-start) 36%,
-      var(--color-text-primary));
-  --color-available-text-glow: color-mix(in srgb,
-      var(--color-available-start) 16%,
-      transparent);
-  --availability-status-text-shadow: 0 0 0.25rem var(--color-available-text-glow);
+  --color-busy-start: #dca315;
+  --color-busy-end: #facc15;
+  --color-unavailable-start: #dc2626;
+  --color-unavailable-end: #f87171;
   --color-cursor-accent: var(--color-accent-500);
   --color-cursor-background: color-mix(in srgb,
       color-mix(in srgb, var(--color-cursor-accent) 8%, var(--color-surface)) 42%,
@@ -99,13 +96,10 @@
   --color-cta-bg: #410f14;
   --color-available-start: #22c55e;
   --color-available-end: #4ade80;
-  --color-available-text: var(--color-available-end);
-  --color-available-text-glow: color-mix(in srgb,
-      var(--color-available-end) 50%,
-      transparent);
-  --availability-status-text-shadow:
-    0 0 0.35rem var(--color-available-text-glow),
-    0 0 0.8rem var(--color-available-text-glow);
+  --color-busy-start: #eab308;
+  --color-busy-end: #fde047;
+  --color-unavailable-start: #ef4444;
+  --color-unavailable-end: #f87171;
   --color-cursor-accent: #e9333d;
   --color-cursor-background: color-mix(in srgb,
       var(--color-cursor-accent) 16%,
@@ -217,6 +211,30 @@ body {
   -webkit-backdrop-filter: blur(1rem);
 }
 
+@media (max-width: 639.98px) and (orientation: landscape) {
+  .about-quote {
+    font-size: clamp(1.875rem, 4vw, 2.25rem);
+  }
+}
+
+@media (min-width: 640px) {
+  .about-quote {
+    font-size: clamp(2.125rem, 4.5vw, 3rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-quote {
+    font-size: clamp(2.5rem, 3.2vw, 3.25rem);
+  }
+}
+
+@media (min-width: 1280px) {
+  .about-quote {
+    font-size: clamp(2.75rem, 3vw, 3.5rem);
+  }
+}
+
 .skills-filter-tab {
   background: transparent;
   transition:
@@ -277,7 +295,7 @@ body {
   left: 0;
   z-index: 1;
   width: 2px;
-  background: var(--skill-brand, var(--color-accent-500));
+  background: var(--skill-trace, var(--color-text-primary));
   content: "";
   opacity: 0;
   transform: scaleY(0);
@@ -292,12 +310,18 @@ body {
   inset: 0;
   background: linear-gradient(90deg,
       color-mix(in srgb,
-        var(--skill-brand, var(--color-accent-500)) 6%,
+        var(--skill-trace, var(--color-text-primary)) 6%,
         transparent) 0%,
       transparent 72%);
   content: "";
   opacity: 0;
   transition: opacity 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root:not(.dark) .skill-index-item[data-skill="motion"] {
+  --skill-trace: color-mix(in srgb,
+      var(--skill-brand) 72%,
+      var(--color-text-primary));
 }
 
 .skill-index-name {
@@ -384,14 +408,12 @@ body {
   }
 
   .experience-record:hover .experience-spine {
-    background-color: color-mix(
-      in srgb,
-      var(--color-accent-500) 54%,
-      var(--color-border)
-    );
+    background-color: color-mix(in srgb,
+        var(--color-accent-500) 54%,
+        var(--color-border));
   }
 
-  .experience-contribution:hover > span {
+  .experience-contribution:hover>span {
     background-color: var(--color-accent-500);
   }
 }
@@ -575,9 +597,7 @@ body {
 .hero-nav-item[data-active="true"] {
   color: var(--color-accent-500);
   font-weight: 600;
-  background-color: color-mix(in srgb,
-      var(--color-accent-500) 6%,
-      transparent);
+  background-color: color-mix(in srgb, var(--color-accent-500) 6%, transparent);
 }
 
 .hero-nav-item.active::after,
@@ -636,46 +656,69 @@ body {
       transparent);
 }
 
-.availability-status-dot {
+.about-status-dot {
+  --availability-status-start: var(--color-available-start);
+  --availability-status-end: var(--color-available-end);
   position: relative;
   isolation: isolate;
   background: linear-gradient(135deg,
-      var(--color-available-start) 0%,
-      var(--color-available-end) 100%);
-  box-shadow: 0 0 0.75rem color-mix(in srgb, var(--color-available-start) 45%, transparent);
+      var(--availability-status-start) 0%,
+      var(--availability-status-end) 100%);
+  box-shadow: 0 0 0.625rem color-mix(in srgb, var(--availability-status-start) 38%, transparent);
 }
 
-.availability-status-dot::after {
+.experience-glass-panel {
+  border-color: color-mix(in srgb, var(--color-text-primary) 10%, transparent);
+  background-color: color-mix(in srgb, var(--color-surface) 28%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--color-text-primary) 7%, transparent),
+    0 0.75rem 2rem color-mix(in srgb, var(--color-text-primary) 4%, transparent);
+  backdrop-filter: blur(0.875rem);
+  -webkit-backdrop-filter: blur(0.875rem);
+}
+
+.about-status[data-status="busy"] .about-status-dot {
+  --availability-status-start: var(--color-busy-start);
+  --availability-status-end: var(--color-busy-end);
+}
+
+.about-status[data-status="unavailable"] .about-status-dot {
+  --availability-status-start: var(--color-unavailable-start);
+  --availability-status-end: var(--color-unavailable-end);
+}
+
+.about-status-dot::after {
   position: absolute;
   inset: 0;
   z-index: -1;
-  border: 1px solid color-mix(in srgb, var(--color-available-start) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--availability-status-start) 65%, transparent);
   border-radius: inherit;
   content: "";
-  animation: availability-status-ping 2s ease-out infinite;
+  animation: about-status-ping 2s ease-out infinite;
 }
 
-.availability-status-text {
-  color: var(--color-available-text);
-  text-shadow: var(--availability-status-text-shadow);
+.about-status-typing {
+  min-width: 0;
 }
 
-.availability-glass-card {
-  isolation: isolate;
-  border-color: var(--color-card-glass-border);
-  box-shadow:
-    0 0.5rem 1.5rem color-mix(in srgb, var(--color-text-primary) 10%, transparent),
-    0 1.25rem 3rem color-mix(in srgb, var(--color-accent-500) 10%, transparent);
+.about-status-typing::before {
+  grid-column: 1;
+  grid-row: 1;
+  visibility: hidden;
+  content: attr(data-message);
 }
 
-.availability-glass-card::before {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: var(--color-card-glass);
-  backdrop-filter: blur(1rem);
-  -webkit-backdrop-filter: blur(1rem);
+.about-status-typed::after {
+  display: inline-block;
+  width: 1px;
+  height: 0.9em;
+  margin-left: 0.12em;
+  background-color: color-mix(in srgb,
+      var(--color-text-primary) 72%,
+      transparent);
   content: "";
+  animation: about-status-caret-blink 800ms step-end infinite;
+  vertical-align: -0.05em;
 }
 
 .chat-widget-panel {
@@ -884,7 +927,7 @@ body {
       transparent 100%);
 }
 
-@keyframes availability-status-ping {
+@keyframes about-status-ping {
   from {
     opacity: 0.6;
     transform: scale(1);
@@ -896,10 +939,28 @@ body {
   }
 }
 
+@keyframes about-status-caret-blink {
+
+  0%,
+  45% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
 
   .hero-portrait-float,
-  .availability-status-dot::after {
+  .about-status-dot::after {
+    animation: none;
+  }
+
+  .about-status-typed::after {
+    display: none;
     animation: none;
   }
 
@@ -1163,24 +1224,6 @@ body {
     width: 2.5rem;
     height: 2.5rem;
   }
-
-  .floating-chat-root {
-    bottom: 9rem;
-  }
-
-  .floating-chat-panel {
-    max-height: calc(100svh - 20.25rem);
-  }
-}
-
-@media (min-width: 640px) and (max-width: 1023px) and (max-height: 40rem) {
-  .floating-chat-root {
-    bottom: 1rem;
-  }
-
-  .floating-chat-panel {
-    max-height: calc(100svh - 2rem);
-  }
 }
 
 @media (min-width: 1024px) {
@@ -1197,37 +1240,6 @@ body {
    ========================= */
 
 @media (max-width: 956px) and (max-height: 500px) and (orientation: landscape) {
-  .availability-glass-card {
-    position: absolute;
-    right: 1rem;
-    bottom: 2rem;
-    width: min(18rem, calc(50vw - 1.5rem));
-    max-width: none;
-    margin: 0;
-    gap: 0.625rem;
-    padding: 0.625rem 0.75rem;
-    font-size: 0.75rem;
-  }
-
-  .availability-card-content>div>p:first-child {
-    display: none;
-  }
-
-  .availability-card-content>div>p:last-child {
-    margin-top: 0;
-    min-height: 0;
-    gap: 0.5rem;
-  }
-
-  .availability-glass-card .availability-status-text {
-    min-height: 0;
-  }
-
-  .availability-card-content>div:last-child>p:last-child>span:first-child {
-    width: 1.75rem;
-    height: 1.75rem;
-  }
-
   .hero-portrait-shell {
     position: absolute;
 
