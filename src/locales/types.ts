@@ -1,0 +1,108 @@
+export interface HeroCopy {
+  eyebrow: string;
+  subtitleLines: readonly string[];
+  cta: {
+    projects: string;
+    contact: string;
+  };
+  nav: {
+    about: string;
+    projects: string;
+    skills: string;
+    experience: string;
+    contact: string;
+  };
+  availability: {
+    statusLabel: string;
+    messages: readonly string[];
+    locationLabel: string;
+    location: string;
+  };
+  chat: {
+    openLabel: string;
+    closeLabel: string;
+    title: string;
+    comingSoon: string;
+    openMenuLabel: string;
+    closeMenuLabel: string;
+    guestbook: string;
+    guestbookUnavailable: string;
+    previewTitle: string;
+    previewBody: string;
+    replyLabel: string;
+    replyPlaceholder: string;
+    sendLabel: string;
+    loginGoogle: string;
+    loginUnavailable: string;
+    privacy: string;
+  };
+  a11y: {
+    primaryNavigation: string;
+    homeLink: string;
+    socialSidebar: string;
+    availability: string;
+    portraitAlt: string;
+    languageMenuLabel: string;
+    selectEnglish: string;
+    selectIndonesian: string;
+    openNavigationMenu: string;
+    closeNavigationMenu: string;
+    switchThemeToLight: string;
+    switchThemeToDark: string;
+  };
+  about: {
+    sectionLabel: string;
+    heading: {
+      before: string;
+      accent: string;
+      after: string;
+    };
+    body: readonly string[];
+    quote: string;
+    meta: readonly {
+      label: string;
+      value: string;
+    }[];
+    principlesLabel: string;
+    principles: readonly {
+      title: string;
+      description: string;
+    }[];
+  };
+  skills: {
+    sectionLabel: string;
+    heading: {
+      before: string;
+      accent: string;
+      after: string;
+    };
+    note: string;
+    tabs: {
+      all: string;
+      frontend: string;
+      backend: string;
+      styling: string;
+      tools: string;
+    };
+    groups: {
+      frontend: string;
+      backend: string;
+      styling: string;
+      tools: string;
+    };
+    filterLabel: string;
+    panelLabel: string;
+    viewMore: string;
+    showLess: string;
+  };
+  experience: {
+    sectionLabel: string;
+    present: string;
+    role: string;
+    context: string;
+    recordTitle: string;
+    businessDescription: string;
+    meta: string;
+    contributions: readonly string[];
+  };
+}

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      (() => {
+        let storedTheme = null;
+        let storedLanguage = null;
+
+        try {
+          storedTheme = window.localStorage.getItem("portfolio-theme");
+          storedLanguage = window.localStorage.getItem("portfolio-language");
+        } catch {
+          storedTheme = null;
+          storedLanguage = null;
+        }
+
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+
+        if (
+          storedTheme === "dark" ||
+          (storedTheme !== "light" && prefersDark)
+        ) {
+          document.documentElement.classList.add("dark");
+        }
+
+        document.documentElement.lang = storedLanguage === "id" ? "id" : "en";
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Evindo Amanda's front-end developer portfolio."
+    />
+    <title>Evindo Amanda — Front-End Developer</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
