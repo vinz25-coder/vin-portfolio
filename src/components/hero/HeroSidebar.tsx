@@ -1,6 +1,7 @@
-import { Github, Instagram, Linkedin, Mail } from "lucide-react";
+import { Github, Instagram, Mail } from "lucide-react";
 import { motion } from "motion/react";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useState, type ComponentType } from "react";
+import type { SVGProps } from "react";
 
 import type { SocialLink, SocialPlatform } from "../../data/social-links";
 import { useLanguage } from "../../hooks/useLanguage";
@@ -11,6 +12,7 @@ import {
   getEntranceMotion,
   socialSidebarMotion,
 } from "../../motion/constants";
+import { BrandXIcon } from "../global/BrandXIcon";
 
 interface HeroSidebarProps {
   socialLinks: SocialLink[];
@@ -20,16 +22,20 @@ interface SocialIconItemProps {
   link: SocialLink;
 }
 
-const socialIcons: Record<SocialPlatform, typeof Github> = {
+type SocialIcon = ComponentType<
+  SVGProps<SVGSVGElement> & { size?: number | string }
+>;
+
+const socialIcons: Record<SocialPlatform, SocialIcon> = {
   github: Github,
-  linkedin: Linkedin,
+  x: BrandXIcon,
   instagram: Instagram,
   email: Mail,
 };
 
 const socialNames: Record<SocialPlatform, string> = {
   github: "GitHub",
-  linkedin: "LinkedIn",
+  x: "X",
   instagram: "Instagram",
   email: "Email",
 };
@@ -106,7 +112,10 @@ function SocialIconItem({ link }: SocialIconItemProps) {
         transition={iconTransition}
         className="relative z-10 flex items-center justify-center"
       >
-        <Icon size={25} strokeWidth={1.75} />
+        <Icon
+          size={link.platform === "x" ? 22 : 25}
+          strokeWidth={1.75}
+        />
       </motion.span>
       <motion.span
         id={tooltipId}

@@ -335,8 +335,8 @@ describe("App", () => {
       name: "Instagram — Evindo Amanda",
     });
     const email = screen.getByRole("link", { name: "Email Evindo Amanda" });
-    const linkedin = screen.getByRole("link", {
-      name: "LinkedIn — unavailable",
+    const x = screen.getByRole("link", {
+      name: "X — @yhvnz_",
     });
 
     expect(github).toHaveAttribute("href", "https://github.com/vinz25-coder");
@@ -348,8 +348,8 @@ describe("App", () => {
     expect(instagram).toHaveAttribute("target", "_blank");
     expect(email).toHaveAttribute("href", "mailto:evindoamandariza@gmail.com");
     expect(email).not.toHaveAttribute("target");
-    expect(linkedin).toHaveAttribute("aria-disabled", "true");
-    expect(linkedin).not.toHaveAttribute("href");
+    expect(x).toHaveAttribute("href", "https://x.com/yhvnz_");
+    expect(x).toHaveAttribute("target", "_blank");
 
     expect(screen.getByRole("link", { name: "View My Works" })).toHaveAttribute(
       "aria-disabled",
@@ -1418,10 +1418,10 @@ describe("App", () => {
     });
     const sidebar = screen.getByLabelText("Social profiles");
     const github = container.querySelector('[data-platform="github"]');
-    const linkedin = container.querySelector('[data-platform="linkedin"]');
+    const x = container.querySelector('[data-platform="x"]');
 
     expect(github).not.toBeNull();
-    expect(linkedin).not.toBeNull();
+    expect(x).not.toBeNull();
     expect(header).toHaveAttribute("data-scrolled", "false");
     expect(logoFrame).not.toHaveAttribute("data-scrolled");
     expect(blurStrip).toHaveAttribute("data-scroll-linked", "true");
@@ -1434,7 +1434,7 @@ describe("App", () => {
     ).not.toBeInTheDocument();
     expect(sidebar).not.toHaveAttribute("aria-hidden");
     expect(github).not.toHaveAttribute("tabindex", "-1");
-    expect(linkedin).toHaveAttribute("tabindex", "-1");
+    expect(x).not.toHaveAttribute("tabindex", "-1");
     expect(screen.queryByText("Scroll")).not.toBeInTheDocument();
 
     act(() => intersections.trigger(sentinel, false));
@@ -1466,7 +1466,7 @@ describe("App", () => {
 
     const socialPlatforms = [
       ["github", "GitHub"],
-      ["linkedin", "LinkedIn"],
+      ["x", "X"],
       ["instagram", "Instagram"],
       ["email", "Email"],
     ] as const;

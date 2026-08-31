@@ -19,7 +19,7 @@
 - Tema: `ThemeContext`, key `portfolio-theme`.
 - Bahasa: `LanguageContext`, key `portfolio-language`.
 - Copy: `src/locales/en.ts` dan `src/locales/id.ts`.
-- Sosial: GitHub, Instagram, dan email aktif; LinkedIn tidak tersedia.
+- Sosial: GitHub, X, Instagram, dan email aktif.
 - CTA dan navigasi ke section berikutnya masih nonaktif secara eksplisit.
 
 ## Navbar Global
@@ -29,6 +29,9 @@
 - Logo selalu tampil polos tanpa treatment scroll dan memakai anchor `#home` menuju root Hero; accessible name mengikuti locale ID/EN.
 - Pil navigasi, bahasa, tema, dan menu mobile menerima `data-scrolled` secara independen.
 - Surface kontrol tetap transparan dan mengandalkan backdrop blur pada kedua state.
+- State scroll mempertahankan glass blur dengan border rendah kontras dan neutral depth shadow tanpa glow putih.
+- Nav aktif memakai teks aksen, accent wash tipis, dan indikator garis pendek; hover memakai indikator parsial tanpa glow.
+- Kontrol bahasa, tema, dan menu memakai border serta wash aksen yang restrained saat hover; item nonaktif tidak menerima feedback interaktif.
 - Strip fixed memakai `useScroll()` dan `useTransform()` untuk memetakan scroll 0-96px ke opacity 0-1 dan blur 0-7,28px.
 - Strip memakai `mask-image` dan `-webkit-mask-image`: solid sampai 60%, lalu memudar ke transparan pada 100%.
 - Backdrop filter berada pada child yang dibatasi `contain: paint` dan `overflow: hidden` agar blur tidak meluas ke konten section.

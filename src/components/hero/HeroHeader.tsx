@@ -1,4 +1,4 @@
-import { Github, Instagram, Linkedin, Mail, Menu, X } from "lucide-react";
+import { Github, Instagram, Mail, Menu, X } from "lucide-react";
 import { motion } from "motion/react";
 import { useEffect, useId, useRef, useState } from "react";
 
@@ -8,6 +8,7 @@ import { useTheme } from "../../hooks/useTheme";
 import { socialLinks } from "../../data/social-links";
 import { mobileViewportQuery } from "../../lib/media-queries";
 import { OPEN_MOBILE_GUESTBOOK_EVENT } from "../global/FloatingChatWidget";
+import { BrandXIcon } from "../global/BrandXIcon";
 import {
   navInteractionMotion,
   socialSidebarMotion,
@@ -28,7 +29,7 @@ const mobileNavItems = [
 ] as const;
 const mobileSocialIcons = {
   github: Github,
-  linkedin: Linkedin,
+  x: BrandXIcon,
   instagram: Instagram,
   email: Mail,
 };

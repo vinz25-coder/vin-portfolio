@@ -1,4 +1,4 @@
-export type SocialPlatform = "github" | "linkedin" | "instagram" | "email";
+export type SocialPlatform = "github" | "x" | "instagram" | "email";
 
 export interface SocialLink {
   platform: SocialPlatform;
@@ -13,9 +13,9 @@ export const socialLinks: SocialLink[] = [
     label: "GitHub — Evindo Amanda",
   },
   {
-    platform: "linkedin",
-    href: null,
-    label: "LinkedIn — unavailable",
+    platform: "x",
+    href: "https://x.com/yhvnz_",
+    label: "X — @yhvnz_",
   },
   {
     platform: "instagram",
