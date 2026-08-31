@@ -6,6 +6,7 @@ import { aboutMotion, EASE_OUT_EXPO } from "../../motion/constants";
 import { TranslatedText } from "../hero/TranslatedText";
 import { AboutPrinciples } from "./AboutPrinciples";
 import { AboutQuote } from "./AboutQuote";
+import { AboutStatus } from "./AboutStatus";
 
 export function About() {
   const { copy } = useLanguage();
@@ -102,19 +103,43 @@ export function About() {
                 ease: EASE_OUT_EXPO,
               }}
             >
-              {about.meta.map((item) => (
+              {about.meta.map((item, index) => (
                 <div
                   key={item.label}
-                  className="grid grid-cols-[7rem_minmax(0,1fr)] gap-5 border-b border-border px-5 py-4 last:border-b-0 sm:grid-cols-[9rem_minmax(0,1fr)] sm:px-6"
+                  className="grid grid-cols-[5.75rem_minmax(0,1fr)] items-start gap-2.5 border-b border-border px-3.5 py-4 sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-4 sm:px-5"
                 >
                   <dt className="text-xs font-semibold tracking-[0.14em] text-text-secondary uppercase">
                     <TranslatedText inline>{item.label}</TranslatedText>
                   </dt>
-                  <dd className="font-display text-base font-semibold text-text-primary sm:text-lg">
-                    <TranslatedText inline>{item.value}</TranslatedText>
+                  <dd
+                    className={`min-w-0 font-display text-base font-semibold text-text-primary ${
+                      index === about.meta.length - 1
+                        ? "break-normal whitespace-normal sm:whitespace-nowrap"
+                        : ""
+                    }`}
+                  >
+                    <span
+                      className={
+                        index === about.meta.length - 1
+                          ? "block whitespace-normal sm:inline-block sm:whitespace-nowrap"
+                          : undefined
+                      }
+                    >
+                      <TranslatedText inline>{item.value}</TranslatedText>
+                    </span>
                   </dd>
                 </div>
               ))}
+              <div className="grid grid-cols-[5.75rem_minmax(0,1fr)] items-start gap-2.5 px-3.5 py-4 sm:grid-cols-[8rem_minmax(0,1fr)] sm:gap-4 sm:px-5">
+                <dt className="text-xs font-semibold tracking-[0.14em] text-text-secondary uppercase">
+                  <TranslatedText inline>
+                    {copy.availability.statusLabel}
+                  </TranslatedText>
+                </dt>
+                <dd className="min-w-0 font-display text-base font-semibold text-text-primary">
+                  <AboutStatus />
+                </dd>
+              </div>
             </motion.dl>
 
             <AboutPrinciples

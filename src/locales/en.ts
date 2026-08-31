@@ -19,12 +19,13 @@ export const en = {
   availability: {
     statusLabel: "Status",
     messages: [
-      "Available for work",
       "Let's collaborate",
-      "Open to opportunities",
+      "Open for work",
+      "Open for opportunities",
+      "Open for freelance",
     ],
-    locationLabel: "Location",
-    location: "Indonesia",
+    busy: "Currently busy",
+    unavailable: "Not available right now",
   },
   chat: {
     openLabel: "Open discussion chat",
@@ -49,7 +50,6 @@ export const en = {
     primaryNavigation: "Primary navigation",
     homeLink: "Evindo Amanda — Home",
     socialSidebar: "Social profiles",
-    availability: "Availability",
     portraitAlt: "Portrait of Evindo Amanda wearing a black suit and tie",
     languageMenuLabel: "Choose language. Current language: English",
     selectEnglish: "Switch language to English",

@@ -17,7 +17,6 @@ export const entranceTimings = {
   subtitle: { delay: 0.2, duration: 0.5, offsetY: 16 },
   sidebar: { delay: 0.2, duration: 0.5, offsetY: 16 },
   ctas: { delay: 0.28, duration: 0.5, offsetY: 16 },
-  availability: { delay: 0.35, duration: 0.55, offsetY: 16 },
 } satisfies Record<string, EntranceTiming>;
 
 const portraitThemeTransitions = {
@@ -53,10 +52,6 @@ export const navInteractionMotion = {
 
 export const rotatingStatusMotion = {
   intervalMs: 3500,
-  offsetY: socialSidebarMotion.tooltipOffset,
-  outgoingDuration: languageContentTransition.outgoingDuration,
-  incomingDuration: languageContentTransition.incomingDuration,
-  ease: EASE_OUT_EXPO,
 } as const;
 
 export const chatWidgetMotion = {
@@ -94,7 +89,6 @@ export const aboutMotion = {
  * - eyebrow
  * - portrait
  * - sidebar
- * - availability card
  * - elemen lain yang hanya memerlukan fade + slide
  */
 export function getEntranceMotion(

@@ -15,8 +15,8 @@ export interface HeroCopy {
   availability: {
     statusLabel: string;
     messages: readonly string[];
-    locationLabel: string;
-    location: string;
+    busy: string;
+    unavailable: string;
   };
   chat: {
     openLabel: string;
@@ -40,7 +40,6 @@ export interface HeroCopy {
     primaryNavigation: string;
     homeLink: string;
     socialSidebar: string;
-    availability: string;
     portraitAlt: string;
     languageMenuLabel: string;
     selectEnglish: string;

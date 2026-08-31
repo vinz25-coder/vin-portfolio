@@ -21,12 +21,13 @@ export const id = {
   availability: {
     statusLabel: "Status",
     messages: [
-      "Tersedia untuk bekerja",
       "Mari berkolaborasi",
-      "Terbuka untuk peluang baru",
+      "Terbuka untuk bekerja",
+      "Terbuka untuk peluang",
+      "Terbuka untuk freelance",
     ],
-    locationLabel: "Lokasi",
-    location: "Indonesia",
+    busy: "Sedang sibuk",
+    unavailable: "Sedang tidak tersedia",
   },
   chat: {
     openLabel: "Buka ruang diskusi",
@@ -51,7 +52,6 @@ export const id = {
     primaryNavigation: "Navigasi utama",
     homeLink: "Evindo Amanda — Beranda",
     socialSidebar: "Profil sosial",
-    availability: "Ketersediaan",
     portraitAlt: "Potret Evindo Amanda mengenakan jas hitam dan dasi",
     languageMenuLabel: "Pilih bahasa. Bahasa saat ini: Indonesia",
     selectEnglish: "Ganti bahasa ke Inggris",

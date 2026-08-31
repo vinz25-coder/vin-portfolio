@@ -301,18 +301,18 @@ export function FloatingChatWidget() {
               ease: chatWidgetMotion.ease,
             }}
             onClick={togglePanel}
-            className="floating-chat-trigger relative flex size-14 items-center justify-center overflow-hidden rounded-full border border-[color-mix(in_srgb,var(--color-accent-500)_48%,transparent)] bg-[linear-gradient(135deg,var(--color-accent-500),var(--color-accent-700))] text-accent-ink shadow-[0_0.75rem_2.5rem_color-mix(in_srgb,var(--color-accent-500)_32%,transparent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-500"
+            className="floating-chat-trigger relative flex size-14 items-center justify-center overflow-hidden rounded-full border border-[color-mix(in_srgb,var(--color-accent-500)_48%,transparent)] bg-[linear-gradient(135deg,var(--color-accent-500),var(--color-accent-700))] text-accent-ink shadow-[0_0.75rem_2.5rem_color-mix(in_srgb,var(--color-accent-500)_32%,transparent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-500 sm:size-16 lg:size-14"
           >
             <span
               aria-hidden="true"
               className="absolute inset-1 rounded-full border border-[color-mix(in_srgb,var(--color-accent-100)_28%,transparent)]"
             />
-            <MessageCircle
-              aria-hidden="true"
-              size={24}
-              strokeWidth={1.7}
-              className="relative z-10"
-            />
+              <MessageCircle
+                aria-hidden="true"
+                size={24}
+                strokeWidth={1.7}
+                className="relative z-10 sm:size-7 lg:size-6"
+              />
           </motion.button>
         </motion.div>
       ) : null}
