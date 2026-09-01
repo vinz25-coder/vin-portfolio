@@ -60,10 +60,10 @@
       var(--color-text-primary) 18%,
       transparent);
   --color-scrollbar-thumb: color-mix(in srgb,
-      var(--color-accent-500) 28%,
+      var(--color-accent-500) 70%,
       var(--color-text-secondary));
   --color-scrollbar-thumb-hover: color-mix(in srgb,
-      var(--color-accent-500) 78%,
+      var(--color-accent-500) 88%,
       var(--color-text-primary));
   --hero-eyebrow-heading-gap: 1rem;
   --hero-heading-description-gap: 0.5rem;
@@ -505,7 +505,7 @@ body {
 .viewport-edge-blur-bottom {
   contain: none;
   isolation: auto;
-  height: clamp(5rem, 12vw, 8rem);
+  height: clamp(6rem, 14vw, 9rem);
   overflow: visible;
   will-change: auto;
 }
@@ -531,8 +531,8 @@ body {
 }
 
 .viewport-edge-blur-bottom-medium {
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
   -webkit-mask-image: linear-gradient(to bottom,
       transparent 32%,
       rgb(0 0 0 / 38%) 56%,
@@ -544,8 +544,8 @@ body {
 }
 
 .viewport-edge-blur-bottom-strong {
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10 px);
   -webkit-mask-image: linear-gradient(to bottom,
       transparent 62%,
       rgb(0 0 0 / 48%) 78%,
@@ -1388,6 +1388,10 @@ body {
 .work-with-me-heading {
   position: relative;
   isolation: isolate;
+  color: var(--color-text-primary);
+}
+
+.work-with-me-heading-base {
   background: linear-gradient(180deg,
       var(--color-text-primary) 0%,
       var(--color-text-primary) 58%,
@@ -1399,6 +1403,20 @@ body {
   filter: drop-shadow(0 0.06em 0.12em color-mix(in srgb, var(--color-text-primary) 14%, transparent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.work-with-me-heading-accent {
+  color: var(--color-accent-500);
+  text-shadow:
+    0 0 0.08em color-mix(in srgb, var(--color-accent-500) 42%, transparent),
+    0 0 0.28em color-mix(in srgb, var(--color-accent-500) 30%, transparent);
+  -webkit-text-fill-color: currentColor;
+}
+
+.dark .work-with-me-heading-accent {
+  text-shadow:
+    0 0 0.08em color-mix(in srgb, var(--color-accent-500) 55%, transparent),
+    0 0 0.32em color-mix(in srgb, var(--color-accent-500) 42%, transparent);
 }
 
 .work-with-me-heading::after {

@@ -213,10 +213,17 @@ describe("App", () => {
 
   it("renders the static hero composition", () => {
     const { container } = renderApp();
+    const heroHeading = screen.getByRole("heading", {
+      name: /Evindo Amanda/,
+    });
 
-    expect(
-      screen.getByRole("heading", { name: /Evindo Amanda/ }),
-    ).toBeInTheDocument();
+    expect(heroHeading).toBeInTheDocument();
+    expect(heroHeading.querySelector(".hero-name-primary")).toHaveTextContent(
+      "Evindo",
+    );
+    expect(heroHeading.querySelector(".hero-name-accent")).toHaveTextContent(
+      "Amanda",
+    );
     expect(screen.getByRole("navigation")).toBeInTheDocument();
     expect(screen.getByTestId("navbar-logo-frame")).not.toHaveAttribute(
       "data-scrolled",
@@ -747,6 +754,9 @@ describe("App", () => {
 
     expect(workWithMeSection).toHaveAttribute("id", "work-with-me");
     expect(heading).toHaveAttribute("data-heading", "Work with me");
+    expect(
+      heading.querySelector(".work-with-me-heading-accent"),
+    ).toHaveTextContent("me");
     expect(workWithMeSection).toHaveTextContent("Let's build something");
     expect(workWithMeSection).toHaveTextContent(
       "I'm available for selected projects — web products, dashboards, and product-focused frontend work.",

@@ -35,7 +35,7 @@ export function HeroContent() {
         {/* Evindo */}
         <span className="block overflow-hidden">
           <motion.span
-            className="block"
+            className="hero-name hero-name-primary block"
             {...getHeadingRevealMotion(
               entranceTimings.heading,
               prefersReducedMotion,
@@ -48,7 +48,7 @@ export function HeroContent() {
         {/* Amanda */}
         <span className="block overflow-hidden">
           <motion.span
-            className="block"
+            className="hero-name hero-name-accent block"
             {...getHeadingRevealMotion(
               entranceTimings.heading,
               prefersReducedMotion,

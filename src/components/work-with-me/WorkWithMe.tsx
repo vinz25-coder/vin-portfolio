@@ -8,6 +8,9 @@ export function WorkWithMe() {
   const { copy } = useLanguage();
   const prefersReducedMotion = usePrefersReducedMotion();
   const workWithMeCopy = copy.workWithMe;
+  const headingAccentStart = workWithMeCopy.heading.lastIndexOf(" ") + 1;
+  const headingBase = workWithMeCopy.heading.slice(0, headingAccentStart);
+  const headingAccent = workWithMeCopy.heading.slice(headingAccentStart);
 
   return (
     <section
@@ -34,12 +37,18 @@ export function WorkWithMe() {
         <h2
           id="work-with-me-heading"
           data-heading={workWithMeCopy.heading}
+          aria-label={workWithMeCopy.heading}
           className="work-with-me-heading mt-5 max-w-[10ch] font-display text-[clamp(3rem,13vw,5.5rem)] leading-[0.84] font-bold tracking-[-0.055em] uppercase sm:mt-6 sm:text-[clamp(4.5rem,10.5vw,8rem)] lg:text-[clamp(6.25rem,9vw,9.5rem)]"
         >
-          {workWithMeCopy.heading}
+          <span aria-hidden="true" className="work-with-me-heading-base">
+            {headingBase}
+          </span>
+          <span aria-hidden="true" className="work-with-me-heading-accent">
+            {headingAccent}
+          </span>
         </h2>
 
-        <p className="mt-4 max-w-[46rem] text-base leading-relaxed text-text-secondary sm:mt-5 sm:text-xl sm:leading-relaxed">
+        <p className="mt-7 max-w-[46rem] text-base leading-relaxed text-text-secondary sm:mt-8 sm:text-xl sm:leading-relaxed">
           {workWithMeCopy.description}
         </p>
 
