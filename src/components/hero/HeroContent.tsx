@@ -1,4 +1,3 @@
-import { ArrowUpRight, FileText } from "lucide-react";
 import { motion } from "motion/react";
 
 import { useLanguage } from "../../hooks/useLanguage";
@@ -108,17 +107,10 @@ export function HeroContent() {
           role="link"
           aria-disabled="true"
           tabIndex={0}
-          className="hero-cta hero-cta-primary flex h-14 w-full cursor-not-allowed items-center justify-between border border-accent-500 px-4 text-sm font-semibold whitespace-nowrap text-accent-ink min-[320px]:h-16 min-[320px]:px-5 min-[320px]:text-base sm:h-14 sm:min-w-0 sm:flex-[1.15] sm:px-3 sm:text-[0.8125rem] lg:h-[var(--hero-cta-desktop-height)] lg:w-[var(--hero-cta-desktop-width)] lg:flex-none lg:px-5 lg:text-base"
+          className="hero-cta hero-cta-primary flex h-14 w-full cursor-not-allowed items-center justify-center border border-accent-500 px-4 text-xs font-bold tracking-[0.14em] whitespace-nowrap text-accent-ink uppercase min-[320px]:h-16 min-[320px]:px-5 sm:h-14 sm:min-w-0 sm:flex-[1.15] sm:px-3 lg:h-[var(--hero-cta-desktop-height)] lg:w-[var(--hero-cta-desktop-width)] lg:flex-none lg:px-5"
         >
           <span className="relative z-10">
             <TranslatedText inline>{copy.cta.projects}</TranslatedText>
-          </span>
-
-          <span
-            aria-hidden="true"
-            className="hero-cta-primary-icon relative z-10 flex size-9 shrink-0 items-center justify-center rounded-xl bg-bg/70 min-[320px]:size-10 sm:size-8 lg:size-10"
-          >
-            <ArrowUpRight size={19} strokeWidth={1.5} />
           </span>
         </motion.span>
 
@@ -128,17 +120,10 @@ export function HeroContent() {
           role="link"
           aria-disabled="true"
           tabIndex={0}
-          className="hero-cta hero-cta-secondary flex h-14 w-full cursor-not-allowed items-center justify-between border-[1.5px] px-4 text-sm font-semibold whitespace-nowrap text-text-primary min-[320px]:h-16 min-[320px]:px-5 min-[320px]:text-base sm:h-14 sm:min-w-0 sm:flex-[0.85] sm:px-3 sm:text-[0.8125rem] lg:h-[var(--hero-cta-desktop-height)] lg:w-[var(--hero-cta-secondary-width)] lg:flex-none lg:px-5 lg:text-base"
+          className="hero-cta hero-cta-secondary flex h-14 w-full cursor-not-allowed items-center justify-center border-[1.5px] px-4 text-xs font-bold tracking-[0.14em] whitespace-nowrap text-text-primary uppercase min-[320px]:h-16 min-[320px]:px-5 sm:h-14 sm:min-w-0 sm:flex-[0.85] sm:px-3 lg:h-[var(--hero-cta-desktop-height)] lg:w-[var(--hero-cta-secondary-width)] lg:flex-none lg:px-5"
         >
           <span>
             <TranslatedText inline>{copy.cta.contact}</TranslatedText>
-          </span>
-
-          <span
-            aria-hidden="true"
-            className="hero-cta-document-icon flex size-9 shrink-0 items-center justify-center rounded-xl bg-[color-mix(in_srgb,var(--color-accent-500)_15%,transparent)] text-accent-500 min-[320px]:size-10 sm:size-8 lg:size-10"
-          >
-            <FileText size={18} strokeWidth={1.5} />
           </span>
         </motion.span>
       </motion.div>

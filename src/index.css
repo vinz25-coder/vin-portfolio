@@ -790,11 +790,6 @@ body {
   -webkit-backdrop-filter: blur(1rem);
 }
 
-.hero-cta-primary-icon,
-.hero-cta-document-icon {
-  transition: transform 150ms ease-out;
-}
-
 @media (hover: hover) and (pointer: fine) {
   .hero-cta-primary:hover {
     transform: translateY(-2px) scale(1.02);
@@ -808,18 +803,11 @@ body {
     transform: translateX(520%) skewX(-18deg);
   }
 
-  .hero-cta-primary:hover .hero-cta-primary-icon {
-    transform: translate(2px, -2px);
-  }
-
   .hero-cta-secondary:hover {
     border-color: var(--color-accent-500);
     background: color-mix(in srgb, var(--color-accent-500) 12%, transparent);
   }
 
-  .hero-cta-secondary:hover .hero-cta-document-icon {
-    transform: translateY(-2px) scale(1.02);
-  }
 }
 
 .custom-cursor-glass {
@@ -969,8 +957,6 @@ body {
 
   .hero-cta,
   .hero-cta::before,
-  .hero-cta-primary-icon,
-  .hero-cta-document-icon,
   .custom-cursor-glass,
   .hero-nav-glass,
   .global-nav-control,
@@ -1077,6 +1063,33 @@ body {
 
   .mobile-hero-ctas {
     grid-row: 5;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.625rem;
+  }
+
+  .mobile-hero-ctas .hero-cta {
+    width: auto;
+    min-width: 0;
+    height: 3rem;
+    min-height: 3rem;
+    padding-inline: 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .mobile-hero-ctas .hero-cta-primary {
+    flex: 1.15;
+  }
+
+  .mobile-hero-ctas .hero-cta-secondary {
+    flex: 0.85;
+  }
+
+  .mobile-hero-ctas .hero-cta:active {
+    filter: brightness(0.88);
+    transform: translateY(1px) scale(0.97);
+    transition-duration: 100ms;
   }
 
   .hero-portrait-shell {
@@ -1160,12 +1173,6 @@ body {
     min-height: 3rem;
     padding-inline: 0.75rem;
     font-size: 0.75rem;
-  }
-
-  .mobile-hero-ctas .hero-cta-primary-icon,
-  .mobile-hero-ctas .hero-cta-document-icon {
-    width: 2rem;
-    height: 2rem;
   }
 
   .hero-portrait-shell {
@@ -1376,4 +1383,20 @@ body {
     right: clamp(-12rem, -20vw, -7rem);
     width: min(110vw, calc(100svh - 4.5rem), 64rem);
   }
+}
+
+.work-with-me-heading {
+  background: linear-gradient(180deg,
+      var(--color-text-primary) 0%,
+      var(--color-text-primary) 58%,
+      color-mix(in srgb,
+        var(--color-text-primary) 68%,
+        var(--color-text-secondary)) 100%);
+  background-clip: text;
+  color: transparent;
+  filter:
+    drop-shadow(0 0.08em 0.22em color-mix(in srgb, var(--color-text-primary) 10%, transparent))
+    drop-shadow(0 0.16em 0.45em color-mix(in srgb, var(--color-text-primary) 7%, transparent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

@@ -6,8 +6,8 @@ export const en = {
     "Front-end specialist, turning design into precise, working code.",
   ],
   cta: {
-    projects: "View My Works",
-    contact: "View CV",
+    projects: "VIEW MY WORK",
+    contact: "VIEW CV",
   },
   nav: {
     about: "About",

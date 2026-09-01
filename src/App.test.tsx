@@ -352,14 +352,14 @@ describe("App", () => {
     expect(x).toHaveAttribute("href", "https://x.com/yhvnz_");
     expect(x).toHaveAttribute("target", "_blank");
 
-    expect(screen.getByRole("link", { name: "View My Works" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "VIEW MY WORK" })).toHaveAttribute(
       "aria-disabled",
       "true",
     );
-    const cvLink = screen.getByRole("link", { name: "View CV" });
+    const cvLink = screen.getByRole("link", { name: "VIEW CV" });
 
     expect(cvLink).toHaveAttribute("aria-disabled", "true");
-    expect(cvLink.querySelector(".lucide-file-text")).toBeInTheDocument();
+    expect(cvLink.querySelector("svg")).not.toBeInTheDocument();
   });
 
   it("renders the editorial About section with metadata and principles", () => {
@@ -1596,9 +1596,9 @@ describe("App", () => {
       "tablet-social-rail",
     );
     expect(
-      screen.getByRole("link", { name: "View My Works" }),
+      screen.getByRole("link", { name: "VIEW MY WORK" }),
     ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "View CV" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "VIEW CV" })).toBeInTheDocument();
   });
 
   it("keeps the social sidebar available while coordinating the navbar scroll state", () => {
