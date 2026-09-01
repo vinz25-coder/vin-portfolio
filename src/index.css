@@ -191,7 +191,8 @@ body {
 
 .about-label-part,
 .skills-label-part,
-.experience-label-part {
+.experience-label-part,
+.work-with-me-label-part {
   color: var(--color-text-primary);
   font-weight: 600;
   text-shadow: 0 0 transparent;
@@ -387,7 +388,8 @@ body {
 
   .about-section-label:hover .about-label-part,
   .skills-section-label:hover .skills-label-part,
-  .experience-section-label:hover .experience-label-part {
+  .experience-section-label:hover .experience-label-part,
+  .work-with-me-section-label:hover .work-with-me-label-part {
     color: var(--color-accent-500);
     font-weight: 700;
     text-shadow: 0 0 0.65rem color-mix(in srgb, var(--color-accent-500) 34%, transparent);
@@ -423,6 +425,7 @@ body {
   .about-label-part,
   .skills-label-part,
   .experience-label-part,
+  .work-with-me-label-part,
   .experience-marker,
   .experience-spine,
   .experience-contribution {
@@ -675,30 +678,6 @@ body {
     0 0.75rem 2rem color-mix(in srgb, var(--color-text-primary) 4%, transparent);
   backdrop-filter: blur(0.875rem);
   -webkit-backdrop-filter: blur(0.875rem);
-}
-
-.work-with-me-primary,
-.work-with-me-secondary {
-  transition:
-    color 200ms cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 200ms cubic-bezier(0.16, 1, 0.3, 1),
-    background-color 200ms cubic-bezier(0.16, 1, 0.3, 1),
-    transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.work-with-me-secondary:active {
-  transform: scale(0.98);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .work-with-me-secondary:hover {
-    border-color: var(--color-accent-500);
-    background-color: color-mix(in srgb,
-        var(--color-accent-500) 9%,
-        transparent);
-    color: var(--color-accent-500);
-    transform: translateY(-2px);
-  }
 }
 
 .about-status[data-status="busy"] .about-status-dot {

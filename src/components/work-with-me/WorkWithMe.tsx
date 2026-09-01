@@ -11,8 +11,9 @@ export function WorkWithMe() {
 
   return (
     <section
+      id="work-with-me"
       aria-labelledby="work-with-me-heading"
-      className="relative isolate flex min-h-[80svh] items-center bg-transparent px-5 py-24 text-center text-text-primary sm:px-12 sm:py-28 lg:px-[11.75vw] lg:py-32"
+      className="relative isolate flex min-h-[70svh] items-center bg-transparent px-5 py-16 text-center text-text-primary sm:px-12 sm:py-20 lg:px-[11.75vw] lg:py-24"
     >
       <motion.div
         className="mx-auto flex w-full max-w-[74rem] flex-col items-center"
@@ -24,32 +25,34 @@ export function WorkWithMe() {
           ease: EASE_OUT_EXPO,
         }}
       >
-        <p className="text-[0.6875rem] font-semibold tracking-[0.32em] text-text-secondary uppercase sm:text-xs">
-          {workWithMeCopy.eyebrow}
+        <p className="work-with-me-section-label inline-flex cursor-default text-[0.6875rem] tracking-[0.32em] uppercase sm:text-xs">
+          <span className="work-with-me-label-part">
+            {workWithMeCopy.eyebrow}
+          </span>
         </p>
 
         <h2
           id="work-with-me-heading"
-          className="mt-8 max-w-[10ch] font-display text-[clamp(3.25rem,15vw,6rem)] leading-[0.82] font-bold tracking-[-0.065em] uppercase sm:mt-10 sm:text-[clamp(5rem,12vw,9rem)] lg:text-[clamp(7rem,10vw,10.5rem)]"
+          className="mt-6 max-w-[10ch] font-display text-[clamp(3.25rem,15vw,6rem)] leading-[0.82] font-bold tracking-[-0.065em] uppercase sm:mt-8 sm:text-[clamp(5rem,12vw,9rem)] lg:text-[clamp(7rem,10vw,10.5rem)]"
         >
           {workWithMeCopy.heading}
         </h2>
 
-        <p className="mt-10 max-w-[46rem] text-base leading-relaxed text-text-secondary sm:mt-12 sm:text-xl sm:leading-relaxed">
+        <p className="mt-8 max-w-[46rem] text-base leading-relaxed text-text-secondary sm:mt-10 sm:text-xl sm:leading-relaxed">
           {workWithMeCopy.description}
         </p>
 
-        <div className="mt-10 flex w-full max-w-[31rem] flex-col gap-3 sm:mt-12 sm:flex-row sm:justify-center sm:gap-4">
+        <div className="mt-8 flex w-full max-w-[31rem] flex-col gap-3 sm:mt-10 sm:flex-row sm:justify-center sm:gap-4">
           <span
             role="link"
             aria-disabled="true"
-            className="work-with-me-primary flex min-h-16 flex-1 cursor-not-allowed items-center justify-center rounded-[1.15rem] border border-accent-500 bg-accent-500 px-6 text-xs font-bold tracking-[0.14em] text-accent-ink uppercase opacity-75"
+            className="hero-cta hero-cta-primary flex min-h-16 flex-1 cursor-not-allowed items-center justify-center border border-accent-500 px-6 text-xs font-bold tracking-[0.14em] text-accent-ink uppercase"
           >
-            {workWithMeCopy.getInTouch}
+            <span className="relative z-10">{workWithMeCopy.getInTouch}</span>
           </span>
           <a
             href="mailto:evindoamandariza@gmail.com"
-            className="work-with-me-secondary flex min-h-16 flex-1 items-center justify-center rounded-[1.15rem] border border-border bg-[color-mix(in_srgb,var(--color-surface)_24%,transparent)] px-6 text-xs font-bold tracking-[0.14em] text-text-primary uppercase focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-500"
+            className="hero-cta hero-cta-secondary flex min-h-16 flex-1 items-center justify-center border-[1.5px] px-6 text-xs font-bold tracking-[0.14em] text-text-primary uppercase"
           >
             {workWithMeCopy.emailDirectly}
           </a>

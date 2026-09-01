@@ -745,7 +745,7 @@ describe("App", () => {
       name: "Email directly",
     });
 
-    expect(workWithMeSection).not.toHaveAttribute("id");
+    expect(workWithMeSection).toHaveAttribute("id", "work-with-me");
     expect(workWithMeSection).toHaveTextContent("Let's build something");
     expect(workWithMeSection).toHaveTextContent(
       "I'm available for selected projects — web products, dashboards, and product-focused frontend work.",
@@ -763,6 +763,38 @@ describe("App", () => {
         workWithMeSection as Node,
       ) & Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
+  });
+
+  it("keeps About active while Work With Me is the current subsection", () => {
+    const intersections = mockIntersectionObservers();
+    const { container } = renderApp();
+    const workWithMeSection = container.querySelector("#work-with-me");
+    const aboutLink = screen.getByRole("link", { name: "About" });
+
+    act(() => intersections.trigger(workWithMeSection as Element, true));
+
+    expect(aboutLink).toHaveAttribute("data-active", "true");
+    expect(aboutLink).toHaveClass("active");
+    expect(aboutLink).toHaveAttribute("aria-current", "page");
+  });
+
+  it("highlights About in the mobile menu while Work With Me is current", () => {
+    mockMediaPreferences({ desktopViewport: false });
+    const intersections = mockIntersectionObservers();
+    const { container } = renderApp();
+    const workWithMeSection = container.querySelector("#work-with-me");
+
+    act(() => intersections.trigger(workWithMeSection as Element, true));
+    fireEvent.click(screen.getByTestId("mobile-navigation-toggle"));
+
+    const aboutLink = screen.getByRole("link", { name: "About" });
+    const contactItem = screen.getByRole("link", { name: "Contact" });
+
+    expect(aboutLink).toHaveAttribute("data-active", "true");
+    expect(aboutLink).toHaveClass("active");
+    expect(aboutLink).toHaveAttribute("aria-current", "page");
+    expect(contactItem).toHaveAttribute("aria-disabled", "true");
+    expect(contactItem).not.toHaveAttribute("href");
   });
 
   it("keeps About active while Experience is the current child section", () => {

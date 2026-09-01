@@ -18,7 +18,13 @@ import { ThemeToggle } from "./ThemeToggle";
 import { TranslatedText } from "./TranslatedText";
 
 const navItems = ["about", "projects"] as const;
-const observedSections = ["about", "skills", "experience", "projects"] as const;
+const observedSections = [
+  "about",
+  "skills",
+  "experience",
+  "work-with-me",
+  "projects",
+] as const;
 type NavSection = (typeof observedSections)[number];
 const mobileNavItems = [
   "about",
@@ -59,6 +65,11 @@ export function HeroHeader({ isScrolled }: HeroHeaderProps) {
   const [activeSection, setActiveSection] = useState<NavSection | null>(null);
   const lastScrollYRef = useRef(0);
   const mobileMenuId = useId();
+  const isAboutActive =
+    activeSection === "about" ||
+    activeSection === "skills" ||
+    activeSection === "experience" ||
+    activeSection === "work-with-me";
 
   const openMobileGuestbook = () => {
     setIsMenuOpen(false);
@@ -249,30 +260,14 @@ export function HeroHeader({ isScrolled }: HeroHeaderProps) {
                   key={item}
                   href="#about"
                   data-testid={`hero-nav-${item}`}
-                  data-active={
-                    activeSection === "about" ||
-                    activeSection === "skills" ||
-                    activeSection === "experience"
-                  }
-                  aria-current={
-                    activeSection === "about" ||
-                    activeSection === "skills" ||
-                    activeSection === "experience"
-                      ? "page"
-                      : undefined
-                  }
+                  data-active={isAboutActive}
+                  aria-current={isAboutActive ? "page" : undefined}
                   whileTap={{ scale: navInteractionMotion.pressedScale }}
                   transition={{
                     duration: navInteractionMotion.pressedDuration,
                     ease: navInteractionMotion.ease,
                   }}
-                  className={`hero-nav-item focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500 ${
-                    activeSection === "about" ||
-                    activeSection === "skills" ||
-                    activeSection === "experience"
-                      ? "active"
-                      : ""
-                  }`}
+                  className={`hero-nav-item focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500 ${isAboutActive ? "active" : ""}`}
                 >
                   <TranslatedText inline>{copy.nav[item]}</TranslatedText>
                 </motion.a>
@@ -302,10 +297,27 @@ export function HeroHeader({ isScrolled }: HeroHeaderProps) {
                 <a
                   key={item}
                   href={`#${item}`}
-                  data-active={activeSection === item}
-                  aria-current={activeSection === item ? "page" : undefined}
+                  data-active={
+                    item === "about"
+                      ? activeSection === "about" ||
+                        activeSection === "work-with-me"
+                      : activeSection === item
+                  }
+                  aria-current={
+                    (item === "about"
+                      ? activeSection === "about" ||
+                        activeSection === "work-with-me"
+                      : activeSection === item)
+                      ? "page"
+                      : undefined
+                  }
                   className={`hero-mobile-menu-item ${
-                    activeSection === item ? "active" : ""
+                    (item === "about"
+                      ? activeSection === "about" ||
+                        activeSection === "work-with-me"
+                      : activeSection === item)
+                      ? "active"
+                      : ""
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
