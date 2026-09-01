@@ -33,6 +33,7 @@ export function WorkWithMe() {
 
         <h2
           id="work-with-me-heading"
+          data-heading={workWithMeCopy.heading}
           className="work-with-me-heading mt-5 max-w-[10ch] font-display text-[clamp(3rem,13vw,5.5rem)] leading-[0.84] font-bold tracking-[-0.055em] uppercase sm:mt-6 sm:text-[clamp(4.5rem,10.5vw,8rem)] lg:text-[clamp(6.25rem,9vw,9.5rem)]"
         >
           {workWithMeCopy.heading}

@@ -746,6 +746,7 @@ describe("App", () => {
     });
 
     expect(workWithMeSection).toHaveAttribute("id", "work-with-me");
+    expect(heading).toHaveAttribute("data-heading", "Work with me");
     expect(workWithMeSection).toHaveTextContent("Let's build something");
     expect(workWithMeSection).toHaveTextContent(
       "I'm available for selected projects — web products, dashboards, and product-focused frontend work.",

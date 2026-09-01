@@ -1386,6 +1386,8 @@ body {
 }
 
 .work-with-me-heading {
+  position: relative;
+  isolation: isolate;
   background: linear-gradient(180deg,
       var(--color-text-primary) 0%,
       var(--color-text-primary) 58%,
@@ -1394,9 +1396,28 @@ body {
         var(--color-text-secondary)) 100%);
   background-clip: text;
   color: transparent;
-  filter:
-    drop-shadow(0 0.08em 0.22em color-mix(in srgb, var(--color-text-primary) 10%, transparent))
-    drop-shadow(0 0.16em 0.45em color-mix(in srgb, var(--color-text-primary) 7%, transparent));
+  filter: drop-shadow(0 0.06em 0.12em color-mix(in srgb, var(--color-text-primary) 14%, transparent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.work-with-me-heading::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: none;
+  color: color-mix(in srgb,
+      color-mix(in srgb, var(--color-text-primary) 73%, var(--color-accent-500)) 11%,
+      transparent);
+  content: attr(data-heading);
+  filter: blur(12px);
+  opacity: 0.8;
+  transform: translateY(0.08em);
+  -webkit-text-fill-color: currentColor;
+}
+
+@media (min-width: 640px) {
+  .work-with-me-heading::after {
+    filter: blur(16px);
+  }
 }
