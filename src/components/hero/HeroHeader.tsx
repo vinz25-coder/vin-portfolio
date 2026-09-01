@@ -241,7 +241,7 @@ export function HeroHeader({ isScrolled }: HeroHeaderProps) {
           <nav
             aria-label={copy.a11y.primaryNavigation}
             data-scrolled={isScrolled}
-            className="hero-nav-glass grid grid-cols-2 gap-1 rounded-full border border-border p-2 text-sm font-medium text-text-nav min-[1440px]:left-[51.25%] sm:absolute sm:left-1/2 sm:flex sm:-translate-x-1/2 sm:items-center sm:whitespace-nowrap lg:left-[44%] xl:left-[47%]"
+            className="hero-nav-glass grid grid-cols-2 gap-1 rounded-full border border-border p-2 text-sm font-medium text-text-nav sm:absolute sm:left-1/2 sm:flex sm:-translate-x-1/2 sm:items-center sm:whitespace-nowrap"
           >
             {navItems.map((item) =>
               item === "about" ? (
