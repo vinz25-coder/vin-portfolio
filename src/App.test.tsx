@@ -735,6 +735,36 @@ describe("App", () => {
     ).toBeTruthy();
   });
 
+  it("renders the scroll-only Work With Me CTA after Experience", () => {
+    const { container } = renderApp();
+    const experienceSection = container.querySelector("#experience");
+    const heading = screen.getByRole("heading", { name: "Work with me" });
+    const workWithMeSection = heading.closest("section");
+    const getInTouch = screen.getByRole("link", { name: "Get in touch" });
+    const emailDirectly = screen.getByRole("link", {
+      name: "Email directly",
+    });
+
+    expect(workWithMeSection).not.toHaveAttribute("id");
+    expect(workWithMeSection).toHaveTextContent("Let's build something");
+    expect(workWithMeSection).toHaveTextContent(
+      "I'm available for selected projects — web products, dashboards, and product-focused frontend work.",
+    );
+    expect(getInTouch).toHaveAttribute("aria-disabled", "true");
+    expect(getInTouch).not.toHaveAttribute("href");
+    expect(emailDirectly).toHaveAttribute(
+      "href",
+      "mailto:evindoamandariza@gmail.com",
+    );
+    expect(experienceSection).not.toBeNull();
+    expect(workWithMeSection).not.toBeNull();
+    expect(
+      (experienceSection as Element).compareDocumentPosition(
+        workWithMeSection as Node,
+      ) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+  });
+
   it("keeps About active while Experience is the current child section", () => {
     const intersections = mockIntersectionObservers();
     const { container } = renderApp();

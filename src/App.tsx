@@ -7,6 +7,7 @@ import { Experience } from "./components/experience/Experience";
 import { Hero } from "./components/hero/Hero";
 import { HeroSidebar } from "./components/hero/HeroSidebar";
 import { Skills } from "./components/skills/Skills";
+import { WorkWithMe } from "./components/work-with-me/WorkWithMe";
 import { socialLinks } from "./data/social-links";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <About />
         <Skills />
         <Experience />
+        <WorkWithMe />
       </main>
       <HeroSidebar socialLinks={socialLinks} />
       <FloatingChatWidget />

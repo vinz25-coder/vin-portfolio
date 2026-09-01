@@ -138,4 +138,12 @@ export const en = {
       "Built a reporting workflow that replaced manual spreadsheet-based tracking for daily business operations.",
     ],
   },
+  workWithMe: {
+    eyebrow: "Let's build something",
+    heading: "Work with me",
+    description:
+      "I'm available for selected projects — web products, dashboards, and product-focused frontend work.",
+    getInTouch: "Get in touch",
+    emailDirectly: "Email directly",
+  },
 } satisfies HeroCopy;

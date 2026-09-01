@@ -106,4 +106,11 @@ export interface HeroCopy {
     meta: string;
     contributions: readonly string[];
   };
+  workWithMe: {
+    eyebrow: string;
+    heading: string;
+    description: string;
+    getInTouch: string;
+    emailDirectly: string;
+  };
 }

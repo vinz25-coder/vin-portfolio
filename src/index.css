@@ -677,6 +677,30 @@ body {
   -webkit-backdrop-filter: blur(0.875rem);
 }
 
+.work-with-me-primary,
+.work-with-me-secondary {
+  transition:
+    color 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.work-with-me-secondary:active {
+  transform: scale(0.98);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .work-with-me-secondary:hover {
+    border-color: var(--color-accent-500);
+    background-color: color-mix(in srgb,
+        var(--color-accent-500) 9%,
+        transparent);
+    color: var(--color-accent-500);
+    transform: translateY(-2px);
+  }
+}
+
 .about-status[data-status="busy"] .about-status-dot {
   --availability-status-start: var(--color-busy-start);
   --availability-status-end: var(--color-busy-end);

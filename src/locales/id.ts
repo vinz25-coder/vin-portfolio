@@ -141,4 +141,12 @@ export const id = {
       "Membangun alur pelaporan yang menggantikan pencatatan manual berbasis spreadsheet untuk operasional usaha sehari-hari.",
     ],
   },
+  workWithMe: {
+    eyebrow: "Mari bangun sesuatu",
+    heading: "Bekerja dengan saya",
+    description:
+      "Saya tersedia untuk proyek terpilih — produk web, dashboard, dan pekerjaan frontend yang berfokus pada produk.",
+    getInTouch: "Hubungi saya",
+    emailDirectly: "Email langsung",
+  },
 } satisfies HeroCopy;
