@@ -34,8 +34,6 @@ const mobileSocialIcons = {
   email: Mail,
 };
 
-const mobileLandscapeHeaderQuery =
-  "(orientation: landscape) and (max-width: 1023px) and (max-height: 640px)";
 const tabletHeaderQuery = "(min-width: 640px) and (max-width: 1023px)";
 
 interface HeroHeaderProps {
@@ -57,8 +55,7 @@ export function HeroHeader({ isScrolled }: HeroHeaderProps) {
       ? window.matchMedia(tabletHeaderQuery).matches
       : false,
   );
-  const [isLandscapeHeaderVisible, setIsLandscapeHeaderVisible] =
-    useState(true);
+  const [isMobileHeaderVisible, setIsMobileHeaderVisible] = useState(true);
   const [activeSection, setActiveSection] = useState<NavSection | null>(null);
   const lastScrollYRef = useRef(0);
   const mobileMenuId = useId();
@@ -157,49 +154,44 @@ export function HeroHeader({ isScrolled }: HeroHeaderProps) {
       return undefined;
     }
 
-    const landscapeViewportQuery = window.matchMedia(
-      mobileLandscapeHeaderQuery,
-    );
+    const mobileHeaderQuery = window.matchMedia(mobileViewportQuery);
 
     const resetHeaderVisibility = () => {
       lastScrollYRef.current = Math.max(window.scrollY, 0);
-      setIsLandscapeHeaderVisible(true);
+      setIsMobileHeaderVisible(true);
     };
 
     const updateHeaderVisibility = () => {
       const nextScrollY = Math.max(window.scrollY, 0);
       const scrollDelta = nextScrollY - lastScrollYRef.current;
 
-      if (!landscapeViewportQuery.matches) {
-        setIsLandscapeHeaderVisible(true);
+      if (!mobileHeaderQuery.matches) {
+        setIsMobileHeaderVisible(true);
         lastScrollYRef.current = nextScrollY;
         return;
       }
 
       if (nextScrollY === 0) {
-        setIsLandscapeHeaderVisible(true);
+        setIsMobileHeaderVisible(true);
         lastScrollYRef.current = nextScrollY;
       } else if (scrollDelta >= socialSidebarMotion.tooltipOffset) {
-        setIsLandscapeHeaderVisible(false);
+        setIsMobileHeaderVisible(false);
         setIsMenuOpen(false);
         lastScrollYRef.current = nextScrollY;
       } else if (scrollDelta <= -socialSidebarMotion.tooltipOffset) {
-        setIsLandscapeHeaderVisible(true);
+        setIsMobileHeaderVisible(true);
         lastScrollYRef.current = nextScrollY;
       }
     };
 
     resetHeaderVisibility();
-    landscapeViewportQuery.addEventListener("change", resetHeaderVisibility);
+    mobileHeaderQuery.addEventListener("change", resetHeaderVisibility);
     window.addEventListener("scroll", updateHeaderVisibility, {
       passive: true,
     });
 
     return () => {
-      landscapeViewportQuery.removeEventListener(
-        "change",
-        resetHeaderVisibility,
-      );
+      mobileHeaderQuery.removeEventListener("change", resetHeaderVisibility);
       window.removeEventListener("scroll", updateHeaderVisibility);
     };
   }, []);
@@ -207,15 +199,15 @@ export function HeroHeader({ isScrolled }: HeroHeaderProps) {
   return (
     <motion.header
       data-scrolled={isScrolled}
-      data-landscape-nav-visible={isLandscapeHeaderVisible}
+      data-mobile-nav-visible={isMobileHeaderVisible}
       initial={false}
-      animate={{ y: isLandscapeHeaderVisible ? "0%" : "-100%" }}
+      animate={{ y: isMobileHeaderVisible ? "0%" : "-100%" }}
       transition={{
         duration: prefersReducedMotion ? 0 : socialSidebarMotion.navbarDuration,
         ease: socialSidebarMotion.ease,
       }}
-      aria-hidden={!isLandscapeHeaderVisible}
-      inert={!isLandscapeHeaderVisible}
+      aria-hidden={!isMobileHeaderVisible}
+      inert={!isMobileHeaderVisible}
       className="hero-header pointer-events-none fixed inset-x-0 top-0 isolate z-50 flex h-24 items-center px-3 min-[320px]:px-5 sm:h-18 sm:px-12 lg:h-[7.75rem] lg:px-[3.35vw]"
     >
       <a

@@ -1,5 +1,18 @@
 # Changelog Hero
 
+## 2026-09-01 - Pembesaran Portrait Desktop
+
+- Memperbesar portrait Hero mulai breakpoint 1024px menjadi hingga 54vw dengan batas 58rem.
+- Menyesuaikan posisi kanan dan responsive image sizes agar komposisi tetap seimbang dan aset yang dipilih sesuai ukuran render.
+- Menambahkan toleransi penempatan desktop/laptop mulai 960px pada viewport tinggi agar boundary seperti 1023x1366 tidak memakai offset tablet portrait tanpa mengubah mobile landscape pendek.
+- Menyamakan ukuran dan offset portrait iPad Pro 1024x1366 dengan formula iPad Mini/Air hingga lebar portrait 1199.98px.
+
+## 2026-08-31 - Perbaikan Posisi Portrait Responsif
+
+- Mengunci containing block portrait tablet/desktop ke section Hero agar posisi tidak mengikuti offset wrapper konten.
+- Membatasi ukuran portrait berdasarkan ruang vertikal setelah header pada mobile landscape, tablet/iPad, laptop, dan desktop.
+- Memperbaiki typo unit landscape pendek dan menyelaraskan boundary breakpoint di 1024px.
+
 ## 2026-08-31 - Penyederhanaan Hero
 
 - Menghapus Availability Card beserta lokasi dan memindahkan status ke metadata About.

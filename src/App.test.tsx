@@ -1454,10 +1454,9 @@ describe("App", () => {
     expect(drawer).toHaveClass("bg-surface");
   });
 
-  it("hides the top navigation while scrolling down in mobile landscape and restores its scrolled box while scrolling up", () => {
+  it("hides the floating top controls while scrolling down in mobile portrait and restores them while scrolling up", () => {
     mockMediaPreferences({
       desktopViewport: false,
-      mobileLandscapeViewport: true,
     });
     const intersections = mockIntersectionObservers();
     const { container } = renderApp();
@@ -1465,7 +1464,7 @@ describe("App", () => {
     const toggle = screen.getByTestId("mobile-navigation-toggle");
     const sentinel = screen.getByTestId("navbar-scroll-sentinel");
 
-    expect(header).toHaveAttribute("data-landscape-nav-visible", "true");
+    expect(header).toHaveAttribute("data-mobile-nav-visible", "true");
     expect(header).toHaveAttribute("aria-hidden", "false");
     expect(toggle).toHaveAttribute("data-scrolled", "false");
 
@@ -1483,7 +1482,7 @@ describe("App", () => {
 
     expect(header).toHaveAttribute("data-scrolled", "true");
     expect(toggle).toHaveAttribute("data-scrolled", "true");
-    expect(header).toHaveAttribute("data-landscape-nav-visible", "false");
+    expect(header).toHaveAttribute("data-mobile-nav-visible", "false");
     expect(header).toHaveAttribute("aria-hidden", "true");
     expect(header).toHaveAttribute("inert");
     expect(toggle).toHaveAttribute("aria-expanded", "false");
@@ -1496,7 +1495,7 @@ describe("App", () => {
       fireEvent.scroll(window);
     });
 
-    expect(header).toHaveAttribute("data-landscape-nav-visible", "true");
+    expect(header).toHaveAttribute("data-mobile-nav-visible", "true");
     expect(header).toHaveAttribute("data-scrolled", "true");
     expect(header).toHaveAttribute("aria-hidden", "false");
     expect(header).not.toHaveAttribute("inert");
@@ -1509,7 +1508,7 @@ describe("App", () => {
       fireEvent.scroll(window);
     });
 
-    expect(header).toHaveAttribute("data-landscape-nav-visible", "true");
+    expect(header).toHaveAttribute("data-mobile-nav-visible", "true");
   });
 
   it("keeps the mobile portrait in Hero without the former availability card", () => {

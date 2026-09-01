@@ -13,7 +13,7 @@ import {
 } from "../../motion/constants";
 
 const portraitSizes =
-  "(max-width: 319px) calc(100vw - 24px), (max-width: 639.98px) calc(100vw - 40px), (max-width: 1023px) 52vw, (min-width: 1666px) 816px, 49vw";
+  "(max-width: 319px) calc(100vw - 24px), (max-width: 639.98px) calc(100vw - 40px), (max-width: 1199.98px) and (orientation: portrait) min(110vw, 1024px), (max-width: 959.98px) 52vw, (min-width: 1719px) 928px, 54vw";
 const portraitThemes = ["light", "dark"] as const;
 
 interface HeroPortraitProps {
@@ -30,7 +30,7 @@ export function HeroPortrait({ parallaxTargetRef }: HeroPortraitProps) {
 
   return (
     <motion.div
-      className="hero-portrait-shell pointer-events-none relative z-10 mx-auto mt-0 w-[min(88vw,22rem)] sm:-top-6 sm:col-start-2 sm:row-start-1 sm:w-full sm:max-w-none sm:self-center lg:absolute lg:top-auto lg:right-[3.65vw] lg:bottom-auto lg:w-[min(49vw,51rem)]"
+      className="hero-portrait-shell pointer-events-none relative z-10 mx-auto mt-0 w-[min(88vw,22rem)] sm:-top-6 sm:col-start-2 sm:row-start-1 sm:w-full sm:max-w-none sm:self-center lg:absolute lg:top-auto lg:right-[5vw] lg:bottom-auto lg:w-[min(54vw,58rem)]"
       {...getEntranceMotion(entranceTimings.portrait, prefersReducedMotion)}
     >
       <div

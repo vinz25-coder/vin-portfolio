@@ -56,6 +56,8 @@ Keduanya memakai rasio `1:1`; generator menolak upscale. Jalankan `npm run image
 Wrapper `hero-portrait-mask` memakai `mask-image` vertikal yang mulai melembut pada 48% dan turun melalui beberapa stop opacity hingga transparan pada 100%. Kurva panjang ini menghilangkan cutoff jas tanpa blur langsung pada wajah atau gambar.
 `Hero` menyediakan ref section sebagai target `usePointerParallax`; motion values x/y diterapkan pada wrapper `portrait-parallax`. Listener hanya aktif pada fine pointer di luar viewport mobile dan dibersihkan saat kondisi media berubah.
 Portrait tidak memakai scale overscan agar tepi gambar tidak terpotong oleh border-box mask.
+Pada viewport `>=640px`, `hero-layout` tidak menjadi containing block. Portrait absolut selalu mengacu langsung ke section Hero, tetap berjangkar di bawah, dan ukurannya dibatasi oleh ruang vertikal setelah header.
+Penempatan portrait desktop/laptop memiliki toleransi mulai `960px` pada viewport dengan tinggi lebih dari `500px`, tanpa mengubah mobile landscape pendek. Landscape mulai `1024px` memakai lebar responsif hingga `54vw` dengan batas `58rem`. Pada orientasi portrait hingga `1199.98px`, termasuk iPad Pro `1024x1366`, portrait memakai formula iPad Mini/Air yang sama: `110vw`, batas `64rem`, dan offset kanan responsif negatif. Mulai `1200px`, portrait kembali mengikuti komposisi desktop. Batas tinggi viewport tetap menjadi pengaman.
 
 ## Scanner Interaktif
 
