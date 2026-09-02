@@ -113,6 +113,44 @@ export interface HeroCopy {
     getInTouch: string;
     emailDirectly: string;
   };
+  contact: {
+    eyebrow: string;
+    heading: {
+      before: string;
+      accent: string;
+    };
+    introduction: string;
+    formHeading: string;
+    fields: {
+      name: string;
+      namePlaceholder: string;
+      email: string;
+      emailPlaceholder: string;
+      projectType: string;
+      projectPlaceholder: string;
+      message: string;
+      messagePlaceholder: string;
+    };
+    projectTypes: {
+      webProduct: string;
+      dashboard: string;
+      frontendImplementation: string;
+      other: string;
+    };
+    submit: string;
+    submitting: string;
+    success: string;
+    error: string;
+    validation: {
+      name: string;
+      email: string;
+      projectType: string;
+      message: string;
+    };
+    directHeading: string;
+    privacy: string;
+    whatsappMessage: string;
+  };
   footer: {
     location: string;
   };

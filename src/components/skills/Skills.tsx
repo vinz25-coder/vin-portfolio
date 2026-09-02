@@ -32,7 +32,7 @@ export function Skills() {
       aria-labelledby="skills-heading"
       className="relative isolate bg-transparent px-5 py-24 text-text-primary sm:px-12 sm:py-32 lg:px-[11.75vw] lg:py-40"
     >
-      <div className="mx-auto max-w-[104rem]">
+      <div data-section-start className="mx-auto max-w-[104rem]">
         <motion.p
           data-testid="skills-section-label"
           className="skills-section-label inline-flex cursor-default text-xs tracking-[0.24em] uppercase sm:text-sm"

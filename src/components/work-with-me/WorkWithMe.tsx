@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import { Link } from "react-router-dom";
 
 import { useLanguage } from "../../hooks/useLanguage";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
@@ -53,13 +54,12 @@ export function WorkWithMe() {
         </p>
 
         <div className="mt-7 flex w-full max-w-[31rem] flex-col items-center gap-3 sm:mt-8 sm:flex-row sm:items-stretch sm:justify-center sm:gap-4">
-          <span
-            role="link"
-            aria-disabled="true"
-            className="hero-cta hero-cta-primary flex min-h-16 w-fit cursor-not-allowed items-center justify-center border border-accent-500 px-7 text-xs font-bold tracking-[0.14em] whitespace-nowrap text-accent-ink uppercase sm:w-auto sm:flex-1 sm:px-6"
+          <Link
+            to="/contact"
+            className="hero-cta hero-cta-primary flex min-h-16 w-fit items-center justify-center border border-accent-500 px-7 text-xs font-bold tracking-[0.14em] whitespace-nowrap text-accent-ink uppercase sm:w-auto sm:flex-1 sm:px-6"
           >
             <span className="relative z-10">{workWithMeCopy.getInTouch}</span>
-          </span>
+          </Link>
           <a
             href="mailto:evindoamandariza@gmail.com"
             className="hero-cta hero-cta-secondary flex min-h-16 w-fit items-center justify-center border-[1.5px] px-7 text-xs font-bold tracking-[0.14em] whitespace-nowrap text-text-primary uppercase sm:w-auto sm:flex-1 sm:px-6"

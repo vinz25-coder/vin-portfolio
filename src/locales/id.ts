@@ -149,6 +149,48 @@ export const id = {
     getInTouch: "Hubungi saya",
     emailDirectly: "Email langsung",
   },
+  contact: {
+    eyebrow: "Kontak",
+    heading: {
+      before: "Mari bangun sesuatu yang",
+      accent: "berguna.",
+    },
+    introduction:
+      "Punya ide produk web, dashboard, atau implementasi frontend? Ceritakan konteksnya dan saya akan menghubungi Anda secara langsung.",
+    formHeading: "Mulai percakapan",
+    fields: {
+      name: "Nama",
+      namePlaceholder: "Nama Anda",
+      email: "Email",
+      emailPlaceholder: "anda@example.com",
+      projectType: "Jenis proyek",
+      projectPlaceholder: "Pilih jenis proyek",
+      message: "Pesan",
+      messagePlaceholder: "Ceritakan proyek, tujuan, dan konteksnya saat ini.",
+    },
+    projectTypes: {
+      webProduct: "Produk Web",
+      dashboard: "Dashboard",
+      frontendImplementation: "Implementasi Frontend",
+      other: "Lainnya",
+    },
+    submit: "Kirim pesan",
+    submitting: "Mengirim...",
+    success: "Pesan berhasil dikirim. Terima kasih telah menghubungi saya.",
+    error:
+      "Pesan belum berhasil dikirim. Coba kembali atau kirim melalui email langsung.",
+    validation: {
+      name: "Masukkan nama Anda.",
+      email: "Masukkan alamat email yang valid.",
+      projectType: "Pilih jenis proyek.",
+      message:
+        "Ceritakan sedikit lebih banyak tentang proyek Anda (minimal 20 karakter).",
+    },
+    directHeading: "Kanal langsung",
+    privacy: "Data Anda hanya digunakan untuk merespons inquiry ini.",
+    whatsappMessage:
+      "Halo Evindo, saya menemukan portfolio Anda dan ingin mendiskusikan sebuah proyek.",
+  },
   footer: {
     location: "SUMATERA UTARA, INDONESIA",
   },

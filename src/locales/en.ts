@@ -146,6 +146,49 @@ export const en = {
     getInTouch: "Get in touch",
     emailDirectly: "Email directly",
   },
+  contact: {
+    eyebrow: "Contact",
+    heading: {
+      before: "Let's build something",
+      accent: "useful.",
+    },
+    introduction:
+      "Have a web product, dashboard, or frontend implementation in mind? Share the context and I'll get back to you directly.",
+    formHeading: "Start a conversation",
+    fields: {
+      name: "Name",
+      namePlaceholder: "Your name",
+      email: "Email",
+      emailPlaceholder: "you@example.com",
+      projectType: "Project type",
+      projectPlaceholder: "Choose a project type",
+      message: "Message",
+      messagePlaceholder:
+        "Tell me about the project, goals, and current context.",
+    },
+    projectTypes: {
+      webProduct: "Web Product",
+      dashboard: "Dashboard",
+      frontendImplementation: "Frontend Implementation",
+      other: "Other",
+    },
+    submit: "Send inquiry",
+    submitting: "Sending...",
+    success: "Message sent. Thank you for reaching out.",
+    error:
+      "Your message could not be sent. Please try again or email me directly.",
+    validation: {
+      name: "Enter your name.",
+      email: "Enter a valid email address.",
+      projectType: "Choose a project type.",
+      message:
+        "Tell me a little more about your project (at least 20 characters).",
+    },
+    directHeading: "Direct channels",
+    privacy: "Your details are used only to respond to this inquiry.",
+    whatsappMessage:
+      "Hi Evindo, I found your portfolio and would like to discuss a project.",
+  },
   footer: {
     location: "NORTH SUMATRA, INDONESIA",
   },

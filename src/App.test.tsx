@@ -195,6 +195,7 @@ function renderApp() {
 
 describe("App", () => {
   beforeEach(() => {
+    window.history.replaceState({}, "", "/");
     window.localStorage.clear();
     document.documentElement.classList.remove("dark");
     document.documentElement.lang = "en";
@@ -230,7 +231,7 @@ describe("App", () => {
     );
     expect(
       screen.getByRole("link", { name: "Evindo Amanda — Home" }),
-    ).toHaveAttribute("href", "#home");
+    ).toHaveAttribute("href", "/#home");
     expect(container.querySelector("#home")).toHaveAttribute(
       "aria-labelledby",
       "hero-heading",
@@ -285,7 +286,7 @@ describe("App", () => {
     const aboutLink = screen.getByRole("link", { name: "About" });
     const projectsLink = screen.getByRole("link", { name: "Projects" });
 
-    expect(aboutLink).toHaveAttribute("href", "#about");
+    expect(aboutLink).toHaveAttribute("href", "/#about");
     expect(aboutLink).toHaveClass("hero-nav-item");
     expect(aboutLink).not.toHaveAttribute("aria-disabled");
     expect(projectsLink).toHaveAttribute("aria-disabled", "true");
@@ -761,8 +762,8 @@ describe("App", () => {
     expect(workWithMeSection).toHaveTextContent(
       "I'm available for selected projects — web products, dashboards, and product-focused frontend work.",
     );
-    expect(getInTouch).toHaveAttribute("aria-disabled", "true");
-    expect(getInTouch).not.toHaveAttribute("href");
+    expect(getInTouch).toHaveAttribute("href", "/contact");
+    expect(getInTouch).not.toHaveAttribute("aria-disabled");
     expect(emailDirectly).toHaveAttribute(
       "href",
       "mailto:evindoamandariza@gmail.com",
@@ -774,6 +775,160 @@ describe("App", () => {
         workWithMeSection as Node,
       ) & Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
+  });
+
+  it("renders the standalone Contact page with a working project form", async () => {
+    window.history.replaceState({}, "", "/contact");
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValue(
+        new Response(JSON.stringify({ success: true }), { status: 200 }),
+      );
+    vi.stubGlobal("fetch", fetchMock);
+
+    const { container } = renderApp();
+
+    expect(
+      screen.getByRole("heading", { name: "Let's build something useful." }),
+    ).toBeInTheDocument();
+    expect(screen.getByText("Contact", { selector: ".contact-label-part" })).toBeInTheDocument();
+    expect(screen.queryByText("05 / Contact")).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("heading", { name: /Evindo Amanda/ }),
+    ).not.toBeInTheDocument();
+    expect(
+      container.querySelector(".tablet-social-rail"),
+    ).toBeInTheDocument();
+    expect(screen.getByTestId("scanner-background")).toBeInTheDocument();
+    expect(
+      screen.queryByTestId("hero-nav-contact"),
+    ).not.toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "About" })).toHaveAttribute(
+      "href",
+      "/#about",
+    );
+    expect(
+      screen.getByRole("link", { name: "Evindo Amanda — Home" }),
+    ).toHaveAttribute("href", "/");
+    expect(screen.getByRole("link", { name: /WhatsApp/i })).toHaveAttribute(
+      "href",
+      expect.stringContaining("wa.me/628999925053"),
+    );
+    expect(container.querySelectorAll(".contact-direct-link")).toHaveLength(5);
+    expect(container.querySelector(".contact-direct-link")).not.toHaveClass(
+      "border-b",
+    );
+    expect(
+      screen.getByRole("link", { name: /WhatsApp/i }),
+    ).toHaveAttribute("data-brand", "whatsapp");
+    expect(
+      container.querySelector('.contact-direct-link[data-brand="instagram"]'),
+    ).toBeInTheDocument();
+    expect(screen.getByTestId("contact-icon-email").querySelector("path")).toHaveAttribute("d");
+    expect(screen.getByTestId("contact-icon-whatsapp")).toBeInTheDocument();
+    expect(screen.getByTestId("contact-icon-github")).toBeInTheDocument();
+    expect(screen.getByTestId("contact-icon-x")).toBeInTheDocument();
+    expect(screen.getByTestId("contact-icon-instagram")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: /Send inquiry/i }));
+    expect(screen.getByText("Enter your name.")).toBeInTheDocument();
+    expect(fetchMock).not.toHaveBeenCalled();
+
+    fireEvent.change(screen.getByLabelText("Name"), {
+      target: { value: "Ada Lovelace" },
+    });
+    fireEvent.change(screen.getByLabelText("Email"), {
+      target: { value: "ada@example.com" },
+    });
+    fireEvent.change(screen.getByLabelText("Project type"), {
+      target: { value: "web-product" },
+    });
+    fireEvent.change(screen.getByLabelText("Message"), {
+      target: { value: "I would like to discuss a focused web product." },
+    });
+    fireEvent.click(screen.getByRole("button", { name: /Send inquiry/i }));
+
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+    expect(await screen.findByRole("status")).toHaveTextContent(
+      "Message sent. Thank you for reaching out.",
+    );
+  });
+
+  it("navigates from Contact to About without reloading the document", async () => {
+    window.history.replaceState({}, "", "/contact");
+    const scrollIntoView = vi.fn();
+    Object.defineProperty(HTMLElement.prototype, "scrollIntoView", {
+      configurable: true,
+      value: scrollIntoView,
+    });
+    renderApp();
+
+    const projectsItem = screen.getByRole("link", { name: "Projects" });
+    expect(projectsItem).toHaveAttribute("aria-disabled", "true");
+    expect(projectsItem).not.toHaveAttribute("href");
+
+    fireEvent.click(screen.getByRole("link", { name: "About" }));
+
+    await waitFor(() => {
+      expect(window.location.pathname).toBe("/");
+      expect(window.location.hash).toBe("#about");
+      expect(document.querySelector("#about")).toBeInTheDocument();
+      expect(scrollIntoView).toHaveBeenCalledWith({ block: "start" });
+    });
+  });
+
+  it("scrolls to About on every Home navigation click even when the hash is unchanged", () => {
+    window.history.replaceState({}, "", "/#about");
+    const scrollIntoView = vi.fn();
+    Object.defineProperty(HTMLElement.prototype, "scrollIntoView", {
+      configurable: true,
+      value: scrollIntoView,
+    });
+    renderApp();
+    scrollIntoView.mockClear();
+
+    fireEvent.click(screen.getByRole("link", { name: "About" }));
+
+    expect(window.location.pathname).toBe("/");
+    expect(window.location.hash).toBe("#about");
+    expect(scrollIntoView).toHaveBeenCalledTimes(1);
+    expect(scrollIntoView).toHaveBeenCalledWith({ block: "start" });
+    expect(scrollIntoView.mock.contexts[0]).toBe(
+      document.querySelector("#about [data-section-start]"),
+    );
+  });
+
+  it.each(["about", "skills", "experience"])(
+    "places the %s content start at the navigation target",
+    (sectionId) => {
+      const { container } = renderApp();
+      const section = container.querySelector(`#${sectionId}`);
+
+      expect(section?.querySelector(":scope > [data-section-start]")).toBe(
+        section?.firstElementChild,
+      );
+    },
+  );
+
+  it("navigates from the Contact hamburger to the selected Home section", async () => {
+    window.history.replaceState({}, "", "/contact");
+    mockMediaPreferences({ desktopViewport: false });
+    const scrollIntoView = vi.fn();
+    Object.defineProperty(HTMLElement.prototype, "scrollIntoView", {
+      configurable: true,
+      value: scrollIntoView,
+    });
+    renderApp();
+
+    fireEvent.click(screen.getByTestId("mobile-navigation-toggle"));
+    fireEvent.click(screen.getByRole("link", { name: "Experience" }));
+
+    await waitFor(() => {
+      expect(window.location.pathname).toBe("/");
+      expect(window.location.hash).toBe("#experience");
+      expect(document.querySelector("#experience")).toBeInTheDocument();
+      expect(scrollIntoView).toHaveBeenCalledWith({ block: "start" });
+    });
   });
 
   it("renders the particle signature footer after Work With Me", () => {
@@ -833,8 +988,8 @@ describe("App", () => {
     expect(aboutLink).toHaveAttribute("data-active", "true");
     expect(aboutLink).toHaveClass("active");
     expect(aboutLink).toHaveAttribute("aria-current", "page");
-    expect(contactItem).toHaveAttribute("aria-disabled", "true");
-    expect(contactItem).not.toHaveAttribute("href");
+    expect(contactItem).toHaveAttribute("href", "/contact");
+    expect(contactItem).not.toHaveAttribute("aria-disabled");
   });
 
   it("keeps About active while Experience is the current child section", () => {
@@ -865,7 +1020,7 @@ describe("App", () => {
 
     expect(aboutLink).toHaveAttribute("data-active", "false");
     expect(skillsLink).toHaveAttribute("data-active", "false");
-    expect(experienceLink).toHaveAttribute("href", "#experience");
+    expect(experienceLink).toHaveAttribute("href", "/#experience");
     expect(experienceLink).toHaveAttribute("data-active", "true");
     expect(experienceLink).toHaveClass("active");
     expect(experienceLink).toHaveAttribute("aria-current", "page");
@@ -1295,7 +1450,7 @@ describe("App", () => {
     );
     expect(
       screen.getByRole("link", { name: "Evindo Amanda — Beranda" }),
-    ).toHaveAttribute("href", "#home");
+    ).toHaveAttribute("href", "/#home");
     expect(screen.getByText("Cara saya bekerja")).toBeInTheDocument();
     expect(screen.getByText("Interaksi Bermakna")).toBeInTheDocument();
     expect(screen.getByTestId("about-quote")).toHaveTextContent(
@@ -1540,7 +1695,7 @@ describe("App", () => {
     ).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Skills" })).toHaveAttribute(
       "href",
-      "#skills",
+      "/#skills",
     );
     expect(screen.getByRole("link", { name: "Skills" })).toHaveClass(
       "hero-mobile-menu-item",
@@ -1550,7 +1705,7 @@ describe("App", () => {
     );
     expect(screen.getByRole("link", { name: "Experience" })).toHaveAttribute(
       "href",
-      "#experience",
+      "/#experience",
     );
     expect(screen.getByText("Contact")).toBeInTheDocument();
     expect(screen.getByLabelText("Social profiles")).toBeInTheDocument();
