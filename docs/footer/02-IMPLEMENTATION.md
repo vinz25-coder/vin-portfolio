@@ -19,6 +19,7 @@
 - Sampling memakai canvas offscreen dan `measureText` untuk mengecilkan font ke lebar aman.
 - Partikel mencampur base dan highlight berdasarkan posisi horizontal dengan variasi seed.
 - Gathering, idle drift, glow, dan pointer repel menggunakan Canvas API tanpa dependency tambahan.
+- Mobile di bawah 640px memakai glyph weight, ukuran partikel, glow, dan idle drift yang lebih ringan agar ruang negatif serta batas huruf tetap terbaca pada canvas sempit.
 - `ResizeObserver` membangun ulang target saat ukuran berubah.
 - `IntersectionObserver` menghentikan RAF ketika footer tidak terlihat.
 

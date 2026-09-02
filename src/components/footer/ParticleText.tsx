@@ -71,6 +71,7 @@ export default function ParticleText({
     let gatherStart = performance.now();
     let width = 0;
     let height = 0;
+    let compactRendering = false;
     let isVisible = true;
     const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
@@ -85,7 +86,7 @@ export default function ParticleText({
       }
 
       context.clearRect(0, 0, width, height);
-      context.shadowBlur = reducedMotion ? 0 : 8;
+      context.shadowBlur = reducedMotion ? 0 : compactRendering ? 3 : 8;
       context.shadowColor = highlightColor;
 
       const elapsed = now - gatherStart;
@@ -100,8 +101,9 @@ export default function ParticleText({
           particle.startY + (particle.targetY - particle.startY) * eased;
 
         if (!reducedMotion && progress === 1) {
-          targetX += Math.sin(now * 0.0008 + particle.seed * 12) * 0.75;
-          targetY += Math.cos(now * 0.0007 + particle.seed * 10) * 0.75;
+          const drift = compactRendering ? 0.3 : 0.75;
+          targetX += Math.sin(now * 0.0008 + particle.seed * 12) * drift;
+          targetY += Math.cos(now * 0.0007 + particle.seed * 10) * drift;
         }
 
         if (finePointer && pointer.active && !reducedMotion) {
@@ -137,6 +139,7 @@ export default function ParticleText({
       width = Math.floor(bounds.width);
       height = Math.floor(bounds.height);
       if (width <= 0 || height <= 0) return;
+      compactRendering = width < 640;
 
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = Math.floor(width * dpr);
@@ -151,12 +154,13 @@ export default function ParticleText({
 
       const family = window.getComputedStyle(container).fontFamily;
       let fontSize = Math.min(190, width * 0.135, height * 0.94);
-      sample.font = `800 ${fontSize}px ${family}`;
+      const fontWeight = compactRendering ? 700 : 800;
+      sample.font = `${fontWeight} ${fontSize}px ${family}`;
       const safeWidth = width * 0.94;
       const measuredWidth = sample.measureText(text).width;
       if (measuredWidth > safeWidth) fontSize *= safeWidth / measuredWidth;
 
-      sample.font = `800 ${fontSize}px ${family}`;
+      sample.font = `${fontWeight} ${fontSize}px ${family}`;
       const metrics = sample.measureText(text);
       const left = Math.ceil(metrics.actualBoundingBoxLeft || 0);
       const right = Math.ceil(metrics.actualBoundingBoxRight || metrics.width);
@@ -169,7 +173,7 @@ export default function ParticleText({
       const glyphPadding = Math.max(6, Math.ceil(fontSize * 0.04));
       sampleCanvas.width = left + right + glyphPadding * 2;
       sampleCanvas.height = ascent + descent + glyphPadding * 2;
-      sample.font = `800 ${fontSize}px ${family}`;
+      sample.font = `${fontWeight} ${fontSize}px ${family}`;
       sample.textBaseline = "alphabetic";
       sample.fillStyle = "#fff";
       sample.fillText(text, glyphPadding - left, glyphPadding + ascent);
@@ -212,7 +216,7 @@ export default function ParticleText({
             startY,
             targetX: target.x,
             targetY: target.y,
-            size: width < 640 ? 1.4 : 1.8,
+            size: compactRendering ? 1.1 : 1.8,
             color: mixColor(
               base,
               accent,
