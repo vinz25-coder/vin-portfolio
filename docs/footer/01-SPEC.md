@@ -24,9 +24,11 @@ Menutup halaman setelah Contact/`WorkWithMe` dengan particle wordmark `EVINDO AM
 
 - Copyright: `© 2026 Evindo A. All rights reserved.`.
 - Copyright dipusatkan tepat di atas particle wordmark.
+- Copyright memakai ukuran lebih besar dan weight bold; `Evindo A.` memakai weight extra-bold serta kontras lebih tinggi tanpa glow.
 - Copyright memakai jarak rapat ke area glyph, bukan ke ruang kosong canvas.
 - Waktu memakai zona `Asia/Jakarta` dan format `HH:mm (GMT+7)`.
-- Waktu berada di kiri paling bawah dengan urutan ikon jam, `Indonesia`, lalu waktu.
+- Waktu berada di kiri paling bawah dengan format ikon jam, lokasi terjemahan, separator `·`, lalu waktu.
+- English memakai `NORTH SUMATRA, INDONESIA`; Indonesia memakai `SUMATERA UTARA, INDONESIA`.
 - Waktu berjarak rapat dari wordmark dan footer memakai inset bawah minimal dekat batas viewport.
 - Angka waktu memakai tabular numerals dan diperbarui tepat saat menit berganti.
 
@@ -53,7 +55,7 @@ Menutup halaman setelah Contact/`WorkWithMe` dengan particle wordmark `EVINDO AM
 - Footer hadir tepat setelah `WorkWithMe`.
 - Copyright berada di tengah di atas nama.
 - `EVINDO AMANDA.` terbaca utuh dan tidak terpotong.
-- Waktu kiri bawah menampilkan ikon, `Indonesia`, dan `HH:mm (GMT+7)`.
+- Waktu kiri bawah menampilkan ikon, lokasi terjemahan, `·`, dan `HH:mm (GMT+7)`.
 - Light/dark, pointer interaction, reduced motion, dan accessibility bekerja.
 - Typecheck, lint, test, audit aksesibilitas, dan production build lulus.
 

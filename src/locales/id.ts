@@ -149,4 +149,7 @@ export const id = {
     getInTouch: "Hubungi saya",
     emailDirectly: "Email langsung",
   },
+  footer: {
+    location: "SUMATERA UTARA, INDONESIA",
+  },
 } satisfies HeroCopy;

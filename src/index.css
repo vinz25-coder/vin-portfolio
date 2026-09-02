@@ -1499,6 +1499,21 @@ body {
   }
 }
 
+.footer-copyright {
+  color: color-mix(in srgb, var(--color-text-secondary) 68%, transparent);
+}
+
+.footer-copyright-name {
+  color: color-mix(in srgb, var(--color-text-primary) 92%, white);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-shadow: none;
+}
+
+:root:not(.dark) .footer-copyright-name {
+  color: color-mix(in srgb, var(--color-text-primary) 88%, black);
+}
+
 .work-with-me-heading {
   position: relative;
   isolation: isolate;

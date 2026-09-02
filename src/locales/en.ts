@@ -146,4 +146,7 @@ export const en = {
     getInTouch: "Get in touch",
     emailDirectly: "Email directly",
   },
+  footer: {
+    location: "NORTH SUMATRA, INDONESIA",
+  },
 } satisfies HeroCopy;

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Clock3 } from "lucide-react";
 
+import { useLanguage } from "../../hooks/useLanguage";
 import { useTheme } from "../../hooks/useTheme";
 import ParticleText from "./ParticleText";
 
@@ -15,6 +16,7 @@ const getJakartaTime = () =>
   jakartaTimeFormatter.format(new Date()).replace(".", ":");
 
 export function Footer() {
+  const { copy } = useLanguage();
   const { theme } = useTheme();
   const [localTime, setLocalTime] = useState(getJakartaTime);
 
@@ -41,8 +43,12 @@ export function Footer() {
       className="relative z-10 overflow-x-clip bg-transparent px-4 pt-8 pb-[calc(0.375rem+env(safe-area-inset-bottom,0px))] sm:px-[3vw] sm:pt-10 sm:pb-[calc(0.5rem+env(safe-area-inset-bottom,0px))] lg:pt-12"
     >
       <div className="relative mx-auto w-full pt-7 sm:pt-9 lg:pt-11">
-        <p className="text-center text-[0.5625rem] font-medium tracking-[0.08em] text-text-secondary sm:text-[0.625rem]">
-          © 2026 Evindo A. All rights reserved.
+        <p
+          data-testid="footer-copyright"
+          className="footer-copyright text-center text-xs font-bold tracking-[0.025em] text-text-secondary sm:text-sm"
+        >
+          © 2026 <span className="footer-copyright-name">Evindo A.</span> All
+          rights reserved.
         </p>
 
         <div className="mt-0 h-[clamp(4.5rem,13vw,12rem)] w-full">
@@ -60,7 +66,10 @@ export function Footer() {
             className="size-3 text-accent-500"
             strokeWidth={1.75}
           />
-          <span>Indonesia</span>
+          <span data-testid="footer-location">{copy.footer.location}</span>
+          <span aria-hidden="true" data-testid="footer-time-separator">
+            ·
+          </span>
           <time className="tabular-nums" dateTime={localTime}>
             {localTime} (GMT+7)
           </time>

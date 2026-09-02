@@ -790,16 +790,19 @@ describe("App", () => {
         Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
     expect(wordmark).toHaveClass("particle-text__sr");
-    expect(footer).toHaveTextContent("Indonesia");
+    expect(screen.getByTestId("footer-location")).toHaveTextContent(
+      "NORTH SUMATRA, INDONESIA",
+    );
+    expect(screen.getByTestId("footer-time-separator")).toHaveTextContent("·");
     expect(footer).toHaveTextContent("(GMT+7)");
     expect(footer).toHaveTextContent("© 2026 Evindo A. All rights reserved.");
     expect(footer.querySelector("canvas")).toHaveAttribute(
       "aria-hidden",
       "true",
     );
-    expect(
-      screen.getByText("© 2026 Evindo A. All rights reserved."),
-    ).toBeInTheDocument();
+    expect(screen.getByTestId("footer-copyright")).toHaveTextContent(
+      "© 2026 Evindo A. All rights reserved.",
+    );
   });
 
   it("keeps About active while Work With Me is the current subsection", () => {
@@ -1323,6 +1326,9 @@ describe("App", () => {
     );
     expect(screen.getByTestId("experience-record")).toHaveTextContent(
       "Pengembang Web Independen",
+    );
+    expect(screen.getByTestId("footer-location")).toHaveTextContent(
+      "SUMATERA UTARA, INDONESIA",
     );
     expect(
       screen.getByText(

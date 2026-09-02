@@ -27,6 +27,8 @@
 - Copyright dipusatkan sebelum canvas.
 - Canvas hampir memenuhi viewport tetapi mempertahankan inset aman.
 - Waktu ditempatkan setelah canvas di kiri bawah dengan ikon `Clock3`.
+- Lokasi waktu dibaca dari dictionary `copy.footer.location` untuk pasangan English/Indonesia.
+- Nama `Evindo A.` pada copyright memakai class accent glow khusus.
 - Tinggi canvas memakai `clamp(4.5rem, 13vw, 12rem)` dan sampling memakai bounding box glyph aktual untuk menghilangkan ruang vertikal berlebih.
 - Footer memakai safe-area padding bawah minimal agar metadata dekat dengan batas bawah viewport.
 - Tidak ada wrapper visual, panel, border, atau divider.

@@ -113,4 +113,7 @@ export interface HeroCopy {
     getInTouch: string;
     emailDirectly: string;
   };
+  footer: {
+    location: string;
+  };
 }
