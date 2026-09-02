@@ -29,7 +29,7 @@ export function SkillIndexItem({
     <li
       data-skill={item.id}
       data-category={item.category}
-      className={`skill-index-item group relative min-h-20 items-center gap-4 overflow-hidden px-3 py-4 ${mobileOverflow ? "skill-mobile-overflow flex" : "flex"}`}
+      className={`skill-index-item group relative min-h-16 items-center gap-3 overflow-hidden px-3 py-2 sm:min-h-20 sm:gap-4 sm:py-4 ${mobileOverflow ? "skill-mobile-overflow flex" : "flex"}`}
       style={style}
     >
       <span
