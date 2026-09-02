@@ -4,6 +4,7 @@ import { ScannerBackground } from "./components/global/ScannerBackground";
 import { ViewportEdgeBlur } from "./components/global/ViewportEdgeBlur";
 import { About } from "./components/about/About";
 import { Experience } from "./components/experience/Experience";
+import { Footer } from "./components/footer/Footer";
 import { Hero } from "./components/hero/Hero";
 import { HeroSidebar } from "./components/hero/HeroSidebar";
 import { Skills } from "./components/skills/Skills";
@@ -22,6 +23,7 @@ function App() {
         <Experience />
         <WorkWithMe />
       </main>
+      <Footer />
       <HeroSidebar socialLinks={socialLinks} />
       <FloatingChatWidget />
       <CustomCursor />

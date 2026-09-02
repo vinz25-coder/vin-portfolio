@@ -776,6 +776,32 @@ describe("App", () => {
     ).toBeTruthy();
   });
 
+  it("renders the particle signature footer after Work With Me", () => {
+    const { container } = renderApp();
+    const workWithMeSection = container.querySelector("#work-with-me");
+    const footer = screen.getByRole("contentinfo", {
+      name: "Evindo Amanda footer",
+    });
+    const wordmark = screen.getByText("EVINDO AMANDA.");
+
+    expect(workWithMeSection).not.toBeNull();
+    expect(
+      (workWithMeSection as Element).compareDocumentPosition(footer) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(wordmark).toHaveClass("particle-text__sr");
+    expect(footer).toHaveTextContent("Indonesia");
+    expect(footer).toHaveTextContent("(GMT+7)");
+    expect(footer).toHaveTextContent("© 2026 Evindo A. All rights reserved.");
+    expect(footer.querySelector("canvas")).toHaveAttribute(
+      "aria-hidden",
+      "true",
+    );
+    expect(
+      screen.getByText("© 2026 Evindo A. All rights reserved."),
+    ).toBeInTheDocument();
+  });
+
   it("keeps About active while Work With Me is the current subsection", () => {
     const intersections = mockIntersectionObservers();
     const { container } = renderApp();
