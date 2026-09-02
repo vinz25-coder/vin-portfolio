@@ -960,6 +960,45 @@ describe("App", () => {
     );
   });
 
+  it("keeps footer particles interactive for touch pointers", () => {
+    mockMediaPreferences({ desktopViewport: false, pointerFine: false });
+    const context = {} as CanvasRenderingContext2D;
+    vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue(context);
+    const addEventListener = vi.spyOn(
+      HTMLCanvasElement.prototype,
+      "addEventListener",
+    );
+
+    class MockResizeObserver {
+      disconnect() {}
+      observe() {}
+      unobserve() {}
+    }
+
+    vi.stubGlobal("ResizeObserver", MockResizeObserver);
+    const { container } = renderApp();
+
+    expect(container.querySelector(".particle-text")).toBeInTheDocument();
+    expect(addEventListener).toHaveBeenCalledWith(
+      "pointerdown",
+      expect.any(Function),
+    );
+    expect(addEventListener).toHaveBeenCalledWith(
+      "pointermove",
+      expect.any(Function),
+    );
+    expect(addEventListener).toHaveBeenCalledWith(
+      "pointerup",
+      expect.any(Function),
+    );
+    expect(addEventListener).toHaveBeenCalledWith(
+      "pointercancel",
+      expect.any(Function),
+    );
+
+    addEventListener.mockRestore();
+  });
+
   it("keeps About active while Work With Me is the current subsection", () => {
     const intersections = mockIntersectionObservers();
     const { container } = renderApp();
