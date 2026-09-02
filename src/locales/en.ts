@@ -6,8 +6,8 @@ export const en = {
     "Front-end specialist, turning design into precise, working code.",
   ],
   cta: {
-    projects: "View My Works",
-    contact: "View CV",
+    projects: "VIEW MY WORK",
+    contact: "VIEW CV",
   },
   nav: {
     about: "About",
@@ -137,5 +137,61 @@ export const en = {
       "Implemented real-time revenue and profit tracking with trend visualization and category-level performance breakdowns.",
       "Built a reporting workflow that replaced manual spreadsheet-based tracking for daily business operations.",
     ],
+  },
+  workWithMe: {
+    eyebrow: "Let's build something",
+    heading: "Work with me",
+    description:
+      "I'm available for selected projects — web products, dashboards, and product-focused frontend work.",
+    getInTouch: "Get in touch",
+    emailDirectly: "Email directly",
+  },
+  contact: {
+    eyebrow: "Contact",
+    heading: {
+      before: "Let's build something",
+      accent: "useful.",
+    },
+    introduction:
+      "Have a web product, dashboard, or frontend implementation in mind? Share the context and I'll get back to you directly.",
+    formHeading: "Project Inquiry",
+    fields: {
+      name: "Name",
+      namePlaceholder: "Your name",
+      email: "Email",
+      emailPlaceholder: "you@example.com",
+      projectType: "Project type",
+      projectPlaceholder: "Choose a project type",
+      message: "Message",
+      messagePlaceholder:
+        "Tell me about the project, goals, and current context.",
+    },
+    projectTypes: {
+      webProduct: "Web Product",
+      dashboard: "Dashboard",
+      frontendImplementation: "Frontend Implementation",
+      other: "Other",
+    },
+    submit: "Send inquiry",
+    submitting: "Sending...",
+    success: "Message sent. Thank you for reaching out.",
+    error:
+      "Your message could not be sent. Please try again or email me directly.",
+    deliveryUnavailable:
+      "Email delivery is not configured yet. Please use one of the direct channels.",
+    validation: {
+      name: "Enter your name.",
+      email: "Enter a valid email address.",
+      projectType: "Choose a project type.",
+      message:
+        "Tell me a little more about your project (at least 20 characters).",
+    },
+    directHeading: "Direct channels",
+    privacy: "Your details are used only to respond to this inquiry.",
+    whatsappMessage:
+      "Hi Evindo, I found your portfolio and would like to discuss a project.",
+  },
+  footer: {
+    location: "NORTH SUMATRA, INDONESIA",
   },
 } satisfies HeroCopy;

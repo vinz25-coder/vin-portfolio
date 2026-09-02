@@ -1,12 +1,20 @@
 import { Github, Instagram, Mail, Menu, X } from "lucide-react";
 import { motion } from "motion/react";
-import { useEffect, useId, useRef, useState } from "react";
+import {
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type MouseEvent,
+} from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useLanguage } from "../../hooks/useLanguage";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import { useTheme } from "../../hooks/useTheme";
 import { socialLinks } from "../../data/social-links";
 import { mobileViewportQuery } from "../../lib/media-queries";
+import { scrollToSection } from "../../lib/scroll-to-section";
 import { OPEN_MOBILE_GUESTBOOK_EVENT } from "../global/FloatingChatWidget";
 import { BrandXIcon } from "../global/BrandXIcon";
 import {
@@ -18,7 +26,13 @@ import { ThemeToggle } from "./ThemeToggle";
 import { TranslatedText } from "./TranslatedText";
 
 const navItems = ["about", "projects"] as const;
-const observedSections = ["about", "skills", "experience", "projects"] as const;
+const observedSections = [
+  "about",
+  "skills",
+  "experience",
+  "work-with-me",
+  "projects",
+] as const;
 type NavSection = (typeof observedSections)[number];
 const mobileNavItems = [
   "about",
@@ -35,12 +49,15 @@ const mobileSocialIcons = {
 };
 
 const tabletHeaderQuery = "(min-width: 640px) and (max-width: 1023px)";
+const MotionLink = motion.create(Link);
 
 interface HeroHeaderProps {
   isScrolled: boolean;
+  page?: "home" | "contact";
 }
 
-export function HeroHeader({ isScrolled }: HeroHeaderProps) {
+export function HeroHeader({ isScrolled, page = "home" }: HeroHeaderProps) {
+  const navigate = useNavigate();
   const { theme } = useTheme();
   const { copy } = useLanguage();
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -59,13 +76,36 @@ export function HeroHeader({ isScrolled }: HeroHeaderProps) {
   const [activeSection, setActiveSection] = useState<NavSection | null>(null);
   const lastScrollYRef = useRef(0);
   const mobileMenuId = useId();
+  const isAboutActive =
+    activeSection === "about" ||
+    activeSection === "skills" ||
+    activeSection === "experience" ||
+    activeSection === "work-with-me";
 
   const openMobileGuestbook = () => {
     setIsMenuOpen(false);
     window.dispatchEvent(new Event(OPEN_MOBILE_GUESTBOOK_EVENT));
   };
 
+  const navigateToSection = (
+    event: MouseEvent<HTMLAnchorElement>,
+    section: "about" | "skills" | "experience",
+    closeMenu = false,
+  ) => {
+    if (closeMenu) setIsMenuOpen(false);
+    if (page !== "home") return;
+
+    event.preventDefault();
+    void navigate(`/#${section}`);
+    scrollToSection(section);
+  };
+
   useEffect(() => {
+    if (page !== "home") {
+      setActiveSection(null);
+      return undefined;
+    }
+
     if (!("IntersectionObserver" in window)) {
       return undefined;
     }
@@ -108,7 +148,7 @@ export function HeroHeader({ isScrolled }: HeroHeaderProps) {
     sections.forEach(({ section }) => sectionObserver.observe(section));
 
     return () => sectionObserver.disconnect();
-  }, []);
+  }, [page]);
 
   useEffect(() => {
     if (!isMenuOpen) {
@@ -210,8 +250,8 @@ export function HeroHeader({ isScrolled }: HeroHeaderProps) {
       inert={!isMobileHeaderVisible}
       className="hero-header pointer-events-none fixed inset-x-0 top-0 isolate z-50 flex h-24 items-center px-3 min-[320px]:px-5 sm:h-18 sm:px-12 lg:h-[7.75rem] lg:px-[3.35vw]"
     >
-      <a
-        href="#home"
+      <Link
+        to={page === "contact" ? "/" : "#home"}
         aria-label={copy.a11y.homeLink}
         data-testid="navbar-logo-frame"
         className="navbar-logo-frame pointer-events-auto relative z-10 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-500 sm:left-2"
@@ -224,7 +264,7 @@ export function HeroHeader({ isScrolled }: HeroHeaderProps) {
           decoding="async"
           className="relative z-10 h-9 w-[3.375rem] object-contain sm:h-10 sm:w-[3.75rem]"
         />
-      </a>
+      </Link>
 
       <div
         id={mobileMenuId}
@@ -241,41 +281,26 @@ export function HeroHeader({ isScrolled }: HeroHeaderProps) {
           <nav
             aria-label={copy.a11y.primaryNavigation}
             data-scrolled={isScrolled}
-            className="hero-nav-glass grid grid-cols-2 gap-1 rounded-full border border-border p-2 text-sm font-medium text-text-nav min-[1440px]:left-[51.25%] sm:absolute sm:left-1/2 sm:flex sm:-translate-x-1/2 sm:items-center sm:whitespace-nowrap lg:left-[44%] xl:left-[47%]"
+            className="hero-nav-glass grid grid-cols-2 gap-1 rounded-full border border-border p-2 text-sm font-medium text-text-nav sm:absolute sm:left-1/2 sm:flex sm:-translate-x-1/2 sm:items-center sm:whitespace-nowrap"
           >
             {navItems.map((item) =>
               item === "about" ? (
-                <motion.a
+                <MotionLink
                   key={item}
-                  href="#about"
+                  to={page === "contact" ? "/#about" : "#about"}
                   data-testid={`hero-nav-${item}`}
-                  data-active={
-                    activeSection === "about" ||
-                    activeSection === "skills" ||
-                    activeSection === "experience"
-                  }
-                  aria-current={
-                    activeSection === "about" ||
-                    activeSection === "skills" ||
-                    activeSection === "experience"
-                      ? "page"
-                      : undefined
-                  }
+                  data-active={isAboutActive}
+                  aria-current={isAboutActive ? "page" : undefined}
                   whileTap={{ scale: navInteractionMotion.pressedScale }}
                   transition={{
                     duration: navInteractionMotion.pressedDuration,
                     ease: navInteractionMotion.ease,
                   }}
-                  className={`hero-nav-item focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500 ${
-                    activeSection === "about" ||
-                    activeSection === "skills" ||
-                    activeSection === "experience"
-                      ? "active"
-                      : ""
-                  }`}
+                  className={`hero-nav-item focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500 ${isAboutActive ? "active" : ""}`}
+                  onClick={(event) => navigateToSection(event, "about")}
                 >
                   <TranslatedText inline>{copy.nav[item]}</TranslatedText>
-                </motion.a>
+                </MotionLink>
               ) : (
                 <motion.span
                   key={item}
@@ -299,18 +324,50 @@ export function HeroHeader({ isScrolled }: HeroHeaderProps) {
           <div className="grid grid-cols-1 gap-1">
             {mobileNavItems.map((item) =>
               item === "about" || item === "skills" || item === "experience" ? (
-                <a
+                <Link
                   key={item}
-                  href={`#${item}`}
-                  data-active={activeSection === item}
-                  aria-current={activeSection === item ? "page" : undefined}
+                  to={`${page === "contact" ? "/" : ""}#${item}`}
+                  data-active={
+                    item === "about"
+                      ? activeSection === "about" ||
+                        activeSection === "work-with-me"
+                      : activeSection === item
+                  }
+                  aria-current={
+                    (
+                      item === "about"
+                        ? activeSection === "about" ||
+                          activeSection === "work-with-me"
+                        : activeSection === item
+                    )
+                      ? "page"
+                      : undefined
+                  }
                   className={`hero-mobile-menu-item ${
-                    activeSection === item ? "active" : ""
+                    (
+                      item === "about"
+                        ? activeSection === "about" ||
+                          activeSection === "work-with-me"
+                        : activeSection === item
+                    )
+                      ? "active"
+                      : ""
                   }`}
+                  onClick={(event) => navigateToSection(event, item, true)}
+                >
+                  <TranslatedText inline>{copy.nav[item]}</TranslatedText>
+                </Link>
+              ) : item === "contact" ? (
+                <Link
+                  key={item}
+                  to="/contact"
+                  data-active={page === "contact"}
+                  aria-current={page === "contact" ? "page" : undefined}
+                  className={`hero-mobile-menu-item ${page === "contact" ? "active" : ""}`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <TranslatedText inline>{copy.nav[item]}</TranslatedText>
-                </a>
+                </Link>
               ) : (
                 <span
                   key={item}

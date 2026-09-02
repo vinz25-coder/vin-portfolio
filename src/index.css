@@ -60,10 +60,10 @@
       var(--color-text-primary) 18%,
       transparent);
   --color-scrollbar-thumb: color-mix(in srgb,
-      var(--color-accent-500) 28%,
+      var(--color-accent-500) 70%,
       var(--color-text-secondary));
   --color-scrollbar-thumb-hover: color-mix(in srgb,
-      var(--color-accent-500) 78%,
+      var(--color-accent-500) 88%,
       var(--color-text-primary));
   --hero-eyebrow-heading-gap: 1rem;
   --hero-heading-description-gap: 0.5rem;
@@ -189,9 +189,27 @@ body {
     color 300ms ease;
 }
 
+[data-section-start] {
+  scroll-margin-top: 6.5rem;
+}
+
+@media (min-width: 640px) {
+  [data-section-start] {
+    scroll-margin-top: 5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  [data-section-start] {
+    scroll-margin-top: 8.25rem;
+  }
+}
+
 .about-label-part,
 .skills-label-part,
-.experience-label-part {
+.experience-label-part,
+.work-with-me-label-part,
+.contact-label-part {
   color: var(--color-text-primary);
   font-weight: 600;
   text-shadow: 0 0 transparent;
@@ -387,7 +405,9 @@ body {
 
   .about-section-label:hover .about-label-part,
   .skills-section-label:hover .skills-label-part,
-  .experience-section-label:hover .experience-label-part {
+  .experience-section-label:hover .experience-label-part,
+  .work-with-me-section-label:hover .work-with-me-label-part,
+  .contact-section-label:hover .contact-label-part {
     color: var(--color-accent-500);
     font-weight: 700;
     text-shadow: 0 0 0.65rem color-mix(in srgb, var(--color-accent-500) 34%, transparent);
@@ -423,6 +443,7 @@ body {
   .about-label-part,
   .skills-label-part,
   .experience-label-part,
+  .work-with-me-label-part,
   .experience-marker,
   .experience-spine,
   .experience-contribution {
@@ -502,9 +523,14 @@ body {
 .viewport-edge-blur-bottom {
   contain: none;
   isolation: auto;
-  height: clamp(5rem, 12vw, 8rem);
+  height: clamp(6rem, 14vw, 9rem);
   overflow: visible;
   will-change: auto;
+  transition: opacity 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.viewport-edge-blur-bottom[data-at-page-end="true"] {
+  opacity: 0;
 }
 
 .viewport-edge-blur-bottom-layer {
@@ -528,8 +554,8 @@ body {
 }
 
 .viewport-edge-blur-bottom-medium {
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
   -webkit-mask-image: linear-gradient(to bottom,
       transparent 32%,
       rgb(0 0 0 / 38%) 56%,
@@ -541,8 +567,8 @@ body {
 }
 
 .viewport-edge-blur-bottom-strong {
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10 px);
   -webkit-mask-image: linear-gradient(to bottom,
       transparent 62%,
       rgb(0 0 0 / 48%) 78%,
@@ -563,6 +589,21 @@ body {
   .viewport-edge-blur-top {
     height: 7.75rem;
   }
+}
+
+.footer-copyright {
+  color: color-mix(in srgb, var(--color-text-secondary) 68%, transparent);
+}
+
+.footer-copyright-name {
+  color: color-mix(in srgb, var(--color-text-primary) 92%, white);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-shadow: none;
+}
+
+:root:not(.dark) .footer-copyright-name {
+  color: color-mix(in srgb, var(--color-text-primary) 88%, black);
 }
 
 .hero-nav-item {
@@ -787,11 +828,6 @@ body {
   -webkit-backdrop-filter: blur(1rem);
 }
 
-.hero-cta-primary-icon,
-.hero-cta-document-icon {
-  transition: transform 150ms ease-out;
-}
-
 @media (hover: hover) and (pointer: fine) {
   .hero-cta-primary:hover {
     transform: translateY(-2px) scale(1.02);
@@ -805,18 +841,11 @@ body {
     transform: translateX(520%) skewX(-18deg);
   }
 
-  .hero-cta-primary:hover .hero-cta-primary-icon {
-    transform: translate(2px, -2px);
-  }
-
   .hero-cta-secondary:hover {
     border-color: var(--color-accent-500);
     background: color-mix(in srgb, var(--color-accent-500) 12%, transparent);
   }
 
-  .hero-cta-secondary:hover .hero-cta-document-icon {
-    transform: translateY(-2px) scale(1.02);
-  }
 }
 
 .custom-cursor-glass {
@@ -966,8 +995,6 @@ body {
 
   .hero-cta,
   .hero-cta::before,
-  .hero-cta-primary-icon,
-  .hero-cta-document-icon,
   .custom-cursor-glass,
   .hero-nav-glass,
   .global-nav-control,
@@ -1074,6 +1101,33 @@ body {
 
   .mobile-hero-ctas {
     grid-row: 5;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.625rem;
+  }
+
+  .mobile-hero-ctas .hero-cta {
+    width: auto;
+    min-width: 0;
+    height: 3rem;
+    min-height: 3rem;
+    padding-inline: 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .mobile-hero-ctas .hero-cta-primary {
+    flex: 1.15;
+  }
+
+  .mobile-hero-ctas .hero-cta-secondary {
+    flex: 0.85;
+  }
+
+  .mobile-hero-ctas .hero-cta:active {
+    filter: brightness(0.88);
+    transform: translateY(1px) scale(0.97);
+    transition-duration: 100ms;
   }
 
   .hero-portrait-shell {
@@ -1157,12 +1211,6 @@ body {
     min-height: 3rem;
     padding-inline: 0.75rem;
     font-size: 0.75rem;
-  }
-
-  .mobile-hero-ctas .hero-cta-primary-icon,
-  .mobile-hero-ctas .hero-cta-document-icon {
-    width: 2rem;
-    height: 2rem;
   }
 
   .hero-portrait-shell {
@@ -1372,5 +1420,171 @@ body {
   .hero-portrait-shell {
     right: clamp(-12rem, -20vw, -7rem);
     width: min(110vw, calc(100svh - 4.5rem), 64rem);
+  }
+}
+
+.work-with-me-heading {
+  position: relative;
+  isolation: isolate;
+  color: var(--color-text-primary);
+}
+
+.contact-form-panel {
+  border-color: color-mix(in srgb, var(--color-text-primary) 12%, transparent);
+  background-color: color-mix(in srgb, var(--color-surface) 38%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--color-text-primary) 8%, transparent),
+    0 1rem 3rem color-mix(in srgb, var(--color-text-primary) 5%, transparent);
+  backdrop-filter: blur(1rem);
+  -webkit-backdrop-filter: blur(1rem);
+}
+
+.contact-heading {
+  text-wrap: balance;
+}
+
+.contact-field,
+.contact-direct-link,
+.contact-direct-arrow {
+  transition:
+    color 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-direct-link {
+  border-color: color-mix(in srgb, var(--color-text-primary) 12%, transparent);
+  background-color: color-mix(in srgb, var(--color-surface) 38%, transparent);
+  color: var(--color-text-secondary);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--color-text-primary) 7%, transparent),
+    0 0.5rem 1.25rem color-mix(in srgb, var(--color-text-primary) 5%, transparent);
+  backdrop-filter: blur(0.875rem);
+  -webkit-backdrop-filter: blur(0.875rem);
+}
+
+.contact-direct-icon {
+  background: var(--contact-brand);
+  color: #fff;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 28%),
+    0 0.4rem 1rem color-mix(in srgb, var(--contact-brand) 26%, transparent);
+}
+
+.contact-direct-link[data-brand="instagram"] .contact-direct-icon {
+  background: radial-gradient(
+      circle at 32% 105%,
+      #fdf497 0 8%,
+      #fdf497 9%,
+      #fd5949 38%,
+      #d6249f 62%,
+      #285aeb 100%
+    );
+}
+
+.contact-direct-link[data-brand="github"],
+.contact-direct-link[data-brand="x"] {
+  --contact-brand: color-mix(
+    in srgb,
+    var(--color-text-primary) 82%,
+    var(--color-bg)
+  ) !important;
+}
+
+.contact-direct-link[data-brand="github"] .contact-direct-icon,
+.contact-direct-link[data-brand="x"] .contact-direct-icon {
+  background: #050505;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .contact-direct-link:hover {
+    border-color: color-mix(in srgb, var(--contact-brand) 72%, transparent);
+    background-color: color-mix(
+      in srgb,
+      color-mix(in srgb, var(--contact-brand) 9%, var(--color-surface)) 52%,
+      transparent
+    );
+    color: var(--contact-brand);
+    box-shadow:
+      inset 0 1px 0 color-mix(in srgb, var(--color-text-primary) 9%, transparent),
+      0 0.75rem 1.75rem color-mix(in srgb, var(--contact-brand) 14%, transparent);
+    transform: translateY(-2px);
+  }
+
+  .contact-direct-link:hover .contact-direct-arrow {
+    transform: translate(2px, -2px);
+  }
+}
+
+.contact-direct-link:focus-visible {
+  border-color: color-mix(in srgb, var(--contact-brand) 72%, transparent);
+  background-color: color-mix(
+    in srgb,
+    color-mix(in srgb, var(--contact-brand) 9%, var(--color-surface)) 52%,
+    transparent
+  );
+  color: var(--contact-brand);
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--contact-brand) 32%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--color-text-primary) 9%, transparent),
+    0 0.75rem 1.75rem color-mix(in srgb, var(--contact-brand) 14%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-field,
+  .contact-direct-link,
+  .contact-direct-arrow,
+  .contact-label-part {
+    transition: none;
+  }
+}
+
+.work-with-me-heading-base {
+  background: linear-gradient(180deg,
+      var(--color-text-primary) 0%,
+      var(--color-text-primary) 58%,
+      color-mix(in srgb,
+        var(--color-text-primary) 68%,
+        var(--color-text-secondary)) 100%);
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0.06em 0.12em color-mix(in srgb, var(--color-text-primary) 14%, transparent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.work-with-me-heading-accent {
+  color: var(--color-accent-500);
+  text-shadow:
+    0 0 0.08em color-mix(in srgb, var(--color-accent-500) 42%, transparent),
+    0 0 0.28em color-mix(in srgb, var(--color-accent-500) 30%, transparent);
+  -webkit-text-fill-color: currentColor;
+}
+
+.dark .work-with-me-heading-accent {
+  text-shadow:
+    0 0 0.08em color-mix(in srgb, var(--color-accent-500) 55%, transparent),
+    0 0 0.32em color-mix(in srgb, var(--color-accent-500) 42%, transparent);
+}
+
+.work-with-me-heading::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: none;
+  color: color-mix(in srgb,
+      color-mix(in srgb, var(--color-text-primary) 73%, var(--color-accent-500)) 11%,
+      transparent);
+  content: attr(data-heading);
+  filter: blur(12px);
+  opacity: 0.8;
+  transform: translateY(0.08em);
+  -webkit-text-fill-color: currentColor;
+}
+
+@media (min-width: 640px) {
+  .work-with-me-heading::after {
+    filter: blur(16px);
   }
 }
