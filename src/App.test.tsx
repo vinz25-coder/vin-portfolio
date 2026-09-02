@@ -777,8 +777,6 @@ describe("App", () => {
     ).toBeTruthy();
   });
 
-<<<<<<< Updated upstream
-=======
   it("renders the standalone Contact page with a working project form", async () => {
     window.history.replaceState({}, "", "/contact");
     const fetchMock = vi
@@ -947,7 +945,6 @@ describe("App", () => {
     );
   });
 
->>>>>>> Stashed changes
   it("keeps About active while Work With Me is the current subsection", () => {
     const intersections = mockIntersectionObservers();
     const { container } = renderApp();

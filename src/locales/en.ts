@@ -146,8 +146,6 @@ export const en = {
     getInTouch: "Get in touch",
     emailDirectly: "Email directly",
   },
-<<<<<<< Updated upstream
-=======
   contact: {
     eyebrow: "Contact",
     heading: {
@@ -194,5 +192,4 @@ export const en = {
   footer: {
     location: "NORTH SUMATRA, INDONESIA",
   },
->>>>>>> Stashed changes
 } satisfies HeroCopy;

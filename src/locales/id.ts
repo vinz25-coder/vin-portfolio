@@ -149,8 +149,6 @@ export const id = {
     getInTouch: "Hubungi saya",
     emailDirectly: "Email langsung",
   },
-<<<<<<< Updated upstream
-=======
   contact: {
     eyebrow: "Kontak",
     heading: {
@@ -196,5 +194,4 @@ export const id = {
   footer: {
     location: "SUMATERA UTARA, INDONESIA",
   },
->>>>>>> Stashed changes
 } satisfies HeroCopy;

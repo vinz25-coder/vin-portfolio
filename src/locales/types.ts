@@ -113,8 +113,6 @@ export interface HeroCopy {
     getInTouch: string;
     emailDirectly: string;
   };
-<<<<<<< Updated upstream
-=======
   contact: {
     eyebrow: string;
     heading: {
@@ -156,5 +154,4 @@ export interface HeroCopy {
   footer: {
     location: string;
   };
->>>>>>> Stashed changes
 }
