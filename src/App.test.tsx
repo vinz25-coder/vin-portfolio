@@ -939,7 +939,22 @@ describe("App", () => {
     expect(window.location.hash).toBe("#about");
     expect(scrollIntoView).toHaveBeenCalledTimes(1);
     expect(scrollIntoView).toHaveBeenCalledWith({ block: "start" });
+    expect(scrollIntoView.mock.contexts[0]).toBe(
+      document.querySelector("#about [data-section-start]"),
+    );
   });
+
+  it.each(["about", "skills", "experience"])(
+    "places the %s content start at the navigation target",
+    (sectionId) => {
+      const { container } = renderApp();
+      const section = container.querySelector(`#${sectionId}`);
+
+      expect(section?.querySelector(":scope > [data-section-start]")).toBe(
+        section?.firstElementChild,
+      );
+    },
+  );
 
   it("navigates from the Contact hamburger to the selected Home section", async () => {
     window.history.replaceState({}, "", "/contact");
@@ -989,6 +1004,45 @@ describe("App", () => {
     expect(screen.getByTestId("footer-copyright")).toHaveTextContent(
       "© 2026 Evindo A. All rights reserved.",
     );
+  });
+
+  it("keeps footer particles interactive for touch pointers", () => {
+    mockMediaPreferences({ desktopViewport: false, pointerFine: false });
+    const context = {} as CanvasRenderingContext2D;
+    vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue(context);
+    const addEventListener = vi.spyOn(
+      HTMLCanvasElement.prototype,
+      "addEventListener",
+    );
+
+    class MockResizeObserver {
+      disconnect() {}
+      observe() {}
+      unobserve() {}
+    }
+
+    vi.stubGlobal("ResizeObserver", MockResizeObserver);
+    const { container } = renderApp();
+
+    expect(container.querySelector(".particle-text")).toBeInTheDocument();
+    expect(addEventListener).toHaveBeenCalledWith(
+      "pointerdown",
+      expect.any(Function),
+    );
+    expect(addEventListener).toHaveBeenCalledWith(
+      "pointermove",
+      expect.any(Function),
+    );
+    expect(addEventListener).toHaveBeenCalledWith(
+      "pointerup",
+      expect.any(Function),
+    );
+    expect(addEventListener).toHaveBeenCalledWith(
+      "pointercancel",
+      expect.any(Function),
+    );
+
+    addEventListener.mockRestore();
   });
 
   it("keeps About active while Work With Me is the current subsection", () => {

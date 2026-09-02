@@ -189,21 +189,19 @@ body {
     color 300ms ease;
 }
 
-#home,
-#about,
-#skills,
-#experience,
-#work-with-me {
-  scroll-margin-top: 7rem;
+[data-section-start] {
+  scroll-margin-top: 6.5rem;
+}
+
+@media (min-width: 640px) {
+  [data-section-start] {
+    scroll-margin-top: 5rem;
+  }
 }
 
 @media (min-width: 1024px) {
-  #home,
-  #about,
-  #skills,
-  #experience,
-  #work-with-me {
-    scroll-margin-top: 8.5rem;
+  [data-section-start] {
+    scroll-margin-top: 8.25rem;
   }
 }
 

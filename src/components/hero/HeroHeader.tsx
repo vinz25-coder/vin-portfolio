@@ -14,6 +14,7 @@ import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import { useTheme } from "../../hooks/useTheme";
 import { socialLinks } from "../../data/social-links";
 import { mobileViewportQuery } from "../../lib/media-queries";
+import { scrollToSection } from "../../lib/scroll-to-section";
 import { OPEN_MOBILE_GUESTBOOK_EVENT } from "../global/FloatingChatWidget";
 import { BrandXIcon } from "../global/BrandXIcon";
 import {
@@ -96,7 +97,7 @@ export function HeroHeader({ isScrolled, page = "home" }: HeroHeaderProps) {
 
     event.preventDefault();
     void navigate(`/#${section}`);
-    document.getElementById(section)?.scrollIntoView({ block: "start" });
+    scrollToSection(section);
   };
 
   useEffect(() => {

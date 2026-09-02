@@ -17,7 +17,7 @@ export function Experience() {
       aria-labelledby="experience-heading"
       className="relative isolate bg-transparent px-5 py-20 text-text-primary sm:px-12 sm:py-24 lg:px-[11.75vw] lg:py-28"
     >
-      <div className="mx-auto max-w-[104rem]">
+      <div data-section-start className="mx-auto max-w-[104rem]">
         <h2
           id="experience-heading"
           data-testid="experience-section-label"

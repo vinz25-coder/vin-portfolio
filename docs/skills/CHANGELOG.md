@@ -1,5 +1,9 @@
 # Changelog Skills
 
+## 2026-09-02 - Mobile Item Spacing
+
+- Merapatkan jarak vertikal antar-teknologi dalam setiap grup pada mobile portrait tanpa mengubah ritme item mulai breakpoint tablet.
+
 ## 2026-08-31 - AI Tools
 
 - Menambahkan kategori dan filter `AI Tools` setelah `Tools & Workflow` dengan ChatGPT, Codex, Claude, OpenCode, Hermes, dan 9Router.

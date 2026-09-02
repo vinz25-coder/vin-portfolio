@@ -77,7 +77,7 @@ export default function ParticleText({
       "(prefers-reduced-motion: reduce)",
     ).matches;
     const finePointer = window.matchMedia("(pointer: fine)").matches;
-    const pointer = { active: false, x: 0, y: 0 };
+    const pointer = { active: false, x: 0, y: 0, releasedAt: 0 };
 
     const render = (now: number) => {
       if (!isVisible) {
@@ -106,12 +106,19 @@ export default function ParticleText({
           targetY += Math.cos(now * 0.0007 + particle.seed * 10) * drift;
         }
 
-        if (finePointer && pointer.active && !reducedMotion) {
+        const releaseProgress = clamp((now - pointer.releasedAt) / 450, 0, 1);
+        const interactionStrength = pointer.active
+          ? 1
+          : pointer.releasedAt > 0
+            ? 1 - releaseProgress
+            : 0;
+        if (interactionStrength > 0 && !reducedMotion) {
           const dx = targetX - pointer.x;
           const dy = targetY - pointer.y;
           const distance = Math.hypot(dx, dy);
           if (distance > 0 && distance < 130) {
-            const force = Math.pow(1 - distance / 130, 2) * 48;
+            const force =
+              Math.pow(1 - distance / 130, 2) * 48 * interactionStrength;
             targetX += (dx / distance) * force;
             targetY += (dy / distance) * force;
           }
@@ -236,14 +243,22 @@ export default function ParticleText({
       if (resizeFrame !== null) window.cancelAnimationFrame(resizeFrame);
       resizeFrame = window.requestAnimationFrame(build);
     };
-    const handlePointerMove = (event: PointerEvent) => {
+    const updatePointerPosition = (event: PointerEvent) => {
       const bounds = canvas.getBoundingClientRect();
       pointer.x = event.clientX - bounds.left;
       pointer.y = event.clientY - bounds.top;
+    };
+    const handlePointerDown = (event: PointerEvent) => {
+      updatePointerPosition(event);
+      pointer.active = true;
+    };
+    const handlePointerMove = (event: PointerEvent) => {
+      updatePointerPosition(event);
       pointer.active = true;
     };
     const handlePointerLeave = () => {
       pointer.active = false;
+      pointer.releasedAt = performance.now();
     };
 
     const resizeObserver = new ResizeObserver(queueBuild);
@@ -260,14 +275,20 @@ export default function ParticleText({
             { rootMargin: "160px" },
           );
     intersectionObserver?.observe(container);
+    canvas.addEventListener("pointerdown", handlePointerDown);
     canvas.addEventListener("pointermove", handlePointerMove);
+    canvas.addEventListener("pointerup", handlePointerLeave);
+    canvas.addEventListener("pointercancel", handlePointerLeave);
     canvas.addEventListener("pointerleave", handlePointerLeave);
     build();
 
     return () => {
       resizeObserver.disconnect();
       intersectionObserver?.disconnect();
+      canvas.removeEventListener("pointerdown", handlePointerDown);
       canvas.removeEventListener("pointermove", handlePointerMove);
+      canvas.removeEventListener("pointerup", handlePointerLeave);
+      canvas.removeEventListener("pointercancel", handlePointerLeave);
       canvas.removeEventListener("pointerleave", handlePointerLeave);
       if (frame !== null) window.cancelAnimationFrame(frame);
       if (resizeFrame !== null) window.cancelAnimationFrame(resizeFrame);

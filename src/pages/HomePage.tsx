@@ -9,6 +9,7 @@ import { HeroSidebar } from "../components/hero/HeroSidebar";
 import { Skills } from "../components/skills/Skills";
 import { WorkWithMe } from "../components/work-with-me/WorkWithMe";
 import { socialLinks } from "../data/social-links";
+import { scrollToSection } from "../lib/scroll-to-section";
 
 export function HomePage() {
   const { hash } = useLocation();
@@ -23,7 +24,7 @@ export function HomePage() {
       return;
     }
 
-    document.getElementById(hash.slice(1))?.scrollIntoView({ block: "start" });
+    scrollToSection(hash.slice(1));
   }, [hash]);
 
   return (
