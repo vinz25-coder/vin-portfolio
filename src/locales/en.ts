@@ -154,7 +154,7 @@ export const en = {
     },
     introduction:
       "Have a web product, dashboard, or frontend implementation in mind? Share the context and I'll get back to you directly.",
-    formHeading: "Start a conversation",
+    formHeading: "Project Inquiry",
     fields: {
       name: "Name",
       namePlaceholder: "Your name",
@@ -177,6 +177,8 @@ export const en = {
     success: "Message sent. Thank you for reaching out.",
     error:
       "Your message could not be sent. Please try again or email me directly.",
+    deliveryUnavailable:
+      "Email delivery is not configured yet. Please use one of the direct channels.",
     validation: {
       name: "Enter your name.",
       email: "Enter a valid email address.",

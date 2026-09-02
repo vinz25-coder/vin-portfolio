@@ -1456,16 +1456,12 @@ body {
 }
 
 .contact-direct-link {
-  border-color: color-mix(in srgb, var(--contact-brand) 42%, transparent);
-  background-color: color-mix(
-    in srgb,
-    color-mix(in srgb, var(--contact-brand) 5%, var(--color-surface)) 38%,
-    transparent
-  );
-  color: var(--contact-brand);
+  border-color: color-mix(in srgb, var(--color-text-primary) 12%, transparent);
+  background-color: color-mix(in srgb, var(--color-surface) 38%, transparent);
+  color: var(--color-text-secondary);
   box-shadow:
     inset 0 1px 0 color-mix(in srgb, var(--color-text-primary) 7%, transparent),
-    0 0.5rem 1.25rem color-mix(in srgb, var(--contact-brand) 8%, transparent);
+    0 0.5rem 1.25rem color-mix(in srgb, var(--color-text-primary) 5%, transparent);
   backdrop-filter: blur(0.875rem);
   -webkit-backdrop-filter: blur(0.875rem);
 }
@@ -1511,6 +1507,7 @@ body {
       color-mix(in srgb, var(--contact-brand) 9%, var(--color-surface)) 52%,
       transparent
     );
+    color: var(--contact-brand);
     box-shadow:
       inset 0 1px 0 color-mix(in srgb, var(--color-text-primary) 9%, transparent),
       0 0.75rem 1.75rem color-mix(in srgb, var(--contact-brand) 14%, transparent);
@@ -1520,6 +1517,20 @@ body {
   .contact-direct-link:hover .contact-direct-arrow {
     transform: translate(2px, -2px);
   }
+}
+
+.contact-direct-link:focus-visible {
+  border-color: color-mix(in srgb, var(--contact-brand) 72%, transparent);
+  background-color: color-mix(
+    in srgb,
+    color-mix(in srgb, var(--contact-brand) 9%, var(--color-surface)) 52%,
+    transparent
+  );
+  color: var(--contact-brand);
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--contact-brand) 32%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--color-text-primary) 9%, transparent),
+    0 0.75rem 1.75rem color-mix(in srgb, var(--contact-brand) 14%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {

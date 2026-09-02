@@ -11,6 +11,7 @@ import {
   siGithub,
   siGmail,
   siInstagram,
+  siTelegram,
   siWhatsapp,
   siX,
   type SimpleIcon,
@@ -31,9 +32,15 @@ const projectTypeValues = [
 type ProjectType = (typeof projectTypeValues)[number];
 type FieldName = "name" | "email" | "projectType" | "message";
 type FieldErrors = Partial<Record<FieldName, string>>;
+type SubmissionStatus =
+  | "idle"
+  | "submitting"
+  | "success"
+  | "error"
+  | "unavailable";
 
 interface DirectLink {
-  id: "email" | "whatsapp" | "github" | "x" | "instagram";
+  id: "email" | "whatsapp" | "telegram" | "github" | "x" | "instagram";
   label: string;
   value: string;
   href: string;
@@ -54,7 +61,7 @@ const initialForm = {
 };
 
 const inputClassName =
-  "contact-field mt-2 w-full rounded-xl border border-border bg-[color-mix(in_srgb,var(--color-surface)_34%,transparent)] px-4 py-3.5 text-base text-text-primary outline-none placeholder:text-[color-mix(in_srgb,var(--color-text-secondary)_62%,transparent)] focus:border-accent-500 focus:ring-2 focus:ring-[color-mix(in_srgb,var(--color-accent-500)_18%,transparent)]";
+  "contact-field mt-1.5 w-full rounded-xl border border-border bg-[color-mix(in_srgb,var(--color-surface)_34%,transparent)] px-3.5 py-3 text-sm text-text-primary outline-none placeholder:text-[color-mix(in_srgb,var(--color-text-secondary)_62%,transparent)] focus:border-accent-500 focus:ring-2 focus:ring-[color-mix(in_srgb,var(--color-accent-500)_18%,transparent)]";
 
 export function Contact() {
   const { copy, language } = useLanguage();
@@ -62,9 +69,7 @@ export function Contact() {
   const mainRef = useRef<HTMLElement>(null);
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState<FieldErrors>({});
-  const [status, setStatus] = useState<
-    "idle" | "submitting" | "success" | "error"
-  >("idle");
+  const [status, setStatus] = useState<SubmissionStatus>("idle");
   const contactCopy = copy.contact;
 
   useEffect(() => {
@@ -112,7 +117,15 @@ export function Contact() {
         body: JSON.stringify(form),
       });
 
-      if (!response.ok) throw new Error("Contact request failed");
+      if (!response.ok) {
+        const result = (await response.json().catch(() => null)) as {
+          code?: string;
+        } | null;
+        setStatus(
+          result?.code === "DELIVERY_UNAVAILABLE" ? "unavailable" : "error",
+        );
+        return;
+      }
       setForm(initialForm);
       setErrors({});
       setStatus("success");
@@ -146,6 +159,14 @@ export function Contact() {
       href: whatsappHref,
       icon: siWhatsapp,
       brandColor: "#25D366",
+    },
+    {
+      id: "telegram",
+      label: "Telegram",
+      value: "@yeahvnz",
+      href: "https://t.me/yeahvnz",
+      icon: siTelegram,
+      brandColor: "#26A5E4",
     },
     {
       id: "github",
@@ -184,7 +205,7 @@ export function Contact() {
         aria-labelledby="contact-heading"
         className="min-h-svh bg-transparent px-5 pt-28 pb-16 sm:px-12 sm:pt-32 sm:pb-20 lg:px-[10vw] lg:pt-36 lg:pb-24"
       >
-        <div className="mx-auto grid w-full max-w-[86rem] gap-12 xl:grid-cols-[minmax(0,0.92fr)_minmax(30rem,1.08fr)] xl:gap-[clamp(3rem,5vw,5rem)]">
+        <div className="mx-auto grid w-full max-w-[82rem] gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(26rem,0.82fr)] lg:items-start lg:gap-[clamp(2.5rem,4vw,4rem)]">
           <motion.div
             className="min-w-0"
             initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 16 }}
@@ -229,7 +250,7 @@ export function Contact() {
                     style={
                       { "--contact-brand": link.brandColor } as DirectLinkStyle
                     }
-                    className="contact-direct-link group grid min-h-[4.5rem] grid-cols-[2.5rem_minmax(0,1fr)_auto] items-center gap-3 rounded-2xl border px-3.5 py-3 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500"
+                    className="contact-direct-link group grid min-h-[4.5rem] grid-cols-[2.5rem_minmax(0,1fr)_auto] items-center gap-3 rounded-2xl border px-3.5 py-3 text-sm outline-none"
                   >
                     <span
                       aria-hidden="true"
@@ -267,22 +288,16 @@ export function Contact() {
               delay: prefersReducedMotion ? 0 : 0.08,
               ease: EASE_OUT_EXPO,
             }}
-            className="contact-form-panel self-start rounded-[1.375rem] border border-border p-5 sm:p-7 lg:p-8"
+            className="contact-form-panel w-full self-start rounded-[1.25rem] border border-border p-4 min-[360px]:p-5 sm:p-6 lg:max-w-[35rem] lg:justify-self-end lg:p-6"
           >
-            <div className="flex items-end justify-between gap-4 border-b border-border pb-5">
-              <h2 className="font-display text-[1.375rem] font-semibold tracking-[-0.03em] sm:text-[1.75rem]">
+            <div className="border-b border-border pb-4">
+              <h2 className="font-display text-xl font-semibold tracking-[-0.03em] sm:text-2xl">
                 {contactCopy.formHeading}
               </h2>
-              <span
-                aria-hidden="true"
-                className="font-display text-sm text-accent-500"
-              >
-                ↗
-              </span>
             </div>
 
             <form
-              className="mt-6 grid gap-5"
+              className="mt-5 grid gap-4"
               noValidate
               onSubmit={(event) => void handleSubmit(event)}
             >
@@ -404,14 +419,14 @@ export function Contact() {
                 <textarea
                   id="contact-message"
                   name="message"
-                  rows={6}
+                  rows={4}
                   maxLength={2000}
                   value={form.message}
                   aria-invalid={Boolean(errors.message)}
                   aria-describedby={
                     errors.message ? "contact-message-error" : undefined
                   }
-                  className={`${inputClassName} min-h-36 resize-y`}
+                  className={`${inputClassName} min-h-28 resize-y`}
                   placeholder={contactCopy.fields.messagePlaceholder}
                   onChange={(event) => setField("message", event.target.value)}
                 />
@@ -441,7 +456,7 @@ export function Contact() {
               <button
                 type="submit"
                 disabled={status === "submitting"}
-                className="hero-cta hero-cta-primary mt-1 inline-flex min-h-14 w-full items-center justify-center gap-3 border border-accent-500 px-6 text-xs font-bold tracking-[0.14em] text-accent-ink uppercase disabled:cursor-wait disabled:opacity-70"
+                className="hero-cta hero-cta-primary inline-flex min-h-12 w-full items-center justify-center gap-2.5 border border-accent-500 px-5 text-xs font-bold tracking-[0.14em] text-accent-ink uppercase disabled:cursor-wait disabled:opacity-70"
               >
                 {status === "submitting"
                   ? contactCopy.submitting
@@ -463,6 +478,14 @@ export function Contact() {
                   className="text-sm leading-relaxed text-accent-600"
                 >
                   {contactCopy.error}
+                </p>
+              ) : null}
+              {status === "unavailable" ? (
+                <p
+                  role="alert"
+                  className="text-sm leading-relaxed text-accent-600"
+                >
+                  {contactCopy.deliveryUnavailable}
                 </p>
               ) : null}
               <p className="text-xs leading-relaxed text-text-secondary">

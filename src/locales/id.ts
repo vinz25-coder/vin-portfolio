@@ -157,7 +157,7 @@ export const id = {
     },
     introduction:
       "Punya ide produk web, dashboard, atau implementasi frontend? Ceritakan konteksnya dan saya akan menghubungi Anda secara langsung.",
-    formHeading: "Mulai percakapan",
+    formHeading: "Konsultasi Proyek",
     fields: {
       name: "Nama",
       namePlaceholder: "Nama Anda",
@@ -179,6 +179,8 @@ export const id = {
     success: "Pesan berhasil dikirim. Terima kasih telah menghubungi saya.",
     error:
       "Pesan belum berhasil dikirim. Coba kembali atau kirim melalui email langsung.",
+    deliveryUnavailable:
+      "Layanan pengiriman email belum dikonfigurasi. Silakan gunakan salah satu kanal langsung.",
     validation: {
       name: "Masukkan nama Anda.",
       email: "Masukkan alamat email yang valid.",

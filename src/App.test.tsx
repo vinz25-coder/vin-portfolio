@@ -791,6 +791,9 @@ describe("App", () => {
     expect(
       screen.getByRole("heading", { name: "Let's build something useful." }),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Project Inquiry" }),
+    ).toBeInTheDocument();
     expect(screen.getByText("Contact", { selector: ".contact-label-part" })).toBeInTheDocument();
     expect(screen.queryByText("05 / Contact")).not.toBeInTheDocument();
     expect(
@@ -814,7 +817,7 @@ describe("App", () => {
       "href",
       expect.stringContaining("wa.me/628999925053"),
     );
-    expect(container.querySelectorAll(".contact-direct-link")).toHaveLength(5);
+    expect(container.querySelectorAll(".contact-direct-link")).toHaveLength(6);
     expect(container.querySelector(".contact-direct-link")).not.toHaveClass(
       "border-b",
     );
@@ -824,8 +827,16 @@ describe("App", () => {
     expect(
       container.querySelector('.contact-direct-link[data-brand="instagram"]'),
     ).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Telegram/i })).toHaveAttribute(
+      "href",
+      "https://t.me/yeahvnz",
+    );
+    expect(screen.getByRole("link", { name: /Telegram/i })).toHaveTextContent(
+      "@yeahvnz",
+    );
     expect(screen.getByTestId("contact-icon-email").querySelector("path")).toHaveAttribute("d");
     expect(screen.getByTestId("contact-icon-whatsapp")).toBeInTheDocument();
+    expect(screen.getByTestId("contact-icon-telegram")).toBeInTheDocument();
     expect(screen.getByTestId("contact-icon-github")).toBeInTheDocument();
     expect(screen.getByTestId("contact-icon-x")).toBeInTheDocument();
     expect(screen.getByTestId("contact-icon-instagram")).toBeInTheDocument();
@@ -851,6 +862,41 @@ describe("App", () => {
     await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
     expect(await screen.findByRole("status")).toHaveTextContent(
       "Message sent. Thank you for reaching out.",
+    );
+  });
+
+  it("explains when contact email delivery is not configured", async () => {
+    window.history.replaceState({}, "", "/contact");
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(
+        new Response(
+          JSON.stringify({
+            success: false,
+            code: "DELIVERY_UNAVAILABLE",
+          }),
+          { status: 503 },
+        ),
+      ),
+    );
+    renderApp();
+
+    fireEvent.change(screen.getByLabelText("Name"), {
+      target: { value: "Ada Lovelace" },
+    });
+    fireEvent.change(screen.getByLabelText("Email"), {
+      target: { value: "ada@example.com" },
+    });
+    fireEvent.change(screen.getByLabelText("Project type"), {
+      target: { value: "web-product" },
+    });
+    fireEvent.change(screen.getByLabelText("Message"), {
+      target: { value: "I would like to discuss a focused web product." },
+    });
+    fireEvent.click(screen.getByRole("button", { name: /Send inquiry/i }));
+
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      "Email delivery is not configured yet.",
     );
   });
 

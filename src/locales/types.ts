@@ -141,6 +141,7 @@ export interface HeroCopy {
     submitting: string;
     success: string;
     error: string;
+    deliveryUnavailable: string;
     validation: {
       name: string;
       email: string;
