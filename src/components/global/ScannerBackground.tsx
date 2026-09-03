@@ -50,7 +50,7 @@ export function ScannerBackground() {
           softness={1.4}
           vignette={0.45}
           scanline
-          grain
+          grain={false}
           grainIntensity={0.05}
           opacity={1.0}
           mouseInteraction

@@ -182,7 +182,8 @@ const Scanner = ({
       alpha: true,
       premultipliedAlpha: true,
       antialias: false,
-      dpr: Math.min(window.devicePixelRatio || 1, 2),
+      // CSS-pixel resolution keeps the fullscreen shader light on HiDPI screens.
+      dpr: 1,
     });
 
     const gl = renderer.gl;

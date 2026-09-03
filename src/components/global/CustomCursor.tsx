@@ -68,39 +68,38 @@ export function CustomCursor() {
 
     document.documentElement.classList.add("custom-cursor-active");
 
-    let animationFrameId = 0;
+    let animationFrameId: number | null = null;
     let targetX = 0;
     let targetY = 0;
-    let currentX = 0;
-    let currentY = 0;
     let targetScale = 1;
-    let currentScale = 1;
     let hasPointerPosition = false;
+    let lastPointerTarget: EventTarget | null = null;
+    let isInteractive = false;
 
     const renderCursor = () => {
-      currentX += (targetX - currentX) * customCursorMotion.lerpFactor;
-      currentY += (targetY - currentY) * customCursorMotion.lerpFactor;
-      currentScale +=
-        (targetScale - currentScale) * customCursorMotion.lerpFactor;
-
-      cursor.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) scale(${currentScale})`;
-      animationFrameId = window.requestAnimationFrame(renderCursor);
+      cursor.style.transform = `translate3d(${targetX}px, ${targetY}px, 0) scale(${targetScale})`;
+      animationFrameId = null;
     };
 
     const updatePointer = (event: PointerEvent) => {
       targetX = event.clientX - customCursorMotion.hotspotOffset;
       targetY = event.clientY - customCursorMotion.hotspotOffset;
+      hasPointerPosition = true;
 
-      if (!hasPointerPosition) {
-        currentX = targetX;
-        currentY = targetY;
-        hasPointerPosition = true;
+      if (event.target !== lastPointerTarget) {
+        lastPointerTarget = event.target;
+        const nextInteractive = isInteractiveTarget(event.target);
+        if (nextInteractive !== isInteractive) {
+          isInteractive = nextInteractive;
+          targetScale = isInteractive ? customCursorMotion.hoverScale : 1;
+          cursor.dataset.interactive = String(isInteractive);
+        }
       }
 
-      const isInteractive = isInteractiveTarget(event.target);
-      targetScale = isInteractive ? customCursorMotion.hoverScale : 1;
-      cursor.dataset.interactive = String(isInteractive);
       cursor.dataset.visible = "true";
+      if (animationFrameId === null) {
+        animationFrameId = window.requestAnimationFrame(renderCursor);
+      }
     };
 
     const hideCursor = () => {
@@ -116,10 +115,11 @@ export function CustomCursor() {
     window.addEventListener("pointermove", updatePointer, { passive: true });
     document.documentElement.addEventListener("pointerleave", hideCursor);
     document.documentElement.addEventListener("pointerenter", showCursor);
-    animationFrameId = window.requestAnimationFrame(renderCursor);
 
     return () => {
-      window.cancelAnimationFrame(animationFrameId);
+      if (animationFrameId !== null) {
+        window.cancelAnimationFrame(animationFrameId);
+      }
       window.removeEventListener("pointermove", updatePointer);
       document.documentElement.removeEventListener("pointerleave", hideCursor);
       document.documentElement.removeEventListener("pointerenter", showCursor);

@@ -1,5 +1,10 @@
 # Changelog Hero
 
+## 2026-09-03 - Optimasi Respons Pointer
+
+- Menghapus trailing lerp dan backdrop filter dari custom cursor agar posisi mengikuti frame pointer terbaru tanpa repaint blur pada layer bergerak.
+- Membatasi render internal scanner ke resolusi CSS pixel dan menonaktifkan grain shader untuk mengurangi beban GPU tanpa mengubah komposisi background.
+
 ## 2026-09-01 - Pembesaran Portrait Desktop
 
 - Memperbesar portrait Hero mulai breakpoint 1024px menjadi hingga 54vw dengan batas 58rem.
