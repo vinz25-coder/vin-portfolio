@@ -76,3 +76,4 @@ Penempatan portrait desktop/laptop memiliki toleransi mulai `960px` pada viewpor
 - Pertahankan Hero sebagai baseline final.
 - Perubahan harus mengikuti dokumen global dan scope yang disetujui.
 - Catat revisi final di `CHANGELOG.md` dan jalankan verifikasi standar.
+- Custom cursor memakai trailing eksponensial berbasis waktu yang cepat dan berhenti menjadwalkan RAF setelah posisi stabil. Glass dipertahankan tanpa backdrop filter pada layer bergerak; scanner fullscreen dibatasi ke DPR 1,25 untuk menyeimbangkan ketajaman dan headroom frame pada layar HiDPI/high-refresh.

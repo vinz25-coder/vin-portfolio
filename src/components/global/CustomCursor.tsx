@@ -106,7 +106,6 @@ export function CustomCursor() {
     const updatePointer = (event: PointerEvent) => {
       targetX = event.clientX - customCursorMotion.hotspotOffset;
       targetY = event.clientY - customCursorMotion.hotspotOffset;
-
       if (!hasPointerPosition) {
         currentX = targetX;
         currentY = targetY;

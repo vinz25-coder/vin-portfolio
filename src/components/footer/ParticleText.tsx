@@ -69,6 +69,7 @@ export default function ParticleText({
     let frame: number | null = null;
     let resizeFrame: number | null = null;
     let gatherStart = performance.now();
+    let previousFrameTime = gatherStart;
     let width = 0;
     let height = 0;
     let compactRendering = false;
@@ -86,10 +87,21 @@ export default function ParticleText({
       }
 
       context.clearRect(0, 0, width, height);
-      context.shadowBlur = reducedMotion ? 0 : compactRendering ? 3 : 8;
-      context.shadowColor = highlightColor;
+      context.shadowBlur = 0;
 
       const elapsed = now - gatherStart;
+      const frameDuration = Math.min(now - previousFrameTime, 50);
+      const followStrength = reducedMotion
+        ? 1
+        : 1 - Math.pow(0.8, frameDuration / (1000 / 60));
+      const releaseProgress = clamp((now - pointer.releasedAt) / 450, 0, 1);
+      const interactionStrength = pointer.active
+        ? 1
+        : pointer.releasedAt > 0
+          ? 1 - releaseProgress
+          : 0;
+      const interactionRadius = 130;
+      const interactionRadiusSquared = interactionRadius * interactionRadius;
       for (const particle of particles) {
         const progress = reducedMotion
           ? 1
@@ -106,26 +118,26 @@ export default function ParticleText({
           targetY += Math.cos(now * 0.0007 + particle.seed * 10) * drift;
         }
 
-        const releaseProgress = clamp((now - pointer.releasedAt) / 450, 0, 1);
-        const interactionStrength = pointer.active
-          ? 1
-          : pointer.releasedAt > 0
-            ? 1 - releaseProgress
-            : 0;
         if (interactionStrength > 0 && !reducedMotion) {
           const dx = targetX - pointer.x;
           const dy = targetY - pointer.y;
-          const distance = Math.hypot(dx, dy);
-          if (distance > 0 && distance < 130) {
+          const distanceSquared = dx * dx + dy * dy;
+          if (
+            distanceSquared > 0 &&
+            distanceSquared < interactionRadiusSquared
+          ) {
+            const distance = Math.sqrt(distanceSquared);
             const force =
-              Math.pow(1 - distance / 130, 2) * 48 * interactionStrength;
+              Math.pow(1 - distance / interactionRadius, 2) *
+              48 *
+              interactionStrength;
             targetX += (dx / distance) * force;
             targetY += (dy / distance) * force;
           }
         }
 
-        particle.x += (targetX - particle.x) * (reducedMotion ? 1 : 0.2);
-        particle.y += (targetY - particle.y) * (reducedMotion ? 1 : 0.2);
+        particle.x += (targetX - particle.x) * followStrength;
+        particle.y += (targetY - particle.y) * followStrength;
         context.globalAlpha = 0.45 + progress * 0.55;
         context.fillStyle = particle.color;
         context.fillRect(
@@ -138,6 +150,7 @@ export default function ParticleText({
 
       context.globalAlpha = 1;
       context.shadowBlur = 0;
+      previousFrameTime = now;
       frame = window.requestAnimationFrame(render);
     };
 
@@ -204,7 +217,7 @@ export default function ParticleText({
         }
       }
 
-      const limit = finePointer ? 2600 : 1500;
+      const limit = finePointer ? 2000 : 1200;
       const stride = Math.max(1, Math.ceil(targets.length / limit));
       const base = hexToRgb(color);
       const accent = hexToRgb(highlightColor);
@@ -234,6 +247,7 @@ export default function ParticleText({
           };
         });
       gatherStart = performance.now();
+      previousFrameTime = gatherStart;
 
       if (frame === null && isVisible)
         frame = window.requestAnimationFrame(render);
@@ -244,15 +258,15 @@ export default function ParticleText({
       resizeFrame = window.requestAnimationFrame(build);
     };
     const updatePointerPosition = (event: PointerEvent) => {
-      const bounds = canvas.getBoundingClientRect();
-      pointer.x = event.clientX - bounds.left;
-      pointer.y = event.clientY - bounds.top;
+      pointer.x = event.offsetX;
+      pointer.y = event.offsetY;
     };
     const handlePointerDown = (event: PointerEvent) => {
       updatePointerPosition(event);
       pointer.active = true;
     };
     const handlePointerMove = (event: PointerEvent) => {
+      if (!finePointer && !pointer.active) return;
       updatePointerPosition(event);
       pointer.active = true;
     };
@@ -299,7 +313,10 @@ export default function ParticleText({
     <div
       ref={containerRef}
       className={`particle-text ${className}`}
-      style={style}
+      style={{
+        ...style,
+        "--particle-text-glow": highlightColor,
+      } as CSSProperties}
     >
       <canvas
         ref={canvasRef}

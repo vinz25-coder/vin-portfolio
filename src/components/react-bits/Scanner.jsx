@@ -182,7 +182,8 @@ const Scanner = ({
       alpha: true,
       premultipliedAlpha: true,
       antialias: false,
-      dpr: Math.min(window.devicePixelRatio || 1, 2),
+      // A modest supersample restores edge fidelity without the 4x pixel cost of DPR 2.
+      dpr: Math.min(window.devicePixelRatio || 1, 1.25),
     });
 
     const gl = renderer.gl;
