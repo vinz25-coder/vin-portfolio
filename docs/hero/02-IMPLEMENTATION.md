@@ -69,7 +69,7 @@ Penempatan portrait desktop/laptop memiliki toleransi mulai `960px` pada viewpor
 ## Chat Global
 
 - Trigger mengambang berada di pojok kanan bawah pada tablet dan desktop; tablet memakai target 64px, desktop 56px.
-- Mobile ringkas membuka chat melalui Guestbook pada menu navigasi.
+- Mobile ringkas memakai link Guestbook langsung pada hamburger menu; preview tetap tersedia melalui trigger mengambang pada tablet dan desktop.
 
 ## Pemeliharaan
 

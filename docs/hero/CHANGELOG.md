@@ -57,6 +57,12 @@
 - Menambahkan tooltip dan feedback pada sidebar sosial.
 - Menambahkan shell chat "Segera Hadir" dengan dialog responsif dan overflow internal.
 - Menambahkan custom cursor glass untuk fine pointer, nonaktif pada touch/reduced motion.
+
+## 2026-09-03 - Navigasi Guestbook
+
+- Menyederhanakan hamburger menu menjadi daftar navigasi tanpa social links.
+- Mengaktifkan link Guestbook langsung dengan penanda current route yang aksesibel.
+- Mempertahankan preview Guestbook pada floating trigger tablet dan desktop.
 - Menyelesaikan label ARIA, focus state, keyboard menu, dan state nonaktif yang eksplisit.
 
 ### Validasi
