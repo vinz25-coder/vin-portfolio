@@ -17,3 +17,6 @@ coverage
 !.vscode/extensions.json
 
 .vercel
+
+# Supabase CLI local state
+supabase/.temp/

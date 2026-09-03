@@ -257,7 +257,7 @@ export function trackGuestbookVisit() {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ browserId }),
-  });
+  }).catch(() => undefined);
 }
 
 export async function getGuestbookOwnerStatus(session: Session | null) {

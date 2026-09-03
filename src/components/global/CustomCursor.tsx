@@ -68,7 +68,7 @@ export function CustomCursor() {
 
     document.documentElement.classList.add("custom-cursor-active");
 
-    let animationFrameId = 0;
+    let animationFrameId: number | null = null;
     let targetX = 0;
     let targetY = 0;
     let currentX = 0;
@@ -76,15 +76,31 @@ export function CustomCursor() {
     let targetScale = 1;
     let currentScale = 1;
     let hasPointerPosition = false;
+    let lastPointerTarget: EventTarget | null = null;
+    let isInteractive = false;
+    let previousFrameTime = 0;
 
-    const renderCursor = () => {
-      currentX += (targetX - currentX) * customCursorMotion.lerpFactor;
-      currentY += (targetY - currentY) * customCursorMotion.lerpFactor;
-      currentScale +=
-        (targetScale - currentScale) * customCursorMotion.lerpFactor;
+    const renderCursor = (now: number) => {
+      const frameDuration = previousFrameTime
+        ? Math.min(now - previousFrameTime, 50)
+        : 1000 / 60;
+      const followStrength =
+        1 - Math.exp((-customCursorMotion.followSpeed * frameDuration) / 1000);
 
+      currentX += (targetX - currentX) * followStrength;
+      currentY += (targetY - currentY) * followStrength;
+      currentScale += (targetScale - currentScale) * followStrength;
       cursor.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) scale(${currentScale})`;
-      animationFrameId = window.requestAnimationFrame(renderCursor);
+      previousFrameTime = now;
+      animationFrameId = null;
+
+      if (
+        Math.abs(targetX - currentX) > 0.05 ||
+        Math.abs(targetY - currentY) > 0.05 ||
+        Math.abs(targetScale - currentScale) > 0.001
+      ) {
+        animationFrameId = window.requestAnimationFrame(renderCursor);
+      }
     };
 
     const updatePointer = (event: PointerEvent) => {
@@ -97,10 +113,20 @@ export function CustomCursor() {
         hasPointerPosition = true;
       }
 
-      const isInteractive = isInteractiveTarget(event.target);
-      targetScale = isInteractive ? customCursorMotion.hoverScale : 1;
-      cursor.dataset.interactive = String(isInteractive);
+      if (event.target !== lastPointerTarget) {
+        lastPointerTarget = event.target;
+        const nextInteractive = isInteractiveTarget(event.target);
+        if (nextInteractive !== isInteractive) {
+          isInteractive = nextInteractive;
+          targetScale = isInteractive ? customCursorMotion.hoverScale : 1;
+          cursor.dataset.interactive = String(isInteractive);
+        }
+      }
+
       cursor.dataset.visible = "true";
+      if (animationFrameId === null) {
+        animationFrameId = window.requestAnimationFrame(renderCursor);
+      }
     };
 
     const hideCursor = () => {
@@ -116,10 +142,11 @@ export function CustomCursor() {
     window.addEventListener("pointermove", updatePointer, { passive: true });
     document.documentElement.addEventListener("pointerleave", hideCursor);
     document.documentElement.addEventListener("pointerenter", showCursor);
-    animationFrameId = window.requestAnimationFrame(renderCursor);
 
     return () => {
-      window.cancelAnimationFrame(animationFrameId);
+      if (animationFrameId !== null) {
+        window.cancelAnimationFrame(animationFrameId);
+      }
       window.removeEventListener("pointermove", updatePointer);
       document.documentElement.removeEventListener("pointerleave", hideCursor);
       document.documentElement.removeEventListener("pointerenter", showCursor);

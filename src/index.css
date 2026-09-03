@@ -1048,15 +1048,9 @@ body {
   box-shadow:
     0 0.25rem 0.6rem var(--color-cursor-contrast-shadow),
     0 0 0.75rem var(--color-cursor-glow),
-<<<<<<< Updated upstream
     inset 0 1px 0 color-mix(in srgb, var(--color-particle-core) 28%, transparent);
-  backdrop-filter: blur(0.625rem);
-  -webkit-backdrop-filter: blur(0.625rem);
-=======
-    inset 0 1px 0
-      color-mix(in srgb, var(--color-particle-core) 28%, transparent);
->>>>>>> Stashed changes
   will-change: transform;
+  contain: layout style paint;
   transition:
     opacity 150ms ease-out,
     background-color 150ms ease-out,

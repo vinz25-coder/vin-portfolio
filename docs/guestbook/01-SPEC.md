@@ -1,6 +1,6 @@
 # Spesifikasi Guestbook
 
-**Status:** Disetujui untuk implementasi pada 2026-09-03  
+**Status:** Disetujui untuk implementasi pada 2026-09-03
 **Referensi visual:** Struktur thread mengikuti gambar yang diberikan; visual mengikuti design system portfolio.
 
 ## Tujuan
