@@ -68,6 +68,7 @@ export const chatWidgetMotion = {
 export const customCursorMotion = {
   hoverScale: socialSidebarMotion.hoverScale,
   hotspotOffset: 4,
+  followSpeed: 32,
 } as const;
 
 export const aboutMotion = {

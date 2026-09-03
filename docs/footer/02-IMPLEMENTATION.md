@@ -23,7 +23,7 @@
 - `ResizeObserver` membangun ulang target saat ukuran berubah.
 - `IntersectionObserver` menghentikan RAF ketika footer tidak terlihat.
 - Pointer memakai koordinat lokal event tanpa layout read per gerakan; kalkulasi release dan respons frame-rate-independent dilakukan sekali per frame.
-- Batas partikel desktop/fine pointer adalah 1.400 dan perangkat lain 900 agar interaksi tetap responsif tanpa mengubah bentuk wordmark.
+- Batas partikel desktop/fine pointer adalah 2.000 dan perangkat lain 1.200. Glow diterapkan sekali pada layer canvas, bukan dihitung per partikel, agar kepadatan visual mendekati baseline tanpa mengorbankan respons pointer.
 
 ## Layout
 

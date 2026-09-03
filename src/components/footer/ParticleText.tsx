@@ -87,8 +87,7 @@ export default function ParticleText({
       }
 
       context.clearRect(0, 0, width, height);
-      context.shadowBlur = reducedMotion ? 0 : compactRendering ? 3 : 8;
-      context.shadowColor = highlightColor;
+      context.shadowBlur = 0;
 
       const elapsed = now - gatherStart;
       const frameDuration = Math.min(now - previousFrameTime, 50);
@@ -218,7 +217,7 @@ export default function ParticleText({
         }
       }
 
-      const limit = finePointer ? 1400 : 900;
+      const limit = finePointer ? 2000 : 1200;
       const stride = Math.max(1, Math.ceil(targets.length / limit));
       const base = hexToRgb(color);
       const accent = hexToRgb(highlightColor);
@@ -314,7 +313,10 @@ export default function ParticleText({
     <div
       ref={containerRef}
       className={`particle-text ${className}`}
-      style={style}
+      style={{
+        ...style,
+        "--particle-text-glow": highlightColor,
+      } as CSSProperties}
     >
       <canvas
         ref={canvasRef}

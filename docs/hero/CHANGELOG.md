@@ -1,5 +1,10 @@
 # Changelog Hero
 
+## 2026-09-03 - Pemulihan Karakter Cursor
+
+- Memulihkan trailing cursor dengan interpolasi eksponensial berbasis waktu yang responsif pada 60-144 Hz serta menghentikan RAF ketika posisi sudah stabil.
+- Memulihkan grain scanner dan sedikit ketajaman render dengan batas DPR 1,25 tanpa kembali ke beban DPR 2.
+
 ## 2026-09-03 - Optimasi Respons Pointer
 
 - Menghapus trailing lerp dan backdrop filter dari custom cursor agar posisi mengikuti frame pointer terbaru tanpa repaint blur pada layer bergerak.

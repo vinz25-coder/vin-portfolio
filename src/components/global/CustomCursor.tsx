@@ -71,20 +71,46 @@ export function CustomCursor() {
     let animationFrameId: number | null = null;
     let targetX = 0;
     let targetY = 0;
+    let currentX = 0;
+    let currentY = 0;
     let targetScale = 1;
+    let currentScale = 1;
     let hasPointerPosition = false;
     let lastPointerTarget: EventTarget | null = null;
     let isInteractive = false;
+    let previousFrameTime = 0;
 
-    const renderCursor = () => {
-      cursor.style.transform = `translate3d(${targetX}px, ${targetY}px, 0) scale(${targetScale})`;
+    const renderCursor = (now: number) => {
+      const frameDuration = previousFrameTime
+        ? Math.min(now - previousFrameTime, 50)
+        : 1000 / 60;
+      const followStrength =
+        1 - Math.exp((-customCursorMotion.followSpeed * frameDuration) / 1000);
+
+      currentX += (targetX - currentX) * followStrength;
+      currentY += (targetY - currentY) * followStrength;
+      currentScale += (targetScale - currentScale) * followStrength;
+      cursor.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) scale(${currentScale})`;
+      previousFrameTime = now;
       animationFrameId = null;
+
+      if (
+        Math.abs(targetX - currentX) > 0.05 ||
+        Math.abs(targetY - currentY) > 0.05 ||
+        Math.abs(targetScale - currentScale) > 0.001
+      ) {
+        animationFrameId = window.requestAnimationFrame(renderCursor);
+      }
     };
 
     const updatePointer = (event: PointerEvent) => {
       targetX = event.clientX - customCursorMotion.hotspotOffset;
       targetY = event.clientY - customCursorMotion.hotspotOffset;
-      hasPointerPosition = true;
+      if (!hasPointerPosition) {
+        currentX = targetX;
+        currentY = targetY;
+        hasPointerPosition = true;
+      }
 
       if (event.target !== lastPointerTarget) {
         lastPointerTarget = event.target;
