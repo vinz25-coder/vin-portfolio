@@ -189,7 +189,10 @@ export const id = {
   },
   guestbook: {
     sectionLabel: "Buku Tamu",
-    heading: "Apa Kata Mereka",
+    heading: {
+      before: "Perspektif",
+      accent: "Pengunjung.",
+    },
     description:
       "Kesan, masukan, dan percakapan yang dibagikan oleh pengunjung portfolio ini.",
     rating: {

@@ -54,6 +54,7 @@ export function Guestbook() {
   const { copy } = useLanguage();
   const prefersReducedMotion = usePrefersReducedMotion();
   const guestbook = copy.guestbook;
+  const headingText = `${guestbook.heading.before} ${guestbook.heading.accent}`;
   const [session, setSession] = useState<Session | null>(null);
   const [isOwner, setIsOwner] = useState(false);
   const [data, setData] = useState(initialData);
@@ -241,9 +242,15 @@ export function Guestbook() {
             </p>
             <h1
               id="guestbook-heading"
+              aria-label={headingText}
               className="mt-4 max-w-[12ch] font-display text-[clamp(3.25rem,9vw,7.5rem)] leading-[0.88] font-bold tracking-[-0.06em] text-balance"
             >
-              {guestbook.heading}
+              <span aria-hidden="true">
+                {guestbook.heading.before}{" "}
+                <span className="text-accent-500 italic">
+                  {guestbook.heading.accent}
+                </span>
+              </span>
             </h1>
             <p className="mt-6 max-w-[42rem] text-base leading-7 text-text-secondary sm:text-lg">
               {guestbook.description}

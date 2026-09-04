@@ -1266,8 +1266,11 @@ describe("App", () => {
     expect(openGuestbook).toHaveAttribute("href", "/guestbook");
     fireEvent.click(openGuestbook);
     expect(
-      await screen.findByRole("heading", { name: "What People Say" }),
+      await screen.findByRole("heading", { name: "Visitor Perspectives." }),
     ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "Open Guestbook preview" }),
+    ).not.toBeInTheDocument();
     expect(screen.getByText("No reviews yet")).toBeInTheDocument();
     expect(screen.getByText(/No conversations yet/)).toBeInTheDocument();
   });
@@ -1328,7 +1331,7 @@ describe("App", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByRole("heading", { name: "What People Say" }),
+        screen.getByRole("heading", { name: "Visitor Perspectives." }),
       ).toBeInTheDocument();
       expect(screen.getByTestId("mobile-navigation-toggle")).toHaveAttribute(
         "aria-expanded",
@@ -1350,6 +1353,16 @@ describe("App", () => {
     expect(screen.getByRole("link", { name: "About" })).not.toHaveClass(
       "active",
     );
+  });
+
+  it("does not render the floating preview on the Guestbook route", () => {
+    window.history.replaceState({}, "", "/guestbook");
+    const { container } = renderApp();
+
+    expect(container.querySelector(".floating-chat-root")).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "Open Guestbook preview" }),
+    ).not.toBeInTheDocument();
   });
 
   it("keeps widget hide controls out of tablet and desktop layouts", () => {

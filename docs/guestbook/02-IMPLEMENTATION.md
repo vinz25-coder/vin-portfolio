@@ -8,7 +8,7 @@
 - Gunakan `@supabase/supabase-js` untuk Google Auth, query database, mutation, dan Storage.
 - Guestbook tetap dapat merender signed-out dan empty state jika environment Supabase belum dipasang; aksi backend memberi status konfigurasi yang eksplisit.
 - Simpan state filter, sort, pagination, composer, dan dialog secara lokal pada feature Guestbook.
-- Floating chat desktop/tablet membuka preview Discussions/Reviews dan CTA menavigasi ke `/guestbook`.
+- Floating chat desktop/tablet pada route selain `/guestbook` membuka preview Discussions/Reviews dan CTA menavigasi ke `/guestbook`; seluruh widget tidak dirender pada halaman Guestbook.
 - Item Guestbook pada hamburger menu menavigasi langsung ke `/guestbook`, memakai `aria-current` serta active treatment saat route current, dan drawer tidak memuat social links.
 - Header route-aware memakai `/#home`, `/#about`, `/#skills`, dan `/#experience` saat dirender di luar Home.
 
@@ -31,6 +31,8 @@
 
 - `GuestbookPage` menangani route title, scroll, header, Footer, dan social rail.
 - Feature root memuat auth, summary, composer, filters, feed, contributors, statistics, guidelines, dan dialogs.
+- Heading Guestbook memakai copy terstruktur untuk memberi aksen tema pada kata terakhir beserta titik tanpa memecah string saat render.
+- Preview memakai header ringkas, tab berindikator garis, waktu relatif bilingual, ringkasan rating pada tab Reviews, maksimal tiga entri terbaru, dan footer CTA terpisah.
 - Feed dirender sebagai semantic article tree dengan rail visual maksimal dua tingkat reply.
 - Composer yang sama dipakai untuk create dan edit; reply tetap dekat dengan target thread.
 - Emoji memakai daftar kecil native; mention memakai autocomplete participant tanpa dependency baru.

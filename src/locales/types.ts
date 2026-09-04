@@ -149,7 +149,10 @@ export interface HeroCopy {
   };
   guestbook: {
     sectionLabel: string;
-    heading: string;
+    heading: {
+      before: string;
+      accent: string;
+    };
     description: string;
     rating: { overall: string; reviews: string; empty: string };
     composer: {

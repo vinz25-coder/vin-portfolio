@@ -1,5 +1,12 @@
 # Changelog Guestbook
 
+## 2026-09-04
+
+- Menyelaraskan struktur floating preview dengan referensi: header ringkas, tab berindikator garis, identitas dan waktu entri, ringkasan rating Reviews, bintang per ulasan, dan CTA bawah terpisah.
+- Menyembunyikan seluruh floating Guestbook widget pada route `/guestbook` agar kontrol tidak redundan.
+- Mengganti heading menjadi `Visitor Perspectives.`/`Perspektif Pengunjung.` dengan kata terakhir beserta titik memakai aksen amber pada tema terang dan merah pada tema gelap.
+- Menyesuaikan floating preview menjadi lebih ringkas dengan lebar maksimum `24rem` serta skala padding, tipografi, avatar, tab, dan CTA yang proporsional.
+
 ## 2026-09-03
 
 - Menambahkan halaman `/guestbook` bilingual dengan layout editorial responsif, rating overview, composer, filter, sort, threaded feed, sidebar statistik, contributor, dan community guidelines.

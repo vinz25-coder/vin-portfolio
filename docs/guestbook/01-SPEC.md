@@ -10,7 +10,7 @@ Menyediakan halaman komunitas `/guestbook` tempat pengunjung membaca diskusi dan
 ## Komposisi
 
 - Label `GUESTBOOK`/`BUKU TAMU` mengikuti hover accent label section sebelumnya.
-- Heading `What People Say`/`Apa Kata Mereka` dengan deskripsi singkat tentang kesan, masukan, dan percakapan pengunjung.
+- Heading `Visitor Perspectives.`/`Perspektif Pengunjung.` dengan kata terakhir beserta titik memakai aksen tema, diikuti deskripsi singkat tentang kesan, masukan, dan percakapan pengunjung.
 - Rating overview memuat average rating, total review, dan distribusi rating 1-5 beserta persentase.
 - Composer memuat pilihan Discussion/Review, rating wajib untuk Review, teks maksimal 1.000 karakter, emoji, satu gambar, mention, dan tombol post.
 - Filter memuat All Comments, Discussions, Reviews serta sort Newest, Popular, dan Highest Rated.
@@ -18,7 +18,8 @@ Menyediakan halaman komunitas `/guestbook` tempat pengunjung membaca diskusi dan
 - Sidebar memuat Top Contributors maksimal lima orang, Visitor Statistics, dan Community Guidelines.
 - Empty state memakai data nol yang nyata tanpa seed, komentar, contributor, atau statistik palsu.
 - Scanner, viewport blur, header, social rail, dan Footer global tetap digunakan.
-- Floating widget desktop/tablet membuka preview Discussions/Reviews dengan maksimal tiga thread terbaru dan CTA menuju halaman penuh; trigger tidak langsung berpindah route.
+- Floating widget desktop/tablet pada route selain `/guestbook` membuka preview Discussions/Reviews dengan maksimal tiga thread terbaru dan CTA menuju halaman penuh; trigger tidak langsung berpindah route.
+- Preview mengikuti struktur editorial referensi: header ringkas, tab berindikator garis, identitas dan waktu entri, ringkasan rating pada Reviews, serta CTA bawah yang terpisah.
 - Hamburger menu hanya memuat navigasi tanpa preview atau social links. Guestbook menjadi link langsung dan memakai penanda aktif saat route `/guestbook` dibuka.
 - Pada route selain Home, logo kembali ke `/#home` dan link About, Skills, serta Experience kembali ke anchor terkait di Home.
 
@@ -27,7 +28,7 @@ Menyediakan halaman komunitas `/guestbook` tempat pengunjung membaca diskusi dan
 | Elemen       | English                                                                       | Indonesia                                                                      |
 | ------------ | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 | Label        | `GUESTBOOK`                                                                   | `BUKU TAMU`                                                                    |
-| Heading      | `What People Say`                                                             | `Apa Kata Mereka`                                                              |
+| Heading      | `Visitor Perspectives.`                                                       | `Perspektif Pengunjung.`                                                       |
 | Deskripsi    | `Thoughts, feedback, and conversations shared by visitors to this portfolio.` | `Kesan, masukan, dan percakapan yang dibagikan oleh pengunjung portfolio ini.` |
 | Empty state  | `No conversations yet. Be the first to share your thoughts.`                  | `Belum ada percakapan. Jadilah yang pertama membagikan pendapat.`              |
 | Login prompt | `Sign in with Google to join the conversation.`                               | `Masuk dengan Google untuk bergabung dalam percakapan.`                        |

@@ -187,7 +187,10 @@ export const en = {
   },
   guestbook: {
     sectionLabel: "Guestbook",
-    heading: "What People Say",
+    heading: {
+      before: "Visitor",
+      accent: "Perspectives.",
+    },
     description:
       "Thoughts, feedback, and conversations shared by visitors to this portfolio.",
     rating: {
