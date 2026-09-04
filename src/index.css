@@ -26,71 +26,45 @@
   --color-unavailable-start: #dc2626;
   --color-unavailable-end: #f87171;
   --color-cursor-accent: var(--color-accent-500);
-  --color-cursor-background: color-mix(
-    in srgb,
-    color-mix(in srgb, var(--color-cursor-accent) 8%, var(--color-surface)) 42%,
-    transparent
-  );
-  --color-cursor-background-active: color-mix(
-    in srgb,
-    color-mix(in srgb, var(--color-cursor-accent) 12%, var(--color-surface)) 54%,
-    transparent
-  );
-  --color-cursor-outline: color-mix(
-    in srgb,
-    var(--color-cursor-accent) 62%,
-    var(--color-text-primary) 38%
-  );
-  --color-cursor-icon: color-mix(
-    in srgb,
-    var(--color-cursor-accent) 82%,
-    var(--color-text-primary)
-  );
-  --color-cursor-glow: color-mix(
-    in srgb,
-    var(--color-cursor-accent) 10%,
-    transparent
-  );
-  --color-cursor-glow-active: color-mix(
-    in srgb,
-    var(--color-cursor-accent) 18%,
-    transparent
-  );
-  --color-cursor-contrast-shadow: color-mix(
-    in srgb,
-    var(--color-text-primary) 24%,
-    transparent
-  );
-  --color-card-glass: color-mix(
-    in srgb,
-    var(--color-accent-100) 55%,
-    var(--color-surface) 85%
-  );
-  --color-card-glass-border: color-mix(
-    in srgb,
-    var(--color-accent-400) 25%,
-    transparent
-  );
-  --color-cta-secondary-bg: color-mix(
-    in srgb,
-    var(--color-surface) 8%,
-    transparent
-  );
-  --color-cta-secondary-border: color-mix(
-    in srgb,
-    var(--color-text-primary) 18%,
-    transparent
-  );
-  --color-scrollbar-thumb: color-mix(
-    in srgb,
-    var(--color-accent-500) 70%,
-    var(--color-text-secondary)
-  );
-  --color-scrollbar-thumb-hover: color-mix(
-    in srgb,
-    var(--color-accent-500) 88%,
-    var(--color-text-primary)
-  );
+  --color-cursor-background: color-mix(in srgb,
+      color-mix(in srgb, var(--color-cursor-accent) 8%, var(--color-surface)) 42%,
+      transparent);
+  --color-cursor-background-active: color-mix(in srgb,
+      color-mix(in srgb, var(--color-cursor-accent) 12%, var(--color-surface)) 54%,
+      transparent);
+  --color-cursor-outline: color-mix(in srgb,
+      var(--color-cursor-accent) 62%,
+      var(--color-text-primary) 38%);
+  --color-cursor-icon: color-mix(in srgb,
+      var(--color-cursor-accent) 82%,
+      var(--color-text-primary));
+  --color-cursor-glow: color-mix(in srgb,
+      var(--color-cursor-accent) 10%,
+      transparent);
+  --color-cursor-glow-active: color-mix(in srgb,
+      var(--color-cursor-accent) 18%,
+      transparent);
+  --color-cursor-contrast-shadow: color-mix(in srgb,
+      var(--color-text-primary) 24%,
+      transparent);
+  --color-card-glass: color-mix(in srgb,
+      var(--color-accent-100) 55%,
+      var(--color-surface) 85%);
+  --color-card-glass-border: color-mix(in srgb,
+      var(--color-accent-400) 25%,
+      transparent);
+  --color-cta-secondary-bg: color-mix(in srgb,
+      var(--color-surface) 8%,
+      transparent);
+  --color-cta-secondary-border: color-mix(in srgb,
+      var(--color-text-primary) 18%,
+      transparent);
+  --color-scrollbar-thumb: color-mix(in srgb,
+      var(--color-accent-500) 70%,
+      var(--color-text-secondary));
+  --color-scrollbar-thumb-hover: color-mix(in srgb,
+      var(--color-accent-500) 88%,
+      var(--color-text-primary));
   --hero-eyebrow-heading-gap: 1rem;
   --hero-heading-description-gap: 0.5rem;
   --hero-heading-line-height: 0.9;
@@ -127,44 +101,30 @@
   --color-unavailable-start: #ef4444;
   --color-unavailable-end: #f87171;
   --color-cursor-accent: #e9333d;
-  --color-cursor-background: color-mix(
-    in srgb,
-    var(--color-cursor-accent) 16%,
-    transparent
-  );
-  --color-cursor-background-active: color-mix(
-    in srgb,
-    var(--color-cursor-accent) 24%,
-    transparent
-  );
-  --color-cursor-outline: color-mix(
-    in srgb,
-    var(--color-cursor-accent) 62%,
-    transparent
-  );
+  --color-cursor-background: color-mix(in srgb,
+      var(--color-cursor-accent) 16%,
+      transparent);
+  --color-cursor-background-active: color-mix(in srgb,
+      var(--color-cursor-accent) 24%,
+      transparent);
+  --color-cursor-outline: color-mix(in srgb,
+      var(--color-cursor-accent) 62%,
+      transparent);
   --color-cursor-icon: var(--color-cursor-accent);
-  --color-cursor-glow: color-mix(
-    in srgb,
-    var(--color-cursor-accent) 34%,
-    transparent
-  );
-  --color-cursor-glow-active: color-mix(
-    in srgb,
-    var(--color-cursor-accent) 52%,
-    transparent
-  );
-  --color-cursor-contrast-shadow: color-mix(
-    in srgb,
-    var(--color-bg) 38%,
-    transparent
-  );
+  --color-cursor-glow: color-mix(in srgb,
+      var(--color-cursor-accent) 34%,
+      transparent);
+  --color-cursor-glow-active: color-mix(in srgb,
+      var(--color-cursor-accent) 52%,
+      transparent);
+  --color-cursor-contrast-shadow: color-mix(in srgb,
+      var(--color-bg) 38%,
+      transparent);
 
   --color-card-glass: color-mix(in srgb, var(--color-surface) 8%, transparent);
-  --color-card-glass-border: color-mix(
-    in srgb,
-    var(--color-text-primary) 9%,
-    transparent
-  );
+  --color-card-glass-border: color-mix(in srgb,
+      var(--color-text-primary) 9%,
+      transparent);
   color-scheme: dark;
 }
 
@@ -326,8 +286,7 @@ body {
 
 .skills-filter-tab[data-active="true"]::after {
   transform: scaleX(1);
-  box-shadow: 0 0 0.5rem
-    color-mix(in srgb, var(--color-accent-500) 24%, transparent);
+  box-shadow: 0 0 0.5rem color-mix(in srgb, var(--color-accent-500) 24%, transparent);
 }
 
 .skills-filter-tab:active {
@@ -368,27 +327,20 @@ body {
 .skill-index-item::after {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    color-mix(
-        in srgb,
+  background: linear-gradient(90deg,
+      color-mix(in srgb,
         var(--skill-trace, var(--color-text-primary)) 6%,
-        transparent
-      )
-      0%,
-    transparent 72%
-  );
+        transparent) 0%,
+      transparent 72%);
   content: "";
   opacity: 0;
   transition: opacity 260ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 :root:not(.dark) .skill-index-item[data-skill="motion"] {
-  --skill-trace: color-mix(
-    in srgb,
-    var(--skill-brand) 72%,
-    var(--color-text-primary)
-  );
+  --skill-trace: color-mix(in srgb,
+      var(--skill-brand) 72%,
+      var(--color-text-primary));
 }
 
 .skill-index-name {
@@ -411,11 +363,9 @@ body {
 
 @media (hover: hover) and (pointer: fine) {
   .skills-filter-tab:hover {
-    background-color: color-mix(
-      in srgb,
-      var(--color-accent-500) 8%,
-      transparent
-    );
+    background-color: color-mix(in srgb,
+        var(--color-accent-500) 8%,
+        transparent);
     color: var(--color-text-primary);
     transform: translateY(-1px);
   }
@@ -453,6 +403,7 @@ body {
 }
 
 @media (hover: hover) and (pointer: fine) {
+
   .about-section-label:hover .about-label-part,
   .skills-section-label:hover .skills-label-part,
   .experience-section-label:hover .experience-label-part,
@@ -460,15 +411,13 @@ body {
   .contact-section-label:hover .contact-label-part {
     color: var(--color-accent-500);
     font-weight: 700;
-    text-shadow: 0 0 0.65rem
-      color-mix(in srgb, var(--color-accent-500) 34%, transparent);
+    text-shadow: 0 0 0.65rem color-mix(in srgb, var(--color-accent-500) 34%, transparent);
   }
 
   .guestbook-section-label:hover .guestbook-label-part {
     color: var(--color-accent-500);
     font-weight: 700;
-    text-shadow: 0 0 0.65rem
-      color-mix(in srgb, var(--color-accent-500) 34%, transparent);
+    text-shadow: 0 0 0.65rem color-mix(in srgb, var(--color-accent-500) 34%, transparent);
   }
 }
 
@@ -476,8 +425,7 @@ body {
 .guestbook-composer {
   border-color: color-mix(in srgb, var(--color-text-primary) 12%, transparent);
   background-color: color-mix(in srgb, var(--color-surface) 38%, transparent);
-  box-shadow: inset 0 1px 0
-    color-mix(in srgb, var(--color-text-primary) 7%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--color-text-primary) 7%, transparent);
   backdrop-filter: blur(1rem);
   -webkit-backdrop-filter: blur(1rem);
 }
@@ -505,6 +453,7 @@ body {
 .guestbook-tab[aria-selected="true"] {
   box-shadow: inset 0 -2px var(--color-accent-500);
 }
+
 .guestbook-tool-button {
   display: inline-flex;
   width: 2.75rem;
@@ -515,6 +464,7 @@ body {
   border-radius: 0.75rem;
   color: var(--color-text-secondary);
 }
+
 .guestbook-entry-action {
   display: inline-flex;
   min-height: 2rem;
@@ -526,6 +476,7 @@ body {
   font-size: 0.75rem;
   font-weight: 600;
 }
+
 .guestbook-menu-action {
   display: flex;
   width: 100%;
@@ -535,6 +486,7 @@ body {
   border-radius: 0.5rem;
   font-size: 0.75rem;
 }
+
 .guestbook-reply::before {
   position: absolute;
   top: 0;
@@ -546,6 +498,7 @@ body {
 }
 
 @media (hover: hover) and (pointer: fine) {
+
   .guestbook-tool-button:hover,
   .guestbook-entry-action:hover,
   .guestbook-menu-action:hover {
@@ -568,19 +521,18 @@ body {
   }
 
   .experience-record:hover .experience-spine {
-    background-color: color-mix(
-      in srgb,
-      var(--color-accent-500) 54%,
-      var(--color-border)
-    );
+    background-color: color-mix(in srgb,
+        var(--color-accent-500) 54%,
+        var(--color-border));
   }
 
-  .experience-contribution:hover > span {
+  .experience-contribution:hover>span {
     background-color: var(--color-accent-500);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .about-label-part,
   .skills-label-part,
   .experience-label-part,
@@ -654,12 +606,10 @@ body {
 }
 
 .viewport-edge-blur-top {
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 60%,
-    transparent 100%
-  );
+  -webkit-mask-image: linear-gradient(to bottom,
+      #000 0%,
+      #000 60%,
+      transparent 100%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 60%, transparent 100%);
 }
 
@@ -686,52 +636,40 @@ body {
 .viewport-edge-blur-bottom-subtle {
   -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgb(0 0 0 / 24%) 26%,
-    #000 64%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgb(0 0 0 / 24%) 26%,
-    #000 64%
-  );
+  -webkit-mask-image: linear-gradient(to bottom,
+      transparent 0%,
+      rgb(0 0 0 / 24%) 26%,
+      #000 64%);
+  mask-image: linear-gradient(to bottom,
+      transparent 0%,
+      rgb(0 0 0 / 24%) 26%,
+      #000 64%);
 }
 
 .viewport-edge-blur-bottom-medium {
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 32%,
-    rgb(0 0 0 / 38%) 56%,
-    #000 82%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 32%,
-    rgb(0 0 0 / 38%) 56%,
-    #000 82%
-  );
+  -webkit-mask-image: linear-gradient(to bottom,
+      transparent 32%,
+      rgb(0 0 0 / 38%) 56%,
+      #000 82%);
+  mask-image: linear-gradient(to bottom,
+      transparent 32%,
+      rgb(0 0 0 / 38%) 56%,
+      #000 82%);
 }
 
 .viewport-edge-blur-bottom-strong {
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10 px);
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 62%,
-    rgb(0 0 0 / 48%) 78%,
-    #000 100%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 62%,
-    rgb(0 0 0 / 48%) 78%,
-    #000 100%
-  );
+  -webkit-mask-image: linear-gradient(to bottom,
+      transparent 62%,
+      rgb(0 0 0 / 48%) 78%,
+      #000 100%);
+  mask-image: linear-gradient(to bottom,
+      transparent 62%,
+      rgb(0 0 0 / 48%) 78%,
+      #000 100%);
 }
 
 @media (min-width: 640px) {
@@ -802,11 +740,9 @@ body {
 }
 
 .hero-nav-item:not([aria-disabled="true"]):active {
-  background-color: color-mix(
-    in srgb,
-    var(--color-accent-500) 10%,
-    transparent
-  );
+  background-color: color-mix(in srgb,
+      var(--color-accent-500) 10%,
+      transparent);
 }
 
 .hero-nav-item[aria-disabled="true"] {
@@ -816,11 +752,9 @@ body {
 @media (hover: hover) and (pointer: fine) {
   .hero-nav-item:not([aria-disabled="true"]):hover {
     color: var(--color-accent-500);
-    background-color: color-mix(
-      in srgb,
-      var(--color-accent-500) 6%,
-      transparent
-    );
+    background-color: color-mix(in srgb,
+        var(--color-accent-500) 6%,
+        transparent);
   }
 
   .hero-nav-item:not([aria-disabled="true"]):hover::after {
@@ -829,11 +763,9 @@ body {
 
   .hero-nav-item.active:hover,
   .hero-nav-item[data-active="true"]:hover {
-    background-color: color-mix(
-      in srgb,
-      var(--color-accent-500) 9%,
-      transparent
-    );
+    background-color: color-mix(in srgb,
+        var(--color-accent-500) 9%,
+        transparent);
   }
 
   .hero-nav-item.active:hover::after,
@@ -843,11 +775,9 @@ body {
 
   .global-nav-control:hover {
     border-color: color-mix(in srgb, var(--color-accent-500) 26%, transparent);
-    background-color: color-mix(
-      in srgb,
-      var(--color-accent-500) 5%,
-      var(--color-surface) 42%
-    );
+    background-color: color-mix(in srgb,
+        var(--color-accent-500) 5%,
+        var(--color-surface) 42%);
     color: var(--color-accent-500);
   }
 }
@@ -855,11 +785,9 @@ body {
 .hero-mobile-menu-item.active,
 .hero-mobile-menu-item[data-active="true"] {
   color: var(--color-accent-500);
-  background-color: color-mix(
-    in srgb,
-    var(--color-accent-500) 10%,
-    transparent
-  );
+  background-color: color-mix(in srgb,
+      var(--color-accent-500) 10%,
+      transparent);
 }
 
 .about-status-dot {
@@ -867,13 +795,10 @@ body {
   --availability-status-end: var(--color-available-end);
   position: relative;
   isolation: isolate;
-  background: linear-gradient(
-    135deg,
-    var(--availability-status-start) 0%,
-    var(--availability-status-end) 100%
-  );
-  box-shadow: 0 0 0.625rem
-    color-mix(in srgb, var(--availability-status-start) 38%, transparent);
+  background: linear-gradient(135deg,
+      var(--availability-status-start) 0%,
+      var(--availability-status-end) 100%);
+  box-shadow: 0 0 0.625rem color-mix(in srgb, var(--availability-status-start) 38%, transparent);
 }
 
 .experience-glass-panel {
@@ -900,8 +825,7 @@ body {
   position: absolute;
   inset: 0;
   z-index: -1;
-  border: 1px solid
-    color-mix(in srgb, var(--availability-status-start) 65%, transparent);
+  border: 1px solid color-mix(in srgb, var(--availability-status-start) 65%, transparent);
   border-radius: inherit;
   content: "";
   animation: about-status-ping 2s ease-out infinite;
@@ -923,11 +847,9 @@ body {
   width: 1px;
   height: 0.9em;
   margin-left: 0.12em;
-  background-color: color-mix(
-    in srgb,
-    var(--color-text-primary) 72%,
-    transparent
-  );
+  background-color: color-mix(in srgb,
+      var(--color-text-primary) 72%,
+      transparent);
   content: "";
   animation: about-status-caret-blink 800ms step-end infinite;
   vertical-align: -0.05em;
@@ -976,11 +898,9 @@ body {
 
 .hero-cta-primary {
   overflow: hidden;
-  background: linear-gradient(
-    135deg,
-    var(--color-accent-500) 0%,
-    var(--color-accent-700) 100%
-  );
+  background: linear-gradient(135deg,
+      var(--color-accent-500) 0%,
+      var(--color-accent-700) 100%);
   box-shadow:
     0 0.5rem 1rem color-mix(in srgb, var(--color-accent-500) 22%, transparent),
     0 1rem 2.5rem color-mix(in srgb, var(--color-accent-500) 18%, transparent),
@@ -991,12 +911,10 @@ body {
   position: absolute;
   inset: -30% auto -30% -45%;
   width: 38%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    color-mix(in srgb, var(--color-particle-core) 42%, transparent) 50%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg,
+      transparent 0%,
+      color-mix(in srgb, var(--color-particle-core) 42%, transparent) 50%,
+      transparent 100%);
   content: "";
   transform: translateX(-160%) skewX(-18deg);
   transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -1011,8 +929,7 @@ body {
   border-color: var(--color-cta-secondary-border);
   background: var(--color-cta-secondary-bg);
   box-shadow:
-    0 0.75rem 1.75rem
-      color-mix(in srgb, var(--color-accent-500) 8%, transparent),
+    0 0.75rem 1.75rem color-mix(in srgb, var(--color-accent-500) 8%, transparent),
     inset 0 1px 0 color-mix(in srgb, var(--color-text-primary) 7%, transparent);
   backdrop-filter: blur(1rem);
   -webkit-backdrop-filter: blur(1rem);
@@ -1022,10 +939,8 @@ body {
   .hero-cta-primary:hover {
     transform: translateY(-2px) scale(1.02);
     box-shadow:
-      0 0.75rem 1.5rem
-        color-mix(in srgb, var(--color-accent-500) 28%, transparent),
-      0 1.25rem 3rem
-        color-mix(in srgb, var(--color-accent-500) 24%, transparent),
+      0 0.75rem 1.5rem color-mix(in srgb, var(--color-accent-500) 28%, transparent),
+      0 1.25rem 3rem color-mix(in srgb, var(--color-accent-500) 24%, transparent),
       inset 0 1px 0 color-mix(in srgb, var(--color-accent-100) 44%, transparent);
   }
 
@@ -1048,7 +963,9 @@ body {
   box-shadow:
     0 0.25rem 0.6rem var(--color-cursor-contrast-shadow),
     0 0 0.75rem var(--color-cursor-glow),
-    inset 0 1px 0 color-mix(in srgb, var(--color-particle-core) 28%, transparent);
+    <<<<<<< Updated upstream inset 0 1px 0 color-mix(in srgb, var(--color-particle-core) 28%, transparent);
+  backdrop-filter: blur(0.625rem);
+  -webkit-backdrop-filter: blur(0.625rem);
   will-change: transform;
   contain: layout style paint;
   transition:
@@ -1066,8 +983,7 @@ body {
   box-shadow:
     0 0.3rem 0.8rem var(--color-cursor-contrast-shadow),
     0 0 1.5rem var(--color-cursor-glow-active),
-    inset 0 1px 0
-      color-mix(in srgb, var(--color-particle-core) 36%, transparent);
+    inset 0 1px 0 color-mix(in srgb, var(--color-particle-core) 36%, transparent);
 }
 
 .custom-cursor-icon {
@@ -1076,6 +992,7 @@ body {
 }
 
 @media (hover: hover) and (pointer: fine) {
+
   .custom-cursor-active,
   .custom-cursor-active * {
     cursor: none !important;
@@ -1089,32 +1006,28 @@ body {
 .hero-portrait-mask {
   margin-top: -1rem;
   padding-top: 1rem;
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 48%,
-    rgb(0 0 0 / 98%) 56%,
-    rgb(0 0 0 / 90%) 64%,
-    rgb(0 0 0 / 74%) 72%,
-    rgb(0 0 0 / 52%) 79%,
-    rgb(0 0 0 / 32%) 85%,
-    rgb(0 0 0 / 16%) 90%,
-    rgb(0 0 0 / 6%) 95%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    #000 0%,
-    #000 48%,
-    rgb(0 0 0 / 98%) 56%,
-    rgb(0 0 0 / 90%) 64%,
-    rgb(0 0 0 / 74%) 72%,
-    rgb(0 0 0 / 52%) 79%,
-    rgb(0 0 0 / 32%) 85%,
-    rgb(0 0 0 / 16%) 90%,
-    rgb(0 0 0 / 6%) 95%,
-    transparent 100%
-  );
+  -webkit-mask-image: linear-gradient(to bottom,
+      #000 0%,
+      #000 48%,
+      rgb(0 0 0 / 98%) 56%,
+      rgb(0 0 0 / 90%) 64%,
+      rgb(0 0 0 / 74%) 72%,
+      rgb(0 0 0 / 52%) 79%,
+      rgb(0 0 0 / 32%) 85%,
+      rgb(0 0 0 / 16%) 90%,
+      rgb(0 0 0 / 6%) 95%,
+      transparent 100%);
+  mask-image: linear-gradient(to bottom,
+      #000 0%,
+      #000 48%,
+      rgb(0 0 0 / 98%) 56%,
+      rgb(0 0 0 / 90%) 64%,
+      rgb(0 0 0 / 74%) 72%,
+      rgb(0 0 0 / 52%) 79%,
+      rgb(0 0 0 / 32%) 85%,
+      rgb(0 0 0 / 16%) 90%,
+      rgb(0 0 0 / 6%) 95%,
+      transparent 100%);
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-size: 100% 100%;
@@ -1126,32 +1039,28 @@ body {
 }
 
 .hero-portrait-image {
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    rgb(0 0 0 / 15%) 5%,
-    rgb(0 0 0 / 45%) 10%,
-    rgb(0 0 0 / 75%) 15%,
-    #000 20%,
-    #000 100%,
-    rgb(0 0 0 / 75%) 85%,
-    rgb(0 0 0 / 45%) 90%,
-    rgb(0 0 0 / 15%) 95%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    rgb(0 0 0 / 15%) 5%,
-    rgb(0 0 0 / 45%) 10%,
-    rgb(0 0 0 / 75%) 15%,
-    #000 20%,
-    #000 100%,
-    rgb(0 0 0 / 75%) 85%,
-    rgb(0 0 0 / 45%) 90%,
-    rgb(0 0 0 / 15%) 95%,
-    transparent 100%
-  );
+  -webkit-mask-image: linear-gradient(to right,
+      transparent 0%,
+      rgb(0 0 0 / 15%) 5%,
+      rgb(0 0 0 / 45%) 10%,
+      rgb(0 0 0 / 75%) 15%,
+      #000 20%,
+      #000 100%,
+      rgb(0 0 0 / 75%) 85%,
+      rgb(0 0 0 / 45%) 90%,
+      rgb(0 0 0 / 15%) 95%,
+      transparent 100%);
+  mask-image: linear-gradient(to right,
+      transparent 0%,
+      rgb(0 0 0 / 15%) 5%,
+      rgb(0 0 0 / 45%) 10%,
+      rgb(0 0 0 / 75%) 15%,
+      #000 20%,
+      #000 100%,
+      rgb(0 0 0 / 75%) 85%,
+      rgb(0 0 0 / 45%) 90%,
+      rgb(0 0 0 / 15%) 95%,
+      transparent 100%);
 }
 
 @keyframes about-status-ping {
@@ -1167,6 +1076,7 @@ body {
 }
 
 @keyframes about-status-caret-blink {
+
   0%,
   45% {
     opacity: 1;
@@ -1179,6 +1089,7 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .hero-portrait-float,
   .about-status-dot::after {
     animation: none;
@@ -1236,18 +1147,13 @@ body {
 
   .hero-mobile-menu-item:not([aria-disabled="true"]):active {
     color: var(--color-accent-500);
-    background-color: color-mix(
-      in srgb,
-      var(--color-accent-500) 10%,
-      transparent
-    );
+    background-color: color-mix(in srgb,
+        var(--color-accent-500) 10%,
+        transparent);
   }
 
   .floating-chat-root {
-    bottom: calc(
-      var(--mobile-nav-height) + var(--chat-bubble-gap) +
-        env(safe-area-inset-bottom, 0px)
-    );
+    bottom: calc(var(--mobile-nav-height) + var(--chat-bubble-gap) + env(safe-area-inset-bottom, 0px));
   }
 
   .floating-chat-panel {
@@ -1274,7 +1180,7 @@ body {
     display: contents;
   }
 
-  .mobile-hero-content > p:first-child {
+  .mobile-hero-content>p:first-child {
     grid-row: 1;
   }
 
@@ -1282,7 +1188,7 @@ body {
     grid-row: 2;
   }
 
-  .mobile-hero-content h1 + p {
+  .mobile-hero-content h1+p {
     grid-row: 4;
     margin-top: 0;
   }
@@ -1328,24 +1234,20 @@ body {
   }
 
   .hero-portrait-image {
-    -webkit-mask-image: linear-gradient(
-      to right,
-      transparent 0%,
-      rgb(0 0 0 / 55%) 8%,
-      #000 16%,
-      #000 84%,
-      rgb(0 0 0 / 55%) 92%,
-      transparent 100%
-    );
-    mask-image: linear-gradient(
-      to right,
-      transparent 0%,
-      rgb(0 0 0 / 55%) 8%,
-      #000 16%,
-      #000 84%,
-      rgb(0 0 0 / 55%) 92%,
-      transparent 100%
-    );
+    -webkit-mask-image: linear-gradient(to right,
+        transparent 0%,
+        rgb(0 0 0 / 55%) 8%,
+        #000 16%,
+        #000 84%,
+        rgb(0 0 0 / 55%) 92%,
+        transparent 100%);
+    mask-image: linear-gradient(to right,
+        transparent 0%,
+        rgb(0 0 0 / 55%) 8%,
+        #000 16%,
+        #000 84%,
+        rgb(0 0 0 / 55%) 92%,
+        transparent 100%);
   }
 }
 
@@ -1373,7 +1275,7 @@ body {
     margin-top: 0;
   }
 
-  .mobile-hero-content > p:first-child {
+  .mobile-hero-content>p:first-child {
     margin-top: 0;
   }
 
@@ -1383,7 +1285,7 @@ body {
     line-height: 0.86;
   }
 
-  .mobile-hero-content h1 + p {
+  .mobile-hero-content h1+p {
     margin-top: 0.875rem;
     max-width: 27rem;
     font-size: 0.875rem;
@@ -1416,24 +1318,20 @@ body {
   }
 
   .hero-portrait-image {
-    -webkit-mask-image: linear-gradient(
-      to right,
-      transparent 0%,
-      rgb(0 0 0 / 62%) 7%,
-      #000 15%,
-      #000 88%,
-      rgb(0 0 0 / 62%) 95%,
-      transparent 100%
-    );
-    mask-image: linear-gradient(
-      to right,
-      transparent 0%,
-      rgb(0 0 0 / 62%) 7%,
-      #000 15%,
-      #000 88%,
-      rgb(0 0 0 / 62%) 95%,
-      transparent 100%
-    );
+    -webkit-mask-image: linear-gradient(to right,
+        transparent 0%,
+        rgb(0 0 0 / 62%) 7%,
+        #000 15%,
+        #000 88%,
+        rgb(0 0 0 / 62%) 95%,
+        transparent 100%);
+    mask-image: linear-gradient(to right,
+        transparent 0%,
+        rgb(0 0 0 / 62%) 7%,
+        #000 15%,
+        #000 88%,
+        rgb(0 0 0 / 62%) 95%,
+        transparent 100%);
   }
 }
 
@@ -1464,13 +1362,12 @@ body {
     overflow-y: auto;
     overscroll-behavior: contain;
     background: color-mix(in srgb, var(--color-surface) 96%, var(--color-bg));
-    box-shadow: inset 0 1px 0
-      color-mix(in srgb, var(--color-text-primary) 9%, transparent);
+    box-shadow: inset 0 1px 0 color-mix(in srgb, var(--color-text-primary) 9%, transparent);
     backdrop-filter: blur(1rem);
     -webkit-backdrop-filter: blur(1rem);
   }
 
-  .hero-mobile-menu > .grid {
+  .hero-mobile-menu>.grid {
     gap: 0.25rem;
   }
 
@@ -1521,8 +1418,7 @@ body {
     top: calc(50% - 6rem);
     left: 0;
     padding: 0.25rem;
-    border: 1px solid
-      color-mix(in srgb, var(--color-text-primary) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-text-primary) 10%, transparent);
     border-left: 0;
     border-radius: 0 1rem 1rem 0;
     background: color-mix(in srgb, var(--color-surface) 76%, transparent);
@@ -1530,7 +1426,7 @@ body {
     -webkit-backdrop-filter: blur(1rem);
   }
 
-  .tablet-social-rail > div {
+  .tablet-social-rail>div {
     gap: 0.5rem;
   }
 
@@ -1585,7 +1481,7 @@ body {
     ========================= */
 
 @media (min-width: 1024px),
-  (min-width: 960px) and (max-width: 1023.98px) and (min-height: 501px) {
+(min-width: 960px) and (max-width: 1023.98px) and (min-height: 501px) {
   .hero-portrait-shell {
     position: absolute;
     top: auto;
@@ -1640,8 +1536,7 @@ body {
   color: var(--color-text-secondary);
   box-shadow:
     inset 0 1px 0 color-mix(in srgb, var(--color-text-primary) 7%, transparent),
-    0 0.5rem 1.25rem
-      color-mix(in srgb, var(--color-text-primary) 5%, transparent);
+    0 0.5rem 1.25rem color-mix(in srgb, var(--color-text-primary) 5%, transparent);
   backdrop-filter: blur(0.875rem);
   -webkit-backdrop-filter: blur(0.875rem);
 }
@@ -1655,23 +1550,19 @@ body {
 }
 
 .contact-direct-link[data-brand="instagram"] .contact-direct-icon {
-  background: radial-gradient(
-    circle at 32% 105%,
-    #fdf497 0 8%,
-    #fdf497 9%,
-    #fd5949 38%,
-    #d6249f 62%,
-    #285aeb 100%
-  );
+  background: radial-gradient(circle at 32% 105%,
+      #fdf497 0 8%,
+      #fdf497 9%,
+      #fd5949 38%,
+      #d6249f 62%,
+      #285aeb 100%);
 }
 
 .contact-direct-link[data-brand="github"],
 .contact-direct-link[data-brand="x"] {
-  --contact-brand: color-mix(
-    in srgb,
-    var(--color-text-primary) 82%,
-    var(--color-bg)
-  ) !important;
+  --contact-brand: color-mix(in srgb,
+      var(--color-text-primary) 82%,
+      var(--color-bg)) !important;
 }
 
 .contact-direct-link[data-brand="github"] .contact-direct-icon,
@@ -1682,17 +1573,13 @@ body {
 @media (hover: hover) and (pointer: fine) {
   .contact-direct-link:hover {
     border-color: color-mix(in srgb, var(--contact-brand) 72%, transparent);
-    background-color: color-mix(
-      in srgb,
-      color-mix(in srgb, var(--contact-brand) 9%, var(--color-surface)) 52%,
-      transparent
-    );
+    background-color: color-mix(in srgb,
+        color-mix(in srgb, var(--contact-brand) 9%, var(--color-surface)) 52%,
+        transparent);
     color: var(--contact-brand);
     box-shadow:
-      inset 0 1px 0
-        color-mix(in srgb, var(--color-text-primary) 9%, transparent),
-      0 0.75rem 1.75rem
-        color-mix(in srgb, var(--contact-brand) 14%, transparent);
+      inset 0 1px 0 color-mix(in srgb, var(--color-text-primary) 9%, transparent),
+      0 0.75rem 1.75rem color-mix(in srgb, var(--contact-brand) 14%, transparent);
     transform: translateY(-2px);
   }
 
@@ -1703,11 +1590,9 @@ body {
 
 .contact-direct-link:focus-visible {
   border-color: color-mix(in srgb, var(--contact-brand) 72%, transparent);
-  background-color: color-mix(
-    in srgb,
-    color-mix(in srgb, var(--contact-brand) 9%, var(--color-surface)) 52%,
-    transparent
-  );
+  background-color: color-mix(in srgb,
+      color-mix(in srgb, var(--contact-brand) 9%, var(--color-surface)) 52%,
+      transparent);
   color: var(--contact-brand);
   box-shadow:
     0 0 0 2px color-mix(in srgb, var(--contact-brand) 32%, transparent),
@@ -1716,6 +1601,7 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .contact-field,
   .contact-direct-link,
   .contact-direct-arrow,
@@ -1725,23 +1611,15 @@ body {
 }
 
 .work-with-me-heading-base {
-  background: linear-gradient(
-    180deg,
-    var(--color-text-primary) 0%,
-    var(--color-text-primary) 58%,
-    color-mix(
-        in srgb,
+  background: linear-gradient(180deg,
+      var(--color-text-primary) 0%,
+      var(--color-text-primary) 58%,
+      color-mix(in srgb,
         var(--color-text-primary) 68%,
-        var(--color-text-secondary)
-      )
-      100%
-  );
+        var(--color-text-secondary)) 100%);
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(
-    0 0.06em 0.12em
-      color-mix(in srgb, var(--color-text-primary) 14%, transparent)
-  );
+  filter: drop-shadow(0 0.06em 0.12em color-mix(in srgb, var(--color-text-primary) 14%, transparent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -1765,12 +1643,9 @@ body {
   inset: 0;
   z-index: -1;
   background: none;
-  color: color-mix(
-    in srgb,
-    color-mix(in srgb, var(--color-text-primary) 73%, var(--color-accent-500))
-      11%,
-    transparent
-  );
+  color: color-mix(in srgb,
+      color-mix(in srgb, var(--color-text-primary) 73%, var(--color-accent-500)) 11%,
+      transparent);
   content: attr(data-heading);
   filter: blur(12px);
   opacity: 0.8;
