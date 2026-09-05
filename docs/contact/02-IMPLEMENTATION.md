@@ -15,7 +15,8 @@
 - Tambahkan copy Contact typed ke dictionary EN/ID.
 - Tambahkan WhatsApp ke data kanal Contact; social links existing tetap menjadi sumber GitHub, X, Instagram, dan email.
 - Gunakan Simple Icons existing untuk ikon brand resmi pada glass tile Direct Channels.
-- Gunakan native `<select>` untuk jenis proyek.
+- Gunakan button `role="combobox"` select-only dengan listbox/option, `aria-expanded`, `aria-controls`, `aria-activedescendant`, label terlihat, required, dan wiring error existing. Fokus DOM tetap pada button; opsi aktif discroll ke area terlihat. State lokal menyimpan open/active dan buffer typeahead 700 ms; pilihan tetap bersumber dari state form, termasuk hidden input dan reset sukses.
+- Pertahankan styling trigger dan chevron; popup solid memakai token surface/text/border, active memakai tint/outline accent, selected memakai tint, font tebal, dan tanda centang. Popup dalam alur form, max-height 40dvh, overflow-y auto, target opsi minimal 44px. Pointer luar dan blur menutup tanpa memindahkan fokus; Escape/Tab membatalkan navigasi, Enter/Space atau klik mengonfirmasi. Tanpa dependency atau motion baru.
 - Gunakan state React lokal untuk nilai form, error, dan submission status.
 
 ## Kontrak API

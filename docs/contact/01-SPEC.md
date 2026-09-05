@@ -44,6 +44,8 @@ Menyediakan halaman `/contact` tersendiri untuk inquiry proyek melalui form yang
 - Nama wajib dan maksimal 80 karakter.
 - Email wajib, valid, dan maksimal 254 karakter.
 - Jenis proyek wajib berasal dari pilihan yang disetujui.
+- Revisi eksplisit disetujui 2026-09-05: ganti dropdown native dengan custom select-only combobox tanpa dependency. Trigger mempertahankan surface, chevron, dan placeholder; seluruh popup, teks, hover/active, serta selected memakai token krem/amber dan hitam/merah tanpa highlight OS. Popup berada dalam alur form dengan tinggi terbatas dan scroll agar aman pada mobile/landscape pendek.
+- Keyboard mendukung arrows, Home/End, Enter/Space untuk membuka atau memilih, Escape/Tab untuk menutup tanpa mengubah pilihan, serta typeahead label lokal. Klik luar menutup popup; fokus tetap pada trigger selama navigasi opsi. Pilihan tersimpan berbeda dari opsi aktif dan reset mengikuti sukses form.
 - Pesan wajib, minimal 20 karakter, dan maksimal 2.000 karakter.
 - Submit memiliki state idle, loading, success, dan error serta mencegah submit ganda.
 - Error tidak menghapus input pengguna; success mengosongkan form.

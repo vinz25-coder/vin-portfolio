@@ -852,9 +852,13 @@ describe("App", () => {
     fireEvent.change(screen.getByLabelText("Email"), {
       target: { value: "ada@example.com" },
     });
-    fireEvent.change(screen.getByLabelText("Project type"), {
-      target: { value: "web-product" },
-    });
+    const projectType = screen.getByRole("combobox", { name: "Project type" });
+    expect(projectType).toHaveAttribute("aria-invalid", "true");
+    expect(projectType).toHaveAttribute("aria-describedby", "contact-project-type-error");
+    fireEvent.click(projectType);
+    fireEvent.click(screen.getByRole("option", { name: "Web Product" }));
+    expect(projectType).toHaveAttribute("aria-invalid", "false");
+    expect(projectType).not.toHaveAttribute("aria-describedby");
     fireEvent.change(screen.getByLabelText("Message"), {
       target: { value: "I would like to discuss a focused web product." },
     });
@@ -864,6 +868,12 @@ describe("App", () => {
     expect(await screen.findByRole("status")).toHaveTextContent(
       "Message sent. Thank you for reaching out.",
     );
+    const request = fetchMock.mock.calls[0] as [string, RequestInit];
+    expect(request[1].body).toContain('"projectType":"web-product"');
+    expect(projectType).toHaveAttribute("data-placeholder", "true");
+    expect(container.querySelector('input[name="projectType"]')).toHaveValue("");
+    fireEvent.click(projectType);
+    expect(screen.getAllByRole("option").every((option) => option.getAttribute("aria-selected") === "false")).toBe(true);
   });
 
   it("explains when contact email delivery is not configured", async () => {
@@ -888,9 +898,8 @@ describe("App", () => {
     fireEvent.change(screen.getByLabelText("Email"), {
       target: { value: "ada@example.com" },
     });
-    fireEvent.change(screen.getByLabelText("Project type"), {
-      target: { value: "web-product" },
-    });
+    fireEvent.click(screen.getByRole("combobox", { name: "Project type" }));
+    fireEvent.click(screen.getByRole("option", { name: "Web Product" }));
     fireEvent.change(screen.getByLabelText("Message"), {
       target: { value: "I would like to discuss a focused web product." },
     });
@@ -899,6 +908,58 @@ describe("App", () => {
     expect(await screen.findByRole("alert")).toHaveTextContent(
       "Email delivery is not configured yet.",
     );
+  });
+
+  it.each([false, true])("supports themed project dropdown keyboard and dismissal (dark: %s)", (dark) => {
+    window.localStorage.setItem(THEME_STORAGE_KEY, dark ? "dark" : "light");
+    window.history.replaceState({}, "", "/contact");
+    renderApp();
+    const trigger = screen.getByRole("combobox", { name: "Project type" });
+    expect(document.documentElement.classList.contains("dark")).toBe(dark);
+    trigger.focus();
+    fireEvent.keyDown(trigger, { key: "ArrowDown" });
+    expect(trigger).toHaveFocus();
+    expect(trigger).toHaveAttribute("aria-expanded", "true");
+    expect(screen.getByRole("listbox")).toHaveClass("contact-project-options", "overflow-y-auto");
+    const options = screen.getAllByRole("option");
+    expect(trigger).toHaveAttribute("aria-activedescendant", options[0].id);
+    fireEvent.keyDown(trigger, { key: "End" });
+    expect(options[3]).toHaveAttribute("data-active", "true");
+    fireEvent.keyDown(trigger, { key: "Home" });
+    fireEvent.keyDown(trigger, { key: "ArrowDown" });
+    fireEvent.keyDown(trigger, { key: "ArrowUp" });
+    expect(options[0]).toHaveAttribute("data-active", "true");
+    fireEvent.keyDown(trigger, { key: "d" });
+    fireEvent.keyDown(trigger, { key: "a" });
+    expect(options[1]).toHaveAttribute("data-active", "true");
+    fireEvent.keyDown(trigger, { key: "Enter" });
+    expect(trigger).toHaveTextContent("Dashboard");
+    expect(trigger).toHaveAttribute("data-placeholder", "false");
+    expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+    fireEvent.keyDown(trigger, { key: " " });
+    expect(screen.getByRole("option", { name: "Dashboard" })).toHaveAttribute("aria-selected", "true");
+    expect(screen.getByRole("option", { name: "Dashboard" })).toHaveClass("contact-project-option");
+    fireEvent.keyDown(trigger, { key: "End" });
+    fireEvent.keyDown(trigger, { key: "Escape" });
+    expect(trigger).toHaveTextContent("Dashboard");
+    expect(trigger).toHaveFocus();
+    fireEvent.keyDown(trigger, { key: "Enter" });
+    fireEvent.keyDown(trigger, { key: "Home" });
+    fireEvent.keyDown(trigger, { key: " " });
+    expect(trigger).toHaveTextContent("Web Product");
+    fireEvent.click(trigger);
+    fireEvent.keyDown(trigger, { key: "Tab" });
+    expect(trigger).toHaveAttribute("aria-expanded", "false");
+    fireEvent.click(trigger);
+    fireEvent.keyDown(trigger, { key: "Tab", shiftKey: true });
+    expect(trigger).toHaveAttribute("aria-expanded", "false");
+    fireEvent.click(trigger);
+    fireEvent.pointerDown(screen.getByLabelText("Name"));
+    expect(trigger).toHaveAttribute("aria-expanded", "false");
+    fireEvent.click(trigger);
+    fireEvent.blur(trigger, { relatedTarget: screen.getByLabelText("Message") });
+    expect(trigger).toHaveAttribute("aria-expanded", "false");
+    expect(trigger).not.toHaveAttribute("aria-activedescendant");
   });
 
   it("navigates from Contact to About without reloading the document", async () => {

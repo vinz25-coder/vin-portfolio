@@ -1,4 +1,4 @@
-import { ArrowUpRight, Send } from "lucide-react";
+import { ArrowUpRight, Check, ChevronDown, Send } from "lucide-react";
 import { motion } from "motion/react";
 import {
   useEffect,
@@ -70,7 +70,30 @@ export function Contact() {
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<SubmissionStatus>("idle");
+  const projectRef = useRef<HTMLDivElement>(null);
+  const projectButtonRef = useRef<HTMLButtonElement>(null);
+  const searchRef = useRef({ text: "", time: 0 });
+  const [projectOpen, setProjectOpen] = useState(false);
+  const [activeProject, setActiveProject] = useState(0);
   const contactCopy = copy.contact;
+
+  useEffect(() => {
+    if (!projectOpen) return;
+    const dismiss = (event: PointerEvent) => {
+      if (!projectRef.current?.contains(event.target as Node)) {
+        setProjectOpen(false);
+      }
+    };
+    document.addEventListener("pointerdown", dismiss);
+    return () => document.removeEventListener("pointerdown", dismiss);
+  }, [projectOpen]);
+
+  useEffect(() => {
+    if (projectOpen) {
+      projectRef.current?.querySelector('[data-active="true"]')
+        ?.scrollIntoView({ block: "nearest" });
+    }
+  }, [activeProject, projectOpen]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -127,6 +150,7 @@ export function Contact() {
         return;
       }
       setForm(initialForm);
+      setProjectOpen(false);
       setErrors({});
       setStatus("success");
     } catch {
@@ -366,34 +390,130 @@ export function Contact() {
               <div>
                 <label
                   htmlFor="contact-project-type"
+                  id="contact-project-type-label"
                   className="text-sm font-semibold"
                 >
                   {contactCopy.fields.projectType}
                 </label>
-                <select
-                  id="contact-project-type"
-                  name="projectType"
-                  value={form.projectType}
-                  aria-invalid={Boolean(errors.projectType)}
-                  aria-describedby={
-                    errors.projectType
-                      ? "contact-project-type-error"
-                      : undefined
-                  }
-                  className={inputClassName}
-                  onChange={(event) =>
-                    setField("projectType", event.target.value)
-                  }
+                <div
+                  ref={projectRef}
+                  className="relative mt-1.5"
+                  onBlur={(event) => {
+                    if (!event.currentTarget.contains(event.relatedTarget)) {
+                      setProjectOpen(false);
+                    }
+                  }}
                 >
-                  <option value="">
-                    {contactCopy.fields.projectPlaceholder}
-                  </option>
-                  {projectOptions.map(([value, label]) => (
-                    <option key={value} value={value}>
-                      {label}
-                    </option>
-                  ))}
-                </select>
+                  <button
+                    ref={projectButtonRef}
+                    type="button"
+                    role="combobox"
+                    id="contact-project-type"
+                    aria-labelledby="contact-project-type-label"
+                    aria-haspopup="listbox"
+                    aria-expanded={projectOpen}
+                    aria-controls={projectOpen ? "contact-project-options" : undefined}
+                    aria-activedescendant={projectOpen ? `contact-project-option-${activeProject}` : undefined}
+                    aria-required="true"
+                    aria-invalid={Boolean(errors.projectType)}
+                    aria-describedby={
+                      errors.projectType
+                        ? "contact-project-type-error"
+                        : undefined
+                    }
+                    data-placeholder={form.projectType === ""}
+                    className="contact-field contact-project-select relative min-h-12 w-full rounded-xl border py-3 pr-12 pl-3.5 text-left text-sm outline-none"
+                    onClick={() => {
+                      setActiveProject(Math.max(0, projectOptions.findIndex(([value]) => value === form.projectType)));
+                      searchRef.current = { text: "", time: 0 };
+                      setProjectOpen(!projectOpen);
+                    }}
+                    onKeyDown={(event) => {
+                      const { key } = event;
+                      if (key === "Tab" || key === "Escape") {
+                        if (key === "Escape" && projectOpen) event.preventDefault();
+                        setProjectOpen(false);
+                        return;
+                      }
+                      if (event.altKey || event.ctrlKey || event.metaKey) return;
+                      const selected = Math.max(0, projectOptions.findIndex(([value]) => value === form.projectType));
+                      if (["ArrowDown", "ArrowUp", "Home", "End", "Enter", " "].includes(key)) {
+                        event.preventDefault();
+                        searchRef.current = { text: "", time: 0 };
+                        if (projectOpen && (key === "Enter" || key === " ")) {
+                          setField("projectType", projectOptions[activeProject][0]);
+                          setProjectOpen(false);
+                          return;
+                        }
+                        let next = selected;
+                        if (key === "Home") next = 0;
+                        else if (key === "End") next = projectOptions.length - 1;
+                        else if (projectOpen) {
+                          next = Math.max(0, Math.min(
+                            projectOptions.length - 1,
+                            activeProject + (key === "ArrowDown" ? 1 : -1),
+                          ));
+                        }
+                        setActiveProject(next);
+                        setProjectOpen(true);
+                      } else if (key.length === 1) {
+                        event.preventDefault();
+                        const now = Date.now();
+                        const text = (now - searchRef.current.time < 700 ? searchRef.current.text : "") + key.toLocaleLowerCase();
+                        searchRef.current = { text, time: now };
+                        const query = [...text].every((character) => character === text[0]) ? text[0] : text;
+                        const start = projectOpen ? activeProject : selected;
+                        for (let step = 1; step <= projectOptions.length; step++) {
+                          const index = (start + step) % projectOptions.length;
+                          if (projectOptions[index][1].toLocaleLowerCase().startsWith(query)) {
+                            setActiveProject(index);
+                            break;
+                          }
+                        }
+                        setProjectOpen(true);
+                      }
+                    }}
+                  >
+                    {projectOptions.find(([value]) => value === form.projectType)?.[1] ?? contactCopy.fields.projectPlaceholder}
+                    <ChevronDown
+                      aria-hidden="true"
+                      className="contact-project-chevron pointer-events-none absolute top-1/2 right-4 size-4 -translate-y-1/2"
+                      strokeWidth={1.7}
+                    />
+                  </button>
+                  <input type="hidden" name="projectType" value={form.projectType} />
+                  {projectOpen ? (
+                    <div
+                      id="contact-project-options"
+                      role="listbox"
+                      aria-labelledby="contact-project-type-label"
+                      className="contact-project-options mt-2 max-h-[40dvh] overflow-y-auto overscroll-contain rounded-xl border p-1"
+                    >
+                      {projectOptions.map(([value, label], index) => (
+                        <button
+                          type="button"
+                          key={value}
+                          id={`contact-project-option-${index}`}
+                          role="option"
+                          tabIndex={-1}
+                          aria-selected={form.projectType === value}
+                          data-active={activeProject === index}
+                          className="contact-project-option flex min-h-11 w-full cursor-pointer items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-left text-sm break-words"
+                          onPointerMove={() => setActiveProject(index)}
+                          onMouseDown={(event) => event.preventDefault()}
+                          onClick={() => {
+                            setField("projectType", value);
+                            setProjectOpen(false);
+                            projectButtonRef.current?.focus();
+                          }}
+                        >
+                          {label}
+                          {form.projectType === value ? <Check aria-hidden="true" className="size-4 shrink-0" /> : null}
+                        </button>
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
                 {errors.projectType ? (
                   <p
                     id="contact-project-type-error"
