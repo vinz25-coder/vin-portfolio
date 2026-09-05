@@ -1275,6 +1275,31 @@ describe("App", () => {
     expect(screen.getByText(/No conversations yet/)).toBeInTheDocument();
   });
 
+  it("keeps Guestbook community panels before sign-in and the feed in DOM order", async () => {
+    window.history.replaceState({}, "", "/guestbook");
+    renderApp();
+
+    const orderedContent = [
+      screen.getByRole("heading", { name: "Overall rating" }),
+      screen.getByRole("heading", { name: "Reaction" }),
+      screen.getByRole("heading", { name: "Community Summary" }),
+      screen.getByRole("heading", { name: "Community Guidelines" }),
+      screen.getByRole("heading", {
+        name: "Sign in with Google to join the conversation.",
+      }),
+      screen.getByRole("tablist", { name: "Filter guestbook comments" }),
+      await screen.findByText(/No conversations yet/),
+    ];
+
+    orderedContent.slice(1).forEach((element, index) => {
+      expect(
+        orderedContent[index].compareDocumentPosition(element) &
+          Node.DOCUMENT_POSITION_FOLLOWING,
+      ).toBeTruthy();
+    });
+    expect(screen.getByRole("main").querySelectorAll("aside")).toHaveLength(1);
+  });
+
   it("links Guestbook navigation back to Home sections", () => {
     window.history.replaceState({}, "", "/guestbook");
     renderApp();
@@ -1359,7 +1384,9 @@ describe("App", () => {
     window.history.replaceState({}, "", "/guestbook");
     const { container } = renderApp();
 
-    expect(container.querySelector(".floating-chat-root")).not.toBeInTheDocument();
+    expect(
+      container.querySelector(".floating-chat-root"),
+    ).not.toBeInTheDocument();
     expect(
       screen.queryByRole("button", { name: "Open Guestbook preview" }),
     ).not.toBeInTheDocument();

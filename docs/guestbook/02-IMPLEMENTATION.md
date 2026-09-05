@@ -82,6 +82,7 @@
 - Filter menampilkan jumlah root All Comments, Discussions, dan Reviews; reply count tetap berada pada thread terkait.
 - UI publik tidak menampilkan contributor ranking; statistik visitor dimuat secara non-esensial agar kegagalannya tidak menggagalkan feed.
 - Sidebar menampilkan Total Visitors, Today Visitors, dan Average Rating; akun login mendapat kontrol enable/disable Web Push per browser tanpa inbox atau polling.
+- Render satu sidebar setelah Rating/Reaction dan sebelum composer/sign-in serta filters/feed, dengan `mt-6` pada lebar <1280px. Pada `xl`, tempatkan Rating/Reaction di kolom 1 baris 1, composer/feed di kolom 1 baris 2, dan sidebar sticky self-start di kolom 2 membentang dua baris; gunakan baris `min-content 1fr`, tanpa gap vertikal, dan reset margin sidebar agar spacing desktop tetap sama.
 - Setelah RPC create reply berhasil, client meminta Vercel Function mengirim push. Function memverifikasi token, kepemilikan reply, recipient, visibility, deduplikasi delivery, dan VAPID config sebelum mengirim.
 - Client dan Function hanya memproses push untuk reply berstatus visible; pending/quarantined reply tidak mengirim notification.
 - Service worker menerima push saat portfolio tertutup dan notification click membuka deep link entry yang sudah ada.

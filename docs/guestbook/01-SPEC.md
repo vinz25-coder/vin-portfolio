@@ -146,8 +146,8 @@ Copy bilingual berikut disetujui bersama revisi:
 
 ## Responsif dan Aksesibilitas
 
-- Mobile memakai satu alur dokumen tanpa internal page scroll; sidebar berpindah setelah feed.
-- Tablet mempertahankan hierarki satu kolom lebar; desktop memakai main feed dan sidebar asimetris.
+- Pada lebar <1280px, satu alur dokumen tanpa internal page scroll mengikuti urutan Rating, Reaction, Community Summary, Community Guidelines, composer/sign-in, lalu filters/feed.
+- Pada lebar >=1280px, main feed dan sidebar asimetris tetap dipertahankan dengan sidebar sticky di kanan.
 - Filter dapat di-scroll horizontal tanpa page overflow dan dapat digunakan dengan keyboard.
 - Dialog, form, rating, kategori, reaction, menu, upload, emoji picker, dan feedback memiliki label, focus state, serta live region yang sesuai.
 - Composer menyimpan draft Discussion/Review lokal termasuk kategori, membedakan instruksi kedua jenis konten, memakai radio group untuk rating, dan checkbox-chip multi-select untuk kategori Review dengan default Portfolio.

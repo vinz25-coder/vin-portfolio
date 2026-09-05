@@ -627,8 +627,8 @@ export function Guestbook() {
             </p>
           </motion.header>
 
-          <div className="mt-12 grid gap-8 xl:grid-cols-[minmax(0,1fr)_21rem] xl:items-start xl:gap-10">
-            <div className="min-w-0">
+          <div className="mt-12 grid xl:grid-cols-[minmax(0,1fr)_21rem] xl:grid-rows-[min-content_1fr] xl:items-start xl:gap-x-10">
+            <div className="min-w-0 xl:col-start-1 xl:row-start-1">
               <section
                 aria-labelledby="rating-heading"
                 className="guestbook-panel rounded-2xl border p-5 sm:p-6"
@@ -689,7 +689,70 @@ export function Guestbook() {
                 session={session}
                 onRequireSignIn={() => setStatus(guestbook.feed.signInAction)}
               />
+            </div>
 
+            <aside className="mt-6 space-y-5 xl:sticky xl:top-32 xl:col-start-2 xl:row-span-2 xl:row-start-1 xl:mt-0 xl:self-start">
+              <SidebarPanel
+                icon={<Star size={17} />}
+                title={guestbook.sidebar.summary}
+              >
+                <dl className="grid grid-cols-2 gap-x-4 gap-y-5">
+                  <div>
+                    <dt className="text-xs leading-5 text-text-secondary">
+                      {guestbook.sidebar.totalVisitors}
+                    </dt>
+                    <dd className="mt-1 font-display text-3xl font-semibold">
+                      {data.statistics.total_visitors}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs leading-5 text-text-secondary">
+                      {guestbook.sidebar.todayVisitors}
+                    </dt>
+                    <dd className="mt-1 font-display text-3xl font-semibold">
+                      {data.statistics.today_visitors}
+                    </dd>
+                  </div>
+                  <div className="col-span-2 border-t border-border pt-4">
+                    <dt className="text-xs leading-5 text-text-secondary">
+                      {guestbook.sidebar.averageRating}
+                    </dt>
+                    <dd className="mt-1 flex items-center gap-2 font-display text-3xl font-semibold">
+                      {data.summary.total_reviews
+                        ? Number(data.summary.average_rating).toFixed(1)
+                        : "—"}
+                      {data.summary.total_reviews ? (
+                        <Star
+                          size={18}
+                          className="fill-accent-500 text-accent-500"
+                        />
+                      ) : null}
+                    </dd>
+                  </div>
+                </dl>
+              </SidebarPanel>
+              <SidebarPanel
+                icon={<ShieldCheck size={17} />}
+                title={guestbook.sidebar.guidelines}
+              >
+                <ul className="space-y-2.5">
+                  {guestbook.sidebar.guidelinesItems.map((item) => (
+                    <li
+                      key={item}
+                      className="flex gap-2 text-xs leading-5 text-text-secondary"
+                    >
+                      <span className="mt-2 size-1 shrink-0 rounded-full bg-accent-500" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-4 border-t border-border pt-4 text-xs leading-5 font-medium">
+                  {guestbook.sidebar.guidelinesThanks}
+                </p>
+              </SidebarPanel>
+            </aside>
+
+            <div className="min-w-0 xl:col-start-1 xl:row-start-2">
               {session ? (
                 <GuestbookComposer
                   submitting={submitting}
@@ -950,67 +1013,6 @@ export function Guestbook() {
                 </div>
               ) : null}
             </div>
-
-            <aside className="space-y-5 xl:sticky xl:top-32">
-              <SidebarPanel
-                icon={<Star size={17} />}
-                title={guestbook.sidebar.summary}
-              >
-                <dl className="grid grid-cols-2 gap-x-4 gap-y-5">
-                  <div>
-                    <dt className="text-xs leading-5 text-text-secondary">
-                      {guestbook.sidebar.totalVisitors}
-                    </dt>
-                    <dd className="mt-1 font-display text-3xl font-semibold">
-                      {data.statistics.total_visitors}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-xs leading-5 text-text-secondary">
-                      {guestbook.sidebar.todayVisitors}
-                    </dt>
-                    <dd className="mt-1 font-display text-3xl font-semibold">
-                      {data.statistics.today_visitors}
-                    </dd>
-                  </div>
-                  <div className="col-span-2 border-t border-border pt-4">
-                    <dt className="text-xs leading-5 text-text-secondary">
-                      {guestbook.sidebar.averageRating}
-                    </dt>
-                    <dd className="mt-1 flex items-center gap-2 font-display text-3xl font-semibold">
-                      {data.summary.total_reviews
-                        ? Number(data.summary.average_rating).toFixed(1)
-                        : "—"}
-                      {data.summary.total_reviews ? (
-                        <Star
-                          size={18}
-                          className="fill-accent-500 text-accent-500"
-                        />
-                      ) : null}
-                    </dd>
-                  </div>
-                </dl>
-              </SidebarPanel>
-              <SidebarPanel
-                icon={<ShieldCheck size={17} />}
-                title={guestbook.sidebar.guidelines}
-              >
-                <ul className="space-y-2.5">
-                  {guestbook.sidebar.guidelinesItems.map((item) => (
-                    <li
-                      key={item}
-                      className="flex gap-2 text-xs leading-5 text-text-secondary"
-                    >
-                      <span className="mt-2 size-1 shrink-0 rounded-full bg-accent-500" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-4 border-t border-border pt-4 text-xs leading-5 font-medium">
-                  {guestbook.sidebar.guidelinesThanks}
-                </p>
-              </SidebarPanel>
-            </aside>
           </div>
         </div>
       </section>
