@@ -1,5 +1,11 @@
 # Changelog About
 
+## 2026-09-05 - Revisi Copy Quote
+
+- Mengganti quote EN agar menekankan interface yang tepat secara visual, responsif, dan dipertimbangkan pada setiap detail.
+- Menghapus aksen warna khusus pada quote; seluruh kata kini memakai warna teks utama sambil mempertahankan highlight progresif berbasis opacity.
+- Menyelaraskan quote ID sebagai terjemahan langsung dari quote EN terbaru.
+
 ## 2026-08-31 - Status dan Skala Responsif
 
 - Menambahkan status sebagai baris metadata setelah lokasi, dengan config manual, dot tiga state, rotasi Available, dan typing aksesibel.

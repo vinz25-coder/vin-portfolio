@@ -54,7 +54,7 @@ Narasi dan metadata tetap di `About.tsx` selama belum membutuhkan perilaku terpi
 - Prinsip memakai grid dua kolom mulai `sm`: nomor selebar 3,5rem dan konten bertumpuk; pemisah hanya memakai border netral.
 - Baris heading kiri dirender langsung pada state final dan tidak bergantung pada `whileInView`, sehingga tidak dapat tertahan dalam keadaan transparan ketika observer terlambat atau gagal terpicu.
 - Quote memakai `useScroll({ target, offset: ["start 0.85", "end 0.35"] })` dan `useSpring` dengan stiffness 70, damping 20, serta mass 0,35 untuk menghaluskan progress.
-- Setiap kata memetakan progress overlap ke opacity 0,24-1; kata biasa memakai `--color-text-primary`, sedangkan `feel alive`/`terasa hidup` memakai `--color-accent-500`.
+- Setiap kata memetakan progress overlap ke opacity 0,24-1 dan memakai `--color-text-primary` tanpa aksen warna khusus.
 - Quote tetap 1,625rem pada mobile portrait, lalu meningkat bertahap pada landscape, tablet, desktop, dan desktop lebar; lebar maksimum tetap 24ch.
 - Visual word spans ditandai dekoratif dan teks penuh tersedia untuk teknologi asistif. Reduced motion merender paragraf penuh tanpa motion values atau pemisahan visual per kata.
 

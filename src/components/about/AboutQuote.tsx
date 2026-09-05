@@ -14,7 +14,6 @@ interface AboutQuoteProps {
 }
 
 interface HighlightedWordProps {
-  emphasized: boolean;
   index: number;
   progress: MotionValue<number>;
   total: number;
@@ -22,7 +21,6 @@ interface HighlightedWordProps {
 }
 
 function HighlightedWord({
-  emphasized,
   index,
   progress,
   total,
@@ -35,8 +33,7 @@ function HighlightedWord({
   return (
     <motion.span
       data-about-quote-word
-      data-about-quote-emphasis={emphasized ? "true" : undefined}
-      className={emphasized ? "inline text-accent-500" : "inline"}
+      className="inline"
       style={{ opacity }}
     >
       {word}
@@ -57,10 +54,6 @@ export function AboutQuote({ quote }: AboutQuoteProps) {
     damping: 20,
     mass: 0.35,
   });
-  const emphasizedWords = quote.startsWith("Saya")
-    ? new Set(["terasa", "hidup."])
-    : new Set(["feel", "alive."]);
-
   if (prefersReducedMotion) {
     return (
       <p
@@ -85,7 +78,6 @@ export function AboutQuote({ quote }: AboutQuoteProps) {
         {words.map((word, index) => (
           <span key={`${word}-${index}`}>
             <HighlightedWord
-              emphasized={emphasizedWords.has(word)}
               index={index}
               progress={smoothProgress}
               total={words.length}

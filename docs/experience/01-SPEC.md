@@ -25,8 +25,8 @@ Menampilkan pengalaman praktis Evindo Amanda dalam membangun sistem internal unt
 - Context EN: `Internal Business Project`.
 - Context ID: `Proyek Internal Usaha`.
 - Record title EN/ID: `ALAM BARU`.
-- Business description EN: `Custom glass & aluminum fabrication, complemented by ornamental & predator fish retail`.
-- Business description ID: `Fabrikasi kaca dan aluminium custom, dilengkapi dengan penjualan ikan hias dan ikan predator`.
+- Business description EN: `Custom Glass & Aluminum Works, Complemented by Aquarium Supplies and Ornamental & Predator Fish Retail`.
+- Business description ID: `Pengerjaan Kaca & Aluminium Custom, serta Penjualan Perlengkapan Aquarium, Ikan Hias & Ikan Predator`.
 - Meta EN: `Internal Dashboard · North Sumatra, Indonesia`.
 - Meta ID: `Dashboard Internal · Sumatera Utara, Indonesia`.
 - Periode: `Nov 2025 – Present` dalam EN dan `Nov 2025 – Sekarang` dalam ID.

@@ -416,7 +416,7 @@ describe("App", () => {
     expect(aboutLabel).not.toHaveTextContent("01 /");
     expect(aboutLabel.querySelectorAll(".about-label-part")).toHaveLength(1);
     expect(screen.getByText("Focus")).toBeInTheDocument();
-    expect(screen.getByText("Precise & Accessible")).toBeInTheDocument();
+    expect(screen.getByText("Detail-Oriented")).toBeInTheDocument();
     expect(aboutSection).toHaveTextContent("Indonesia");
     expect(screen.getByText("How I work")).toBeInTheDocument();
     expect(screen.getByText("Design to Code")).toBeInTheDocument();
@@ -718,7 +718,7 @@ describe("App", () => {
     expect(experienceSection).toHaveTextContent("Internal Business Project");
     expect(experienceSection).toHaveTextContent("ALAM BARU");
     expect(experienceSection).toHaveTextContent(
-      "Custom glass & aluminum fabrication, complemented by ornamental & predator fish retail",
+      "Custom Glass & Aluminum Works, Complemented by Aquarium Supplies and Ornamental & Predator Fish Retail",
     );
     expect(experienceSection).toHaveTextContent(
       "Internal Dashboard · North Sumatra, Indonesia",
@@ -760,7 +760,7 @@ describe("App", () => {
     ).toHaveTextContent("me");
     expect(workWithMeSection).toHaveTextContent("Let's build something");
     expect(workWithMeSection).toHaveTextContent(
-      "I'm available for selected projects — web products, dashboards, and product-focused frontend work.",
+      "I'm open for new projects — web products, dashboards, and frontend builds.",
     );
     expect(getInTouch).toHaveAttribute("href", "/contact");
     expect(getInTouch).not.toHaveAttribute("aria-disabled");
@@ -989,7 +989,7 @@ describe("App", () => {
     expect(workWithMeSection).not.toBeNull();
     expect(
       (workWithMeSection as Element).compareDocumentPosition(footer) &
-        Node.DOCUMENT_POSITION_FOLLOWING,
+      Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
     expect(wordmark).toHaveClass("particle-text__sr");
     expect(screen.getByTestId("footer-location")).toHaveTextContent(
@@ -1019,9 +1019,9 @@ describe("App", () => {
     );
 
     class MockResizeObserver {
-      disconnect() {}
-      observe() {}
-      unobserve() {}
+      disconnect() { }
+      observe() { }
+      unobserve() { }
     }
 
     vi.stubGlobal("ResizeObserver", MockResizeObserver);
@@ -1294,7 +1294,7 @@ describe("App", () => {
     orderedContent.slice(1).forEach((element, index) => {
       expect(
         orderedContent[index].compareDocumentPosition(element) &
-          Node.DOCUMENT_POSITION_FOLLOWING,
+        Node.DOCUMENT_POSITION_FOLLOWING,
       ).toBeTruthy();
     });
     expect(screen.getByRole("main").querySelectorAll("aside")).toHaveLength(1);

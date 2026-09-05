@@ -3,7 +3,7 @@ import type { HeroCopy } from "./types";
 export const en = {
   eyebrow: "Front-End Developer",
   subtitleLines: [
-    "Front-end specialist, turning design into precise, working code.",
+    "Focused on building clean, responsive interfaces that stay true to the design.",
   ],
   cta: {
     projects: "VIEW MY WORK",
@@ -61,14 +61,14 @@ export const en = {
       after: ".",
     },
     body: [
-      "I am a front-end developer focused on turning design into responsive, accessible, and natural digital experiences.",
+      "I'm a front-end developer who cares about how an interface feels to use — not just how it looks.",
       "To me, interface quality is not only about appearance, but also the details of interaction, performance, and how every element works together.",
     ],
     quote:
-      "I turn ideas into interfaces. I don't just build screens — I build experiences that respond, move, and feel alive. Because a great product isn't just seen, it's felt.",
+      "I turn ideas into interfaces, not just something that looks right, but something that responds and feels considered in every detail. Because good design isn't only seen, it's felt in how it works.",
     meta: [
       { label: "Focus", value: "Front-End" },
-      { label: "Approach", value: "Precise & Accessible" },
+      { label: "Approach", value: "Detail-Oriented" },
       { label: "Based In", value: "North Sumatera, Indonesia" },
     ],
     principlesLabel: "How I work",
@@ -76,7 +76,7 @@ export const en = {
       {
         title: "Design to Code",
         description:
-          "Translating design into precise, maintainable interfaces.",
+          "Translating design into clean, maintainable code.",
       },
       {
         title: "Meaningful Interaction",
@@ -85,7 +85,7 @@ export const en = {
       {
         title: "Performance by Default",
         description:
-          "Considering speed, responsiveness, and access from the start.",
+          "Considering speed, responsiveness, and stability from the start.",
       },
     ],
   },
@@ -124,19 +124,19 @@ export const en = {
     context: "Internal Business Project",
     recordTitle: "ALAM BARU",
     businessDescription:
-      "Custom glass & aluminum fabrication, complemented by ornamental & predator fish retail",
+      "Custom Glass & Aluminum Works, Complemented by Aquarium Supplies and Ornamental & Predator Fish Retail",
     meta: "Internal Dashboard · North Sumatra, Indonesia",
     contributions: [
       "Designed and developed ALAM BARU, an internal business analytics dashboard that unifies sales, inventory, and customer data across all product lines.",
-      "Implemented real-time revenue and profit tracking with trend visualization and category-level performance breakdowns.",
-      "Built a reporting workflow that replaced manual spreadsheet-based tracking for daily business operations.",
+      "Implemented up-to-date revenue and profit tracking with trend visualization and category-level performance breakdowns.",
+      "Built the business's first structured reporting workflow for daily operations, where none existed before.",
     ],
   },
   workWithMe: {
     eyebrow: "Let's build something",
     heading: "Work with me",
     description:
-      "I'm available for selected projects — web products, dashboards, and product-focused frontend work.",
+      "I'm open for new projects — web products, dashboards, and frontend builds.",
     getInTouch: "Get in touch",
     emailDirectly: "Email directly",
   },

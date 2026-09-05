@@ -35,7 +35,7 @@ Menjelaskan profil, cara berpikir, dan nilai profesional Evindo Amanda setelah H
 - Narasi masuk selama 500ms dengan fade dan translate 16px.
 - Prinsip memakai divider netral tanpa garis aksen; entrance setiap baris memakai stagger 80ms.
 - Quote memakai highlight kata demi kata yang terhubung dengan progress scroll; progress dilembutkan dengan spring dan dapat bergerak maju atau mundur mengikuti scroll.
-- Kata quote yang belum tercapai tetap memakai teks utama dengan opacity rendah; kata `feel alive`/`terasa hidup` saja memakai aksen tema.
+- Seluruh kata quote memakai warna teks utama tanpa aksen warna khusus; kata yang belum tercapai tetap memakai opacity rendah.
 - Tidak ada animasi ambient berulang.
 - Reduced motion menampilkan quote penuh tanpa highlight progresif.
 - Status Available merotasi empat pesan dengan typing ringan; Busy dan Unavailable memakai teks statis melalui config manual.
@@ -50,8 +50,8 @@ Menjelaskan profil, cara berpikir, dan nilai profesional Evindo Amanda setelah H
 - Layout tetap satu kolom sampai tablet/desktop kecil; dua kolom baru aktif mulai 1280px agar heading, deskripsi, metadata, dan prinsip tidak terpotong atau terlalu rapat.
 - Heading EN: "I turn design into working code." dengan aksen hanya pada `code`.
 - Heading ID: "Saya mengubah desain menjadi kode yang berfungsi." dengan aksen hanya pada `kode`.
-- Quote EN: "I turn ideas into interfaces. I don't just build screens — I build experiences that respond, move, and feel alive. Because a great product isn't just seen, it's felt."
-- Quote ID: "Saya mengubah ide menjadi antarmuka. Bukan sekadar membangun tampilan, tapi menciptakan pengalaman yang responsif, bergerak, dan terasa hidup. Karena produk yang hebat bukan hanya dilihat, tapi dirasakan."
+- Quote EN: "I turn ideas into interfaces, not just something that looks right, but something that responds and feels considered in every detail. Because good design isn't only seen, it's felt in how it works."
+- Quote ID: "Saya mengubah ide menjadi antarmuka, bukan sekadar sesuatu yang terlihat tepat, tetapi sesuatu yang merespons dan terasa dirancang dengan penuh pertimbangan dalam setiap detail. Karena desain yang baik tidak hanya dilihat, tetapi dirasakan melalui cara kerjanya."
 - Heading memakai natural balanced wrapping tanpa clip atau baris manual; versi ID dan EN harus aman pada mobile, tablet, dan desktop.
 - Quote berada di bawah heading dengan wrapping natural; ukuran mobile portrait tetap ringkas dan membesar pada landscape, tablet, serta desktop.
 - Anchor About mendarat dengan mengandalkan padding section, tanpa scroll margin tambahan yang menggandakan offset header.
@@ -62,7 +62,7 @@ Menjelaskan profil, cara berpikir, dan nilai profesional Evindo Amanda setelah H
 
 - Konsep: editorial profile seperti halaman majalah desain.
 - Heading final mengikuti locale ID/EN; warna aksen dan italic memakai token brand aktif pada kata `kode`/`code` saja.
-- Quote final tersedia dalam ID/EN, berada di bawah heading, dan menyorot `feel alive`/`terasa hidup` dengan aksen tema.
+- Quote final tersedia dalam ID/EN, berada di bawah heading, dan memakai warna teks utama tanpa aksen warna khusus.
 - Metadata: fokus Front-End, pendekatan presisi dan aksesibel, lokasi Indonesia, serta status.
 - Prinsip: Design to Code, interaksi bermakna, dan performa sejak awal.
 - Metadata memakai empat baris: fokus, pendekatan, lokasi, dan status.

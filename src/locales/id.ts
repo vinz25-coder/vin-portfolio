@@ -5,7 +5,7 @@ import type { HeroCopy } from "./types";
 export const id = {
   eyebrow: "Pengembang Front-End",
   subtitleLines: [
-    "Spesialis front-end, mengubah desain menjadi kode yang presisi.",
+    "Fokus membangun antarmuka yang rapi, responsif, dan sesuai desain.",
   ],
   cta: {
     projects: "Lihat Karya Saya",
@@ -63,14 +63,14 @@ export const id = {
       after: "yang berfungsi.",
     },
     body: [
-      "Saya adalah front-end developer yang berfokus mengubah desain menjadi pengalaman digital yang responsif, aksesibel, dan terasa natural saat digunakan.",
+      "Saya adalah front-end developer yang peduli pada bagaimana rasanya sebuah antarmuka saat digunakan — bukan sekadar tampilannya.",
       "Bagi saya, kualitas sebuah antarmuka tidak hanya terlihat dari tampilannya, tetapi juga dari detail interaksi, performa, dan cara setiap elemen bekerja bersama.",
     ],
     quote:
-      "Saya mengubah ide menjadi antarmuka. Bukan sekadar membangun tampilan, tapi menciptakan pengalaman yang responsif, bergerak, dan terasa hidup. Karena produk yang hebat bukan hanya dilihat, tapi dirasakan.",
+      "Saya mengubah ide menjadi antarmuka, bukan sekadar sesuatu yang terlihat tepat, tetapi sesuatu yang merespons dan terasa dirancang dengan penuh pertimbangan dalam setiap detail. Karena desain yang baik tidak hanya dilihat, tetapi dirasakan melalui cara kerjanya.",
     meta: [
       { label: "Fokus", value: "Front-End" },
-      { label: "Pendekatan", value: "Presisi & Aksesibel" },
+      { label: "Pendekatan", value: "Teliti pada Detail" },
       { label: "Lokasi", value: "Sumatera Utara, Indonesia" },
     ],
     principlesLabel: "Cara saya bekerja",
@@ -78,7 +78,7 @@ export const id = {
       {
         title: "Design to Code",
         description:
-          "Menerjemahkan desain menjadi antarmuka yang presisi dan terawat.",
+          "Menerjemahkan desain menjadi kode yang bersih dan mudah dirawat.",
       },
       {
         title: "Interaksi Bermakna",
@@ -88,7 +88,7 @@ export const id = {
       {
         title: "Performa Sejak Awal",
         description:
-          "Memikirkan kecepatan, responsivitas, dan akses sejak awal.",
+          "Memperhatikan kecepatan, responsivitas, dan stabilitas sejak awal.",
       },
     ],
   },
@@ -127,19 +127,19 @@ export const id = {
     context: "Proyek Internal Usaha",
     recordTitle: "ALAM BARU",
     businessDescription:
-      "Fabrikasi kaca dan aluminium custom, dilengkapi dengan penjualan ikan hias dan ikan predator",
+      "Pengerjaan Kaca & Aluminium Custom, serta Penjualan Perlengkapan Aquarium, Ikan Hias & Ikan Predator",
     meta: "Dashboard Internal · Sumatera Utara, Indonesia",
     contributions: [
       "Merancang dan mengembangkan ALAM BARU, dashboard analitik internal yang menyatukan data penjualan, inventaris, dan pelanggan dari seluruh lini produk.",
-      "Mengimplementasikan pemantauan omzet dan laba secara real-time dengan visualisasi tren serta rincian performa setiap kategori.",
-      "Membangun alur pelaporan yang menggantikan pencatatan manual berbasis spreadsheet untuk operasional usaha sehari-hari.",
+      "Mengimplementasikan pemantauan omzet dan laba terkini dengan visualisasi tren serta rincian performa setiap kategori.",
+      "Membangun sistem pelaporan terstruktur pertama untuk bisnis ini, yang sebelumnya belum pernah ada.",
     ],
   },
   workWithMe: {
     eyebrow: "Mari bangun sesuatu",
     heading: "Bekerja dengan saya",
     description:
-      "Saya tersedia untuk proyek terpilih — produk web, dashboard, dan pekerjaan frontend yang berfokus pada produk.",
+      "Saya terbuka untuk proyek baru — web product, dashboard, dan frontend build.",
     getInTouch: "Hubungi saya",
     emailDirectly: "Email langsung",
   },
