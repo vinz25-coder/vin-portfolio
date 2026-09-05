@@ -1,7 +1,61 @@
 # Changelog Guestbook
 
+## 2026-09-05
+
+- Mengubah kategori Portfolio Review menjadi multi-select minimal satu pilihan, termasuk migrasi aman data lama, draft/edit, label feed/preview, dan validasi database.
+- Menghapus opsi soft delete yang redundan dari menu Author sehingga hanya permanent delete yang tampil, serta menerapkan migration `202609050003` agar RPC permanent subtree delete tersedia pada Supabase tertaut.
+
 ## 2026-09-04
 
+- Menyamakan state aktif Like/Dislike pada entry dengan pill glass Reaction portfolio, termasuk border aksen, inner highlight, glow bertingkat, lift ringan, pasangan light/dark, dan reduced-motion fallback tanpa mengubah lebar action row.
+- Memberi ruang internal terkompensasi pada scroller Reaction agar glow tombol aktif tidak terpotong di sisi panel atau memperlihatkan batas shadow berbentuk margin.
+- Merampingkan reaction aktif agar tidak melebar berlebihan, mengganti animasi ukuran dengan lift/scale ringan, serta merapatkan border, glass tint, dan glow agar state terasa lebih luwes.
+- Memperjelas reaction portfolio aktif sebagai pill glass yang melebar dengan border aksen, inner highlight, glow bertingkat, pasangan light/dark, dan reduced-motion fallback.
+- Menambahkan perlindungan moderasi bertingkat: rate limit per akun, normalisasi dan klasifikasi spam deterministik, duplicate-body 24 jam, Pending/Quarantined queue, self-report guard, auto-quarantine tiga report unik, Block user, serta visible-only reply push.
+- Memperluas alasan report untuk hate, threat, illegal activity, phishing, dan personal data; menambahkan copy bilingual, feedback submission moderasi, serta kontrol Approve/Hide/Delete/Block inline.
+- Menerapkan migration moderasi `202609050001` ke Supabase tertaut dan memverifikasi classifier remote untuk hasil visible, pending, serta quarantined.
+- Menerapkan migration Storage `202609050002` agar blocked user tidak dapat upload atau replace media Guestbook, sambil tetap mengizinkan penghapusan media/subscription untuk privasi.
+- Verifikasi moderasi akhir lulus pada typecheck, lint, 112 test, Prettier, production build, diff check, dan Supabase dry-run up-to-date.
+- Memperbaiki false active Review dari composite RPC all-null dengan parser strict dan RPC JSON nullable authenticated-only; shortcut edit kini mengambil target terbaru dan menampilkan error di dalam modal.
+- Menambahkan self-healing serta backfill profile Google, memperbaiki endpoint owner menjadi verified upsert, dan menerapkan migration `202609040005`; anon active-review RPC ditolak, profile owner tersedia, dan active Review remote tetap nol.
+- Mengganti pagination root kumulatif dengan batch 10 dan overfetch satu row agar Load More Comments hanya muncul saat root ke-11 tersedia serta tetap bekerja melewati 50 entry.
+- Melipat reply menjadi tiga per thread, membuka tiga berikutnya melalui View More Replies, dan otomatis membuka reply target deep link.
+- Mengamankan lookup Review aktif terhadap race session/auth, membersihkan state user saat akun berubah, serta menyinkronkan status setelah create, edit, duplicate, hide, unhide, dan delete; hidden Review mendapat penjelasan slot moderasi yang eksplisit.
+- Memindahkan identitas akun, status Author, Sign out, dan kontrol notifikasi ke header composer agar hubungan akun dengan posting jelas; menebalkan serta meningkatkan kontras track distribusi rating.
+- Menyeimbangkan panel Overall Rating dan Reaction dengan membatasi lebar konten rating, merapatkan distribusi, mengelompokkan reaction tanpa peregangan breakpoint, serta menyamakan tipografi heading uppercase.
+- Merapikan reaction portfolio menjadi kelompok horizontal terukur dengan jarak konsisten, count tabular, panel lebih ringkas, dan horizontal scroll tanpa scrollbar pada layar sempit.
+- Menyederhanakan reaction portfolio menjadi lima pilihan 👍, ❤️, 🔥, 👏, dan 🚀 dalam satu bar horizontal dengan count di samping emoji; mobile memakai horizontal scroll tanpa grid.
+- Menerapkan migration compact `202609040004` untuk menghapus tiga tipe reaction portfolio yang dibatalkan dan membatasi summary/toggle remote pada lima tipe final.
+- Menambahkan reaction portfolio authenticated berupa 👍, ❤️, 🔥, 👋, 🚀, ✨, 😊, dan 💯 dengan count publik, toggle per akun, pressed state, serta tabel privat dan RPC aggregate terpisah agar tidak memengaruhi ranking thread.
+- Mengganti Helpful/Love/Insightful pada Discussion, Review, dan reply menjadi Like/Dislike yang saling menggantikan; membersihkan reaction entry lama dan mengubah Popular menjadi Like pada thread ditambah reply visible.
+- Menampilkan jumlah root pada filter All Comments, Discussions, dan Reviews serta mengubah Community Summary menjadi Total Visitors Guestbook, Today Visitors, dan Average Rating.
+- Menerapkan migration reaction `202609040003` ke Supabase tertaut; history lokal/remote sinkron dan RPC reaction/statistik publik terverifikasi.
+- Verifikasi akhir reaction redesign lulus pada typecheck, lint, 94 test, Prettier, production build, dan diff check.
+- Mempercepat Pin/Unpin dan Hide/Unhide dengan status pending per entry, update lokal setelah server mengonfirmasi, rekonsiliasi background tanpa loading flicker, serta perlindungan dari request moderasi ganda dan respons refresh usang.
+- Memperbaiki menu aksi di dekat Footer dengan menaikkan layer Guestbook dan memilih arah menu berdasarkan tinggi aktual, visual viewport, serta batas Footer agar Hide tetap dapat diklik.
+- Mengganti notification inbox/polling in-app yang belum dideploy dengan Web Push opt-in per browser agar reply dapat diterima saat portfolio ditutup.
+- Mengirim push untuk semua direct reply, termasuk reply ke author, Discussion, dan Review; self-reply serta aksi non-reply tidak memicu notification.
+- Menambahkan service worker, web manifest, icon PWA, VAPID environment contract, subscription endpoint authenticated, reply dispatch terverifikasi, multi-device delivery, deduplikasi, dan cleanup subscription expired.
+- Menambahkan test endpoint dan permission UI untuk memastikan browser permission hanya diminta setelah aksi eksplisit user.
+- Menerapkan migration integritas Review dan Web Push ke Supabase project tertaut; migration history sinkron dan RPC Community Summary production merespons 200.
+- Verifikasi akhir lulus pada typecheck, lint, 87 test, dan production build; aktivasi Web Push menunggu VAPID env lokal/Vercel.
+- Menambahkan panel Community Summary publik berisi Total Reviews, Total Discussions, dan Average Rating dari root content visible/non-deleted.
+- Memfokuskan Guestbook pada Discussion dan Portfolio Review dengan copy composer berbeda, definisi rating pengalaman portfolio, dan label Review yang tidak menyiratkan testimonial klien.
+- Menambahkan migration non-destruktif untuk satu Review aktif per akun, jenis entry immutable, lookup Review milik user melalui RPC authenticated, serta tiga reaction baru yang diizinkan.
+- Mengubah rating menjadi radio group bilingual, menampilkan empty rating sebagai `—`, dan menambahkan jumlah nyata pada distribusi rating.
+- Membatasi sort Highest Rated pada tab Reviews dan mengembalikan sort ke Newest saat berpindah ke All atau Discussions.
+- Menambahkan draft lokal composer, deteksi/edit Review aktif, status Review under moderation, replace/remove gambar saat edit, serta cleanup Storage saat soft delete.
+- Memisahkan maksimal tiga pinned post ke area `Pinned by Author`, menampilkan reply count/context dan tanggal, serta memperbaiki Share menjadi deep link dengan highlight dan feedback copy.
+- Menyederhanakan reaction menjadi Helpful, Love, dan Insightful; menghapus Top Contributors dan Visitor Statistics dari UI publik tanpa menghapus tracking visitor backend.
+- Memisahkan kegagalan rating summary dari feed utama dan menambahkan pesan duplicate Review, session expired, serta pin limit yang dapat ditindaklanjuti.
+- Menambahkan test composer, deep link, dan migration contract; verifikasi akhir lulus pada typecheck, lint, 79 test, dan production build.
+- Menampilkan status `AUTHOR` pada akun owner yang telah diverifikasi melalui UUID Supabase di server.
+- Melengkapi kontrol owner untuk pin/unpin root post, hide, unhide, dan soft delete pada komentar atau review.
+- Menambahkan mode moderasi inline terproteksi untuk meninjau konten hidden tanpa mengeksposnya ke feed publik.
+- Memperbaiki menu aksi yang overlap dengan menaikkan stacking entry aktif, memilih arah buka berdasarkan ruang viewport, serta menambahkan click-outside, Escape, pengembalian fokus, dan navigasi panah keyboard.
+- Menambahkan konfirmasi Hide/Delete, focus state, dan copy moderasi bilingual tanpa string aksi hardcoded.
+- Memperketat verifikasi owner agar kegagalan update profil tidak dilaporkan sebagai sukses, serta memastikan soft delete moderasi melepas status pinned.
+- Menambahkan test kontrol owner dan menu; verifikasi akhir lulus pada typecheck, lint, 71 test, Prettier, dan production build.
 - Menyelaraskan struktur floating preview dengan referensi: header ringkas, tab berindikator garis, identitas dan waktu entri, ringkasan rating Reviews, bintang per ulasan, dan CTA bawah terpisah.
 - Menyembunyikan seluruh floating Guestbook widget pada route `/guestbook` agar kontrol tidak redundan.
 - Mengganti heading menjadi `Visitor Perspectives.`/`Perspektif Pengunjung.` dengan kata terakhir beserta titik memakai aksen amber pada tema terang dan merah pada tema gelap.

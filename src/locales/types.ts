@@ -148,18 +148,36 @@ export interface HeroCopy {
     whatsappMessage: string;
   };
   guestbook: {
+    categories: Record<
+      | "portfolio"
+      | "ui_ux_design"
+      | "code_quality"
+      | "communication"
+      | "collaboration"
+      | "overall_experience",
+      string
+    >;
     sectionLabel: string;
     heading: {
       before: string;
       accent: string;
     };
     description: string;
-    rating: { overall: string; reviews: string; empty: string };
+    rating: {
+      overall: string;
+      reviews: string;
+      empty: string;
+      scale: readonly string[];
+    };
     composer: {
       heading: string;
+      discussionHeading: string;
+      reviewHeading: string;
       discussion: string;
       review: string;
       placeholder: string;
+      discussionPlaceholder: string;
+      reviewPlaceholder: string;
       rate: string;
       emoji: string;
       image: string;
@@ -169,9 +187,24 @@ export interface HeroCopy {
       signInPrompt: string;
       signIn: string;
       signOut: string;
+      postingAs: string;
       required: string;
       ratingRequired: string;
       imageInvalid: string;
+      category: string;
+      categoryRequired: string;
+      editReview: string;
+      existingReview: string;
+      duplicateReview: string;
+      reviewUnderModeration: string;
+      reviewNoLongerAvailable: string;
+      sessionExpired: string;
+      removeExistingImage: string;
+      pendingFeedback: string;
+      quarantinedFeedback: string;
+      blocked: string;
+      rateLimited: string;
+      duplicateBody: string;
     };
     filters: {
       label: string;
@@ -181,38 +214,94 @@ export interface HeroCopy {
       newest: string;
       popular: string;
       highestRated: string;
+      pinned: string;
     };
     feed: {
       empty: string;
       loading: string;
       error: string;
-      loadMore: string;
+      loadMoreComments: string;
+      viewMoreReplies: string;
       reply: string;
       share: string;
+      linkCopied: string;
+      like: string;
+      dislike: string;
       report: string;
       edit: string;
       delete: string;
       deleted: string;
+      removedByAuthor: string;
+      permanentDelete: string;
+      confirmPermanentDelete: string;
+      storageCleanupFailed: string;
       pinned: string;
+      pin: string;
+      unpin: string;
+      hide: string;
+      unhide: string;
+      approve: string;
+      hidden: string;
+      pending: string;
+      quarantined: string;
+      blockUser: string;
       author: string;
+      authorAccount: string;
+      moderation: string;
+      moderationEmpty: string;
+      pinLimit: string;
+      confirmHide: string;
+      confirmDelete: string;
+      confirmBlock: string;
+      moreActions: string;
+      replies: string;
+      replyingTo: string;
+      portfolioReview: string;
       edited: string;
       signInAction: string;
       reportHeading: string;
       reportNote: string;
       cancel: string;
       submitReport: string;
+      reportReasons: Record<
+        | "spam"
+        | "harassment"
+        | "hate"
+        | "threat"
+        | "illegal"
+        | "phishing"
+        | "personal_data"
+        | "irrelevant"
+        | "inappropriate"
+        | "other",
+        string
+      >;
+    };
+    portfolioReactions: {
+      heading: string;
+      description: string;
+      failed: string;
+      labels: Record<
+        "thumbs_up" | "heart" | "fire" | "clap" | "rocket",
+        string
+      >;
     };
     sidebar: {
-      contributors: string;
-      noContributors: string;
-      statistics: string;
+      summary: string;
       totalVisitors: string;
-      totalComments: string;
       todayVisitors: string;
-      thisWeek: string;
+      averageRating: string;
       guidelines: string;
       guidelinesItems: readonly string[];
       guidelinesThanks: string;
+    };
+    notifications: {
+      enable: string;
+      disable: string;
+      enabled: string;
+      disabled: string;
+      denied: string;
+      failed: string;
     };
     configuredNote: string;
     success: string;

@@ -192,7 +192,9 @@ export function FloatingChatWidget() {
                   {filter === "reviews" ? (
                     <div className="guestbook-preview-rating flex items-center gap-3 border-b border-border px-5 py-4">
                       <strong className="font-display text-3xl leading-none font-bold tracking-[-0.04em]">
-                        {Number(rating.average_rating).toFixed(1)}
+                        {rating.total_reviews
+                          ? Number(rating.average_rating).toFixed(1)
+                          : "—"}
                       </strong>
                       <div>
                         <div
@@ -244,7 +246,7 @@ export function FloatingChatWidget() {
                             <h3 className="min-w-0 flex-1 truncate font-display text-sm font-semibold">
                               {entry.author.display_name}
                             </h3>
-                            {entry.rating ? (
+                            {!entry.is_deleted && entry.rating ? (
                               <span
                                 className="flex shrink-0 gap-px text-accent-500"
                                 aria-label={`${entry.rating} stars`}
@@ -271,7 +273,7 @@ export function FloatingChatWidget() {
                               </time>
                             )}
                           </div>
-                          {entry.rating ? (
+                          {!entry.is_deleted && entry.rating ? (
                             <time
                               dateTime={entry.created_at}
                               className="mt-0.5 block text-xs text-text-secondary"
@@ -279,9 +281,22 @@ export function FloatingChatWidget() {
                               {formatRelativeTime(entry.created_at, language)}
                             </time>
                           ) : null}
+                          {!entry.is_deleted &&
+                          entry.entry_type === "review" ? (
+                            <p className="mt-1 text-xs text-text-secondary">
+                              {(entry.review_categories ?? ["portfolio"])
+                                .map(
+                                  (category) =>
+                                    copy.guestbook.categories[category],
+                                )
+                                .join(" · ")}
+                            </p>
+                          ) : null}
                           <p className="mt-1 line-clamp-2 text-xs leading-5 text-text-secondary">
                             {entry.is_deleted
-                              ? copy.guestbook.feed.deleted
+                              ? entry.deletion_source === "site_author"
+                                ? copy.guestbook.feed.removedByAuthor
+                                : copy.guestbook.feed.deleted
                               : entry.body}
                           </p>
                         </div>
@@ -294,10 +309,13 @@ export function FloatingChatWidget() {
                   {filter === "reviews" ? (
                     <div className="guestbook-preview-rating flex items-center gap-3 border-b border-border px-5 py-4">
                       <strong className="font-display text-3xl leading-none font-bold tracking-[-0.04em]">
-                        {Number(rating.average_rating).toFixed(1)}
+                        —
                       </strong>
                       <div>
-                        <div className="flex gap-0.5 text-text-secondary/35" aria-hidden="true">
+                        <div
+                          className="flex gap-0.5 text-text-secondary/35"
+                          aria-hidden="true"
+                        >
                           {[1, 2, 3, 4, 5].map((star) => (
                             <Star key={star} size={14} />
                           ))}
@@ -309,9 +327,9 @@ export function FloatingChatWidget() {
                     </div>
                   ) : null}
                   <p className="px-5 py-8 text-center text-xs text-text-secondary">
-                  {filter === "discussions"
-                    ? copy.chat.emptyDiscussions
-                    : copy.chat.emptyReviews}
+                    {filter === "discussions"
+                      ? copy.chat.emptyDiscussions
+                      : copy.chat.emptyReviews}
                   </p>
                 </div>
               )}
