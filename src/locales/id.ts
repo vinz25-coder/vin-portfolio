@@ -150,7 +150,7 @@ export const id = {
       accent: "berguna.",
     },
     introduction:
-      "Punya ide produk web, dashboard, atau implementasi frontend? Ceritakan konteksnya dan saya akan menghubungi Anda secara langsung.",
+      "Punya ide produk web, dashboard, atau proyek frontend? Ceritakan konteksnya dan saya akan menghubungi Anda secara langsung.",
     formHeading: "Konsultasi Proyek",
     fields: {
       name: "Nama",
@@ -163,9 +163,10 @@ export const id = {
       messagePlaceholder: "Ceritakan proyek, tujuan, dan konteksnya saat ini.",
     },
     projectTypes: {
-      webProduct: "Produk Web",
-      dashboard: "Dashboard",
-      frontendImplementation: "Implementasi Frontend",
+      webProduct: "Website / Landing Page",
+      dashboard: "Dashboard / Aplikasi Web",
+      frontendDevelopment: "Pengembangan Frontend",
+      uiImplementation: "Implementasi UI",
       other: "Lainnya",
     },
     submit: "Kirim pesan",

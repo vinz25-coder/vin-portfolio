@@ -147,7 +147,7 @@ export const en = {
       accent: "useful.",
     },
     introduction:
-      "Have a web product, dashboard, or frontend implementation in mind? Share the context and I'll get back to you directly.",
+      "Have a web product, dashboard, or frontend project in mind? Share the context and I'll get back to you directly.",
     formHeading: "Project Inquiry",
     fields: {
       name: "Name",
@@ -161,10 +161,11 @@ export const en = {
         "Tell me about the project, goals, and current context.",
     },
     projectTypes: {
-      webProduct: "Web Product",
-      dashboard: "Dashboard",
-      frontendImplementation: "Frontend Implementation",
-      other: "Other",
+      webProduct: "Website / Landing Page",
+      dashboard: "Dashboard / Web App",
+      frontendDevelopment: "Frontend Development",
+      uiImplementation: "UI Implementation",
+      other: "Others",
     },
     submit: "Send inquiry",
     submitting: "Sending...",

@@ -15,7 +15,8 @@ interface ContactResponse {
 const projectTypes = new Set([
   "web-product",
   "dashboard",
-  "frontend-implementation",
+  "frontend-development",
+  "ui-implementation",
   "other",
 ]);
 

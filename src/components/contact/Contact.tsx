@@ -25,7 +25,8 @@ import { EASE_OUT_EXPO } from "../../motion/constants";
 const projectTypeValues = [
   "web-product",
   "dashboard",
-  "frontend-implementation",
+  "frontend-development",
+  "ui-implementation",
   "other",
 ] as const;
 
@@ -103,10 +104,8 @@ export function Contact() {
   const projectOptions: readonly [ProjectType, string][] = [
     ["web-product", contactCopy.projectTypes.webProduct],
     ["dashboard", contactCopy.projectTypes.dashboard],
-    [
-      "frontend-implementation",
-      contactCopy.projectTypes.frontendImplementation,
-    ],
+    ["frontend-development", contactCopy.projectTypes.frontendDevelopment],
+    ["ui-implementation", contactCopy.projectTypes.uiImplementation],
     ["other", contactCopy.projectTypes.other],
   ];
 

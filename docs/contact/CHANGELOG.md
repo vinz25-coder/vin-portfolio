@@ -15,3 +15,10 @@
 - Tes Contact diperbarui untuk pilihan custom, error, payload, reset, keyboard, dismiss, serta markup state pada light/dark.
 - Verifikasi final: `npm run typecheck`, `npm run lint`, `npx vitest run` (136 tes pada 13 file), `npm run build`, dan `git diff --check` lulus. Typecheck selesai sebelum build. Peringatan chunk >500 kB masih ada.
 - Browser visual/perangkat dan screen reader nyata tidak tersedia pada sesi ini; warna aktual, overflow breakpoint, dan pengalaman assistive technology belum diverifikasi secara manual. Tes jsdom memverifikasi interaksi dan markup, bukan rendering visual.
+
+## 2026-09-05
+
+- Memperbarui label pilihan Project type menjadi Website / Landing Page, Dashboard / Web App, Frontend Development / UI Implementation, dan Others.
+- Menambahkan padanan bahasa Indonesia: Website / Landing Page, Dashboard / Aplikasi Web, Pengembangan Frontend / Implementasi UI, dan Lainnya.
+- Nilai internal dan kontrak API tetap dipertahankan agar validasi serta submission tidak berubah.
+- Memisahkan Frontend Development dan UI Implementation menjadi dua opsi terpisah, dengan terjemahan Indonesia Pengembangan Frontend dan Implementasi UI. Nilai enum frontend/backend diperbarui untuk mencerminkan pilihan baru.

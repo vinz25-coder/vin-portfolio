@@ -129,7 +129,8 @@ export interface HeroCopy {
     projectTypes: {
       webProduct: string;
       dashboard: string;
-      frontendImplementation: string;
+      frontendDevelopment: string;
+      uiImplementation: string;
       other: string;
     };
     submit: string;

@@ -22,7 +22,7 @@ Menyediakan halaman `/contact` tersendiri untuk inquiry proyek melalui form yang
 - Heading English: `LET'S BUILD SOMETHING USEFUL.`.
 - Heading Indonesia: `MARI BANGUN SESUATU YANG BERGUNA.`.
 - Form terdiri dari nama, email, jenis proyek, dan pesan.
-- Jenis proyek: Web Product, Dashboard, Frontend Implementation, dan Other beserta terjemahannya.
+- Jenis proyek: Website / Landing Page, Dashboard / Web App, Frontend Development, UI Implementation, dan Others beserta terjemahannya.
 - Kanal langsung memakai email, WhatsApp `+62 899-9925-053`, GitHub, X, dan Instagram yang telah disetujui.
 - Kanal langsung memakai glass tile tanpa divider/underline theme, outline warna brand, serta badge ikon terang dengan warna penuh masing-masing platform.
 - WhatsApp memakai pesan pembuka sesuai bahasa aktif.

@@ -856,7 +856,9 @@ describe("App", () => {
     expect(projectType).toHaveAttribute("aria-invalid", "true");
     expect(projectType).toHaveAttribute("aria-describedby", "contact-project-type-error");
     fireEvent.click(projectType);
-    fireEvent.click(screen.getByRole("option", { name: "Web Product" }));
+    fireEvent.click(
+      screen.getByRole("option", { name: "Website / Landing Page" }),
+    );
     expect(projectType).toHaveAttribute("aria-invalid", "false");
     expect(projectType).not.toHaveAttribute("aria-describedby");
     fireEvent.change(screen.getByLabelText("Message"), {
@@ -899,7 +901,9 @@ describe("App", () => {
       target: { value: "ada@example.com" },
     });
     fireEvent.click(screen.getByRole("combobox", { name: "Project type" }));
-    fireEvent.click(screen.getByRole("option", { name: "Web Product" }));
+    fireEvent.click(
+      screen.getByRole("option", { name: "Website / Landing Page" }),
+    );
     fireEvent.change(screen.getByLabelText("Message"), {
       target: { value: "I would like to discuss a focused web product." },
     });
@@ -924,7 +928,7 @@ describe("App", () => {
     const options = screen.getAllByRole("option");
     expect(trigger).toHaveAttribute("aria-activedescendant", options[0].id);
     fireEvent.keyDown(trigger, { key: "End" });
-    expect(options[3]).toHaveAttribute("data-active", "true");
+    expect(options[4]).toHaveAttribute("data-active", "true");
     fireEvent.keyDown(trigger, { key: "Home" });
     fireEvent.keyDown(trigger, { key: "ArrowDown" });
     fireEvent.keyDown(trigger, { key: "ArrowUp" });
@@ -933,20 +937,24 @@ describe("App", () => {
     fireEvent.keyDown(trigger, { key: "a" });
     expect(options[1]).toHaveAttribute("data-active", "true");
     fireEvent.keyDown(trigger, { key: "Enter" });
-    expect(trigger).toHaveTextContent("Dashboard");
+    expect(trigger).toHaveTextContent("Dashboard / Web App");
     expect(trigger).toHaveAttribute("data-placeholder", "false");
     expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
     fireEvent.keyDown(trigger, { key: " " });
-    expect(screen.getByRole("option", { name: "Dashboard" })).toHaveAttribute("aria-selected", "true");
-    expect(screen.getByRole("option", { name: "Dashboard" })).toHaveClass("contact-project-option");
+    expect(
+      screen.getByRole("option", { name: "Dashboard / Web App" }),
+    ).toHaveAttribute("aria-selected", "true");
+    expect(
+      screen.getByRole("option", { name: "Dashboard / Web App" }),
+    ).toHaveClass("contact-project-option");
     fireEvent.keyDown(trigger, { key: "End" });
     fireEvent.keyDown(trigger, { key: "Escape" });
-    expect(trigger).toHaveTextContent("Dashboard");
+    expect(trigger).toHaveTextContent("Dashboard / Web App");
     expect(trigger).toHaveFocus();
     fireEvent.keyDown(trigger, { key: "Enter" });
     fireEvent.keyDown(trigger, { key: "Home" });
     fireEvent.keyDown(trigger, { key: " " });
-    expect(trigger).toHaveTextContent("Web Product");
+    expect(trigger).toHaveTextContent("Website / Landing Page");
     fireEvent.click(trigger);
     fireEvent.keyDown(trigger, { key: "Tab" });
     expect(trigger).toHaveAttribute("aria-expanded", "false");
