@@ -1,6 +1,6 @@
 # Spesifikasi Guestbook
 
-**Status:** Baseline disetujui pada 2026-09-03; revisi 2026-09-05 disetujui eksplisit untuk implementasi, termasuk seluruh keputusan di bawah. Implementasi lokal selesai; verifikasi deployment/database dan browser manual masih diperlukan.
+**Status:** Baseline disetujui pada 2026-09-03; revisi 2026-09-05 termasuk layout responsif disetujui dan diimplementasikan. Migration sampai `202609050004` sudah diterapkan ke Supabase tertaut berdasarkan hasil sesi sebelumnya; verifikasi endpoint/push deployment, skenario database end-to-end, dan browser manual belum terkonfirmasi. Rincian status ada di `CHANGELOG.md`.
 **Referensi visual:** Struktur thread mengikuti gambar yang diberikan; visual mengikuti design system portfolio.
 
 ## Tujuan
@@ -56,13 +56,13 @@ Menyediakan halaman komunitas `/guestbook` tempat pengunjung membaca diskusi dan
 - Review wajib memiliki minimal satu kategori unik dari `portfolio`, `ui_ux_design`, `code_quality`, `communication`, `collaboration`, dan `overall_experience`; seluruh kategori dapat dipilih bersamaan. Default dan backfill Review lama adalah `portfolio`. Discussion dan reply tidak memiliki kategori.
 - Kategori dapat dipilih melalui multi-select saat membuat dan mengedit Review; seluruh label terpilih tampil pada entry dan floating preview. Kategori bukan jenis entry baru dan tidak menambah filter atau slot Review per akun.
 - Review merupakan penilaian pengunjung sesuai kategori, bukan klaim pengalaman kerja atau testimonial klien yang diverifikasi.
-- Satu akun hanya memiliki satu Review aktif; Review berikutnya mengedit Review yang sudah ada.
+- Satu akun hanya memiliki satu Review aktif lintas kategori, termasuk hidden/pending/quarantined; Review visible diarahkan ke edit, sedangkan Review under moderation tetap menahan slot dan tidak dapat diedit. Satu Review memiliki satu rating bersama, bukan rating terpisah per kategori.
 - Lookup Review tanpa hasil harus menghasilkan `null`, bukan record all-null; shortcut edit memvalidasi ulang Review sebelum membuka editor dan error edit tampil di dalam dialog.
 - Jenis root post tidak dapat diubah setelah dipublikasikan.
 - Average, distribusi rating, dan Highest Rated tetap menggabungkan semua kategori Review visible yang tidak dihapus.
 - Thread dibatasi pada root post, reply, dan satu nested reply. Balasan setelah batas tetap berada pada level terakhir; konteks target direct reply tetap dipertahankan tanpa mention UI.
 - User dapat mengedit dan menghapus konten sendiri. Delete pengunjung tetap menghasilkan tombstone agar thread utuh; permanent delete hanya tersedia untuk Author terverifikasi server.
-- Root post owner dapat di-pin. Pinned post selalu berada di atas hasil sort.
+- Owner dapat mem-pin root post. Pinned post selalu berada di atas hasil sort.
 - Pinned content ditampilkan pada area `Pinned by Author` terpisah dan dibatasi maksimal tiga root post.
 
 ## Composer dan Media
@@ -117,14 +117,14 @@ Copy bilingual berikut disetujui bersama revisi:
 - Body identik dari akun yang sama dalam 24 jam ditolak. Link-only, empat URL atau lebih, dan pengulangan ekstrem dikarantina; dua-tiga URL atau pengulangan menengah masuk Pending.
 - User login dapat report satu kali per entry dengan alasan spam, harassment, hate, threat, illegal activity, phishing, personal data, irrelevant, inappropriate, atau other serta catatan opsional; user tidak dapat report konten sendiri.
 - Tiga report unik otomatis mengarantina entry untuk review owner. Report tidak menghapus konten permanen.
-- Owner dapat pin/unpin root post, approve, hide, unhide, soft delete, dan block user melalui kontrol inline.
+- Kontrol inline Author menyediakan pin/unpin root post, approve untuk memulihkan visibility, hide, block user, dan permanent delete. API tetap mendukung `unhide` serta soft delete (`delete`), tetapi opsi soft delete yang redundan tidak lagi ditampilkan pada menu Author, termasuk untuk entry miliknya sendiri.
 - Soft-delete pemilik entry mencatat deletion source `commenter`; soft-delete melalui moderasi owner mencatat `site_author`. Existing tombstone dibackfill `commenter`, berdasarkan informasi sesi sebelumnya bahwa database Guestbook kosong; ini bukan hasil pemeriksaan database baru pada revisi dokumen ini.
 - Main feed dan floating preview menampilkan `Deleted by commenter` / `Dihapus oleh pengirim` atau `Removed by Author` / `Dihapus oleh Author`. UUID pelaku tidak diekspos. Body, rating, image, reaction, dan kontrol interaksi tetap disembunyikan pada tombstone.
 - Author terverifikasi server mendapat action terpisah `permanent_delete`, termasuk pada entry miliknya sendiri dan existing tombstone. Tombstone memiliki pengecualian menu owner-only yang hanya memuat permanent delete; seluruh kontrol publik tetap tersembunyi. Soft-delete tetap dipertahankan; pengunjung tidak mendapat akses permanent delete.
 - Konfirmasi permanent delete wajib menjelaskan bahwa tindakan tidak dapat dibatalkan, menghapus entry secara fisik, dan menghapus seluruh subtree reply di bawahnya. Copy disetujui: `Permanently delete this entry and all replies beneath it? This physically removes them and cannot be undone.` / `Hapus permanen entri ini dan seluruh balasan di bawahnya? Tindakan ini menghapusnya secara fisik dan tidak dapat dibatalkan.`
 - Permanent delete menghapus subtree secara transaksional beserta reactions, mentions, reports, dan push delivery terkait; seluruh gambar subtree dibersihkan dari Storage melalui moderation API. Feed, moderation queue, rating summary, filter count, dan active Review state disinkronkan setelah berhasil.
 - Block berlaku khusus mutation Guestbook, tidak menghapus akun Google, tidak dapat diterapkan kepada owner, dan menyembunyikan seluruh konten aktif target.
-- Owner memiliki mode moderasi inline untuk melihat konten pending/quarantined, menyetujuinya, menyembunyikan, menghapus, atau memblokir author tanpa mengekspos konten tersebut ke feed publik.
+- Owner memiliki mode moderasi inline untuk melihat konten pending/quarantined dan tombstone, menyetujui atau menyembunyikan konten aktif, menghapus permanen, atau memblokir pengirim tanpa mengekspos konten tersebut ke feed publik.
 - Antrean report ditinjau melalui Supabase Dashboard; dashboard moderasi khusus tidak termasuk baseline.
 - Konten hidden tidak masuk feed publik, rating, statistik komentar, atau contributor ranking.
 
@@ -172,4 +172,4 @@ Notifikasi email, notification inbox, notification reaction/mention, emoji react
 - Author dapat permanent delete existing tombstone melalui menu khusus owner-only, termasuk entry miliknya sendiri.
 - Subtree hanya mengikuti relasi `parent_id` tersimpan. Normalisasi depth dapat membuat direct reply menjadi sibling; sibling tersebut tidak dihapus. Penerima Web Push bukan relasi subtree.
 - Copy bilingual kategori dan konfirmasi, serta dependency `emoji-picker-react`, disetujui. Tidak ada open item desain yang memblokir implementasi.
-- Migration dibuat lokal saja. Penerapan ke database live tetap membutuhkan izin terpisah; pemeriksaan browser/database yang belum dijalankan dicatat pada changelog.
+- Migration awalnya dibuat lokal dengan penerapan live memerlukan izin terpisah. Pada sesi berikutnya, `202609050003` dan `202609050004` berhasil diterapkan melalui `db push`; dry-run terakhir up-to-date. Ini tidak membuktikan deployment endpoint atau pengujian browser/database end-to-end.

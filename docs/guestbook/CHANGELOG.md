@@ -1,9 +1,31 @@
 # Changelog Guestbook
 
+Catatan bertanggal merekam evolusi implementasi; perubahan terbaru menggantikan perilaku lama. Kontrak aktif ada di `01-SPEC.md`, detail teknis dan cakupan verifikasi di `02-IMPLEMENTATION.md`.
+
 ## 2026-09-05
 
-- Mengubah kategori Portfolio Review menjadi multi-select minimal satu pilihan, termasuk migrasi aman data lama, draft/edit, label feed/preview, dan validasi database.
-- Menghapus opsi soft delete yang redundan dari menu Author sehingga hanya permanent delete yang tampil, serta menerapkan migration `202609050003` agar RPC permanent subtree delete tersedia pada Supabase tertaut.
+### Fitur dan UI
+
+- Review mendukung 1-6 kategori unik dalam urutan kanonis: `portfolio`, `ui_ux_design`, `code_quality`, `communication`, `collaboration`, dan `overall_experience`. Default/backfill Portfolio, checkbox-chip bilingual, draft lama tanpa kategori atau kategori tunggal, edit, parser/RPC, serta label feed/floating preview ikut diselaraskan. Tetap satu Review aktif per akun termasuk hidden, dengan satu rating per Review; kategori tidak menggandakan slot, count, average, distribusi, atau Highest Rated.
+- Mengganti emoji terbatas dengan katalog/search `emoji-picker-react` yang lazy-loaded, mengikuti tema, dibatasi viewport, menyisipkan pada caret/selection tanpa melewati 1.000 karakter, dan mengembalikan fokus setelah pilih/Escape/klik luar. Menghapus tombol, popup, state, payload, dan guideline mention; `@nama` manual tetap teks biasa dan tabel mention lama tidak dihapus.
+- Menambahkan permanent subtree delete khusus Author terverifikasi, termasuk entry sendiri dan tombstone, dengan konfirmasi bilingual irreversible. Opsi soft delete redundan dihapus dari UI Author; delete pengunjung tetap tombstone, sedangkan API soft delete Author tetap tersedia.
+- Tombstone membedakan `Deleted by commenter` dan `Removed by Author` melalui provenance `commenter`/`site_author` pada feed/preview, tanpa UUID pelaku atau konten/interaksi publik. Mode moderasi turut memuat tombstone; menu tombstone hanya menyediakan permanent delete untuk Author.
+- Memperkecil heading menjadi `clamp(2.75rem,8vw,6.5rem)` tanpa mengubah identitas tipografi. Like/Dislike kini compact dengan tint aksen tipis, ukuran tetap, tanpa active border/ring/glow/scale/lift; focus keyboard tetap ada dan style reaction portfolio tidak berubah. Ini menggantikan eksperimen glass/glow vote entry pada 2026-09-04.
+- Menuntaskan layout responsif yang disetujui: <1280px mengikuti Rating, Reaction, Community Summary, Community Guidelines, composer/sign-in, lalu filters/feed dalam satu alur dokumen tanpa internal page scroll. >=1280px mempertahankan main feed kiri dan sidebar kanan sticky; satu sidebar dipakai tanpa duplikasi konten.
+
+### Fix dan Integritas
+
+- Permanent delete memakai RPC service-role-only, write lock, subtree berdasarkan `parent_id` tersimpan, dan penghapusan descendant terdalam sebelum parent/root dalam transaksi. Hidden/tombstone ikut terhapus; sibling akibat normalisasi depth tidak ikut. Foreign key cascade membersihkan reactions, mentions, reports, dan push delivery terkait.
+- Moderation API membersihkan path gambar authoritative hasil RPC dalam batch maksimal 100. Jika Storage gagal setelah SQL berhasil, respons menyatakan `STORAGE_CLEANUP_FAILED`, `deleted: true`, serta ID/path terkait kepada owner, bukan rollback atau sukses penuh. UI tetap membuang ID terhapus, menolak respons read usang, dan merekonsiliasi feed, queue, summary/count, serta slot Review.
+- Integritas yang dipertahankan: nullable/strict active Review lookup, pemulihan profil Google, perlindungan race session dan refresh moderasi, pagination root 10/reply 3, report/rate limit/block, serta lima reaction portfolio terpisah. Detail fix awal tetap pada catatan 2026-09-04.
+- Web Push tetap opt-in per browser dan hanya untuk direct reply visible dari user lain pada Discussion/Review, dengan recipient disimpan sebelum normalisasi depth, deduplikasi per reply/subscription, serta cleanup subscription expired. Mention, self-reply, reaction, edit, dan moderasi tidak menambah pemicu push.
+
+### Verifikasi dan Status
+
+- Berdasarkan hasil sesi sebelumnya, migration `202609050003` (kategori awal, provenance, permanent delete) dan `202609050004` (array multi-kategori) berhasil diterapkan ke Supabase tertaut melalui `db push`; dry-run terakhir menyatakan up-to-date. Status lama "migration lokal saja" pada spec/implementation telah diselaraskan; tidak ada push/deployment baru pada pembaruan docs ini.
+- Quality gate terakhir pada sesi sebelumnya: 134 test seluruh proyek, lint, typecheck, production build, dan pemeriksaan format lulus. Build masih memberi warning ukuran bundle; picker memakai dynamic import/chunk terpisah. Angka ini bukan jumlah test Guestbook saja atau hasil eksekusi ulang pada perubahan docs ini.
+- Tes yang tersedia mencakup composer/draft/kategori/picker, parser active Review/pagination, entry/menu/tombstone/deep link, reaction, permission push, boundary endpoint, otorisasi permanent delete, cleanup sukses/gagal, serta kontrak teks migration. Unit test/mock dan SQL contract tidak membuktikan perilaku PostgreSQL atau browser nyata.
+- Browser manual (responsif, keyboard, light/dark, ID/EN, reduced motion, picker, dan konfirmasi), skenario subtree/Storage database end-to-end, deployment endpoint revisi, konfigurasi VAPID, dan delivery push nyata belum terkonfirmasi. Keberhasilan migration tidak berarti seluruh deployment atau pengujian tersebut selesai.
 
 ## 2026-09-04
 

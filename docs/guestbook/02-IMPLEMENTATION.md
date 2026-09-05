@@ -1,6 +1,6 @@
 # Rencana Implementasi Guestbook
 
-**Status:** Baseline disetujui pada 2026-09-03; revisi 2026-09-05 disetujui eksplisit dan diimplementasikan lokal. Seluruh open item spec diselesaikan; deployment dan verifikasi database/browser manual belum dilakukan.
+**Status:** Baseline disetujui pada 2026-09-03; revisi 2026-09-05 termasuk layout responsif selesai diimplementasikan. Migration sampai `202609050004` sudah diterapkan ke Supabase tertaut berdasarkan sesi sebelumnya; deployment endpoint/push dan verifikasi database end-to-end/browser manual belum terkonfirmasi. Hasil quality gate terakhir dicatat di `CHANGELOG.md`, bukan hasil eksekusi ulang pada pembaruan docs ini.
 
 ## Arsitektur
 
@@ -53,7 +53,7 @@
 ## UI
 
 - `GuestbookPage` menangani route title, scroll, header, Footer, dan social rail.
-- Feature root memuat auth, summary, composer, filters, feed, contributors, statistics, guidelines, dan dialogs.
+- Feature root memuat auth, summary, composer, filters, feed, statistics, guidelines, dan dialogs; contributor ranking hanya tersisa pada backend, bukan UI publik.
 - Heading Guestbook memakai copy terstruktur untuk memberi aksen tema pada kata terakhir beserta titik tanpa memecah string saat render.
 - Di `src/components/guestbook/Guestbook.tsx`, turunkan heading clamp menjadi sekitar `clamp(2.75rem,8vw,6.5rem)`; pertahankan properti tipografi dan struktur lainnya.
 - Preview memakai header ringkas, tab berindikator garis, waktu relatif bilingual, ringkasan rating pada tab Reviews, maksimal tiga entri terbaru, dan footer CTA terpisah.
@@ -69,8 +69,8 @@
 - Tutup picker setelah pemilihan, Escape, dan outside click; kembalikan fokus ke textarea. Hapus tombol `@`, popup/state mention, prop participant, serta pengumpulan participants yang hanya dipakai toolbar.
 - Hapus guideline mention dari kedua locale; manual `@nama` tetap plain text. Direct reply tetap satu-satunya pemicu Web Push; tidak menambahkan email notification.
 - Tambahkan checkbox-chip multi-select kategori hanya untuk Review, default `portfolio`, dengan enam label bilingual sesuai spec. Pertahankan seluruh kategori saat edit dan tampilkan seluruh label di `GuestbookEntry` serta floating preview.
-- Upload menampilkan preview, validasi MIME/size, dan remove sebelum submit.
-- Main composer menyimpan draft teks, tipe, rating, dan kategori di localStorage; draft lama tanpa kategori memakai Portfolio saat Review. Draft dibersihkan setelah publish berhasil; Discussion/reply mengirim kategori null, bukan nilai Review yang tersisa di state.
+- Upload baru menampilkan nama file, validasi MIME/size, dan remove sebelum submit; gambar tersimpan memiliki thumbnail pada editor serta dapat diganti atau dihapus.
+- Main composer menyimpan draft teks, tipe, rating, dan kategori di localStorage; draft lama tanpa kategori memakai Portfolio, sedangkan field tunggal `reviewCategory` dipulihkan menjadi array. Draft dibersihkan setelah publish berhasil; Discussion/reply mengirim kategori null, bukan nilai Review yang tersisa di state.
 - Rating memakai radio group bilingual dan Review aktif milik user diarahkan ke flow edit, bukan membuat duplikat.
 - Feed memisahkan pinned content dari hasil sort reguler, menampilkan reply count/context, tanggal absolut, dan deep-link target.
 - Root feed menampilkan sepuluh item per batch dan append halaman berikutnya; reply dilipat tiga per thread serta dibuka tiga per aksi, dengan auto-expand untuk deep link.
@@ -78,7 +78,7 @@
 - Reaction portfolio tampil terpisah di bawah rating overview dengan lima emoji dalam satu bar horizontal, count, pressed state, dan toggle authenticated tanpa me-refresh feed.
 - Pisahkan `.guestbook-reaction` dari selector active reaction portfolio di `src/index.css`. Gunakan inline-flex, items-center, gap kecil, ukuran compact tetap, dan border transparan bila diperlukan; active background memakai `color-mix()` tipis dari `--color-accent-500` tanpa border/ring/glow/scale/lift. Pertahankan keyboard focus outline serta `aria-pressed`; jangan ubah style portfolio reaction.
 - Render tombstone berdasarkan deletion source pada main feed dan floating preview; jangan render body, rating, image, reaction, atau kontrol publik. Pengecualian disetujui: menu owner-only dengan satu action permanent delete pada existing tombstone. Moderation queue juga memuat tombstone agar yang hidden tetap dapat dihapus.
-- Kontrol permanent delete hanya untuk owner terverifikasi server, termasuk entry miliknya sendiri; tampilkan dialog konfirmasi irreversible physical subtree delete sesuai copy bilingual spec. Setelah mutation berhasil, refresh feed, moderation queue, rating summary, filter count, dan active Review state tanpa menerima respons refresh usang.
+- Kontrol permanent delete hanya untuk owner terverifikasi server, termasuk entry miliknya sendiri; tampilkan konfirmasi native `window.confirm` untuk irreversible physical subtree delete sesuai copy bilingual spec. Menu Author tidak lagi menampilkan soft delete; jalur API `delete` dengan provenance `site_author` tetap tersedia. Setelah mutation berhasil, refresh feed, moderation queue, rating summary, filter count, dan active Review state tanpa menerima respons refresh usang.
 - Filter menampilkan jumlah root All Comments, Discussions, dan Reviews; reply count tetap berada pada thread terkait.
 - UI publik tidak menampilkan contributor ranking; statistik visitor dimuat secara non-esensial agar kegagalannya tidak menggagalkan feed.
 - Sidebar menampilkan Total Visitors, Today Visitors, dan Average Rating; akun login mendapat kontrol enable/disable Web Push per browser tanpa inbox atau polling.
@@ -130,3 +130,4 @@ VAPID key pair dibuat satu kali; public key tersedia bagi browser, sedangkan pri
 - Permanent-delete API mengembalikan `deletedIds` authoritative. UI membuang ID tersebut dan membatalkan hasil read lama sebelum refresh feed/queue/summary/filter/active Review, termasuk ketika Storage gagal. Cleanup failure mengembalikan `STORAGE_CLEANUP_FAILED`, `deleted: true`, dan path authoritative hanya ke owner untuk tindak lanjut; tidak mengklaim rollback SQL.
 - Unit test memakai picker asli dengan mock IntersectionObserver jsdom, bukan mock katalog emoji. Test SQL contract tidak menggantikan eksekusi PostgreSQL nyata.
 - Migration lanjutan mengubah kategori Review menjadi `text[]` terurut dan unik, membungkus nilai lama sebagai array, serta mengganti kontrak create/update dengan `p_review_categories text[]`. Composer memakai checkbox-chip multi-select dengan minimal satu pilihan; agregasi rating dan satu active Review tetap dihitung per Review.
+- Status remote: `202609050003_guestbook_approved_revision.sql` dan `202609050004_guestbook_review_categories.sql` berhasil diterapkan melalui `db push`, dengan dry-run terakhir up-to-date menurut sesi sebelumnya. Tidak ada migration/deployment yang dijalankan pada pembaruan docs ini; uji subtree PostgreSQL nyata, cleanup Storage end-to-end, dan delivery Web Push tetap perlu verifikasi terpisah.
