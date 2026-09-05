@@ -794,18 +794,16 @@ describe("App", () => {
     expect(
       screen.getByRole("heading", { name: "Project Inquiry" }),
     ).toBeInTheDocument();
-    expect(screen.getByText("Contact", { selector: ".contact-label-part" })).toBeInTheDocument();
+    expect(
+      screen.getByText("Contact", { selector: ".contact-label-part" }),
+    ).toBeInTheDocument();
     expect(screen.queryByText("05 / Contact")).not.toBeInTheDocument();
     expect(
       screen.queryByRole("heading", { name: /Evindo Amanda/ }),
     ).not.toBeInTheDocument();
-    expect(
-      container.querySelector(".tablet-social-rail"),
-    ).toBeInTheDocument();
+    expect(container.querySelector(".tablet-social-rail")).toBeInTheDocument();
     expect(screen.getByTestId("scanner-background")).toBeInTheDocument();
-    expect(
-      screen.queryByTestId("hero-nav-contact"),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId("hero-nav-contact")).not.toBeInTheDocument();
     expect(screen.getByRole("link", { name: "About" })).toHaveAttribute(
       "href",
       "/#about",
@@ -821,9 +819,10 @@ describe("App", () => {
     expect(container.querySelector(".contact-direct-link")).not.toHaveClass(
       "border-b",
     );
-    expect(
-      screen.getByRole("link", { name: /WhatsApp/i }),
-    ).toHaveAttribute("data-brand", "whatsapp");
+    expect(screen.getByRole("link", { name: /WhatsApp/i })).toHaveAttribute(
+      "data-brand",
+      "whatsapp",
+    );
     expect(
       container.querySelector('.contact-direct-link[data-brand="instagram"]'),
     ).toBeInTheDocument();
@@ -834,7 +833,9 @@ describe("App", () => {
     expect(screen.getByRole("link", { name: /Telegram/i })).toHaveTextContent(
       "@yeahvnz",
     );
-    expect(screen.getByTestId("contact-icon-email").querySelector("path")).toHaveAttribute("d");
+    expect(
+      screen.getByTestId("contact-icon-email").querySelector("path"),
+    ).toHaveAttribute("d");
     expect(screen.getByTestId("contact-icon-whatsapp")).toBeInTheDocument();
     expect(screen.getByTestId("contact-icon-telegram")).toBeInTheDocument();
     expect(screen.getByTestId("contact-icon-github")).toBeInTheDocument();
@@ -1009,7 +1010,9 @@ describe("App", () => {
   it("keeps footer particles interactive for touch pointers", () => {
     mockMediaPreferences({ desktopViewport: false, pointerFine: false });
     const context = {} as CanvasRenderingContext2D;
-    vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue(context);
+    vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue(
+      context,
+    );
     const addEventListener = vi.spyOn(
       HTMLCanvasElement.prototype,
       "addEventListener",
@@ -1239,59 +1242,84 @@ describe("App", () => {
     ).toBeInTheDocument();
   });
 
-  it("opens the global chat shell with every unavailable action explicit", async () => {
+  it("previews discussions and reviews before opening Guestbook", async () => {
     const { container } = renderApp();
     const trigger = screen.getByRole("button", {
-      name: "Open discussion chat",
+      name: "Open Guestbook preview",
     });
-
-    expect(trigger).toHaveAttribute("aria-expanded", "false");
-
     fireEvent.click(trigger);
-
-    const dialog = screen.getByRole("dialog", { name: "Discussion" });
-    const panelBody = dialog.querySelector(".floating-chat-panel-body");
-
-    expect(trigger).toHaveAttribute("aria-expanded", "true");
-    expect(dialog).toBeInTheDocument();
-    expect(dialog).toHaveClass("overflow-hidden");
-    expect(panelBody).toHaveClass("min-h-0", "overflow-y-auto");
-    expect(screen.getByText("Coming Soon")).toBeInTheDocument();
-    expect(screen.getByLabelText("Reply")).toBeDisabled();
-    expect(screen.getByRole("button", { name: "Send reply" })).toBeDisabled();
     expect(
-      screen.getByRole("button", { name: "Login with Google" }),
-    ).toBeDisabled();
-    expect(
-      screen.getAllByRole("button", { name: "Close discussion chat" }),
-    ).toHaveLength(2);
-    expect(
-      screen.getByText(
-        "Your data is secure and will not be shared with other parties.",
-      ),
+      screen.getByRole("dialog", { name: "Guestbook Preview" }),
     ).toBeInTheDocument();
-
-    fireEvent.click(screen.getByRole("button", { name: "Open chat menu" }));
-
-    expect(screen.getByRole("menuitem", { name: /Guestbook/ })).toBeDisabled();
-
+    expect(screen.getByRole("tab", { name: "Discussions" })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+    fireEvent.click(screen.getByRole("tab", { name: "Reviews" }));
+    expect(await screen.findByText("No reviews yet.")).toBeInTheDocument();
     const results = await axe.run(container, {
       rules: { "color-contrast": { enabled: false } },
     });
-
     expect(results.violations).toHaveLength(0);
 
-    fireEvent.keyDown(window, { key: "Escape" });
-    expect(trigger).toHaveAttribute("aria-expanded", "false");
-    expect(trigger).toHaveAccessibleName("Open discussion chat");
+    const openGuestbook = screen.getByRole("link", { name: "Open Guestbook" });
+    expect(openGuestbook).toHaveAttribute("href", "/guestbook");
+    fireEvent.click(openGuestbook);
+    expect(
+      await screen.findByRole("heading", { name: "Visitor Perspectives." }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "Open Guestbook preview" }),
+    ).not.toBeInTheDocument();
+    expect(screen.getByText("No reviews yet")).toBeInTheDocument();
+    expect(screen.getByText(/No conversations yet/)).toBeInTheDocument();
   });
 
-  it("moves mobile guestbook and social links into the navigation drawer", async () => {
+  it("keeps Guestbook community panels before sign-in and the feed in DOM order", async () => {
+    window.history.replaceState({}, "", "/guestbook");
+    renderApp();
+
+    const orderedContent = [
+      screen.getByRole("heading", { name: "Overall rating" }),
+      screen.getByRole("heading", { name: "Reaction" }),
+      screen.getByRole("heading", { name: "Community Summary" }),
+      screen.getByRole("heading", { name: "Community Guidelines" }),
+      screen.getByRole("heading", {
+        name: "Sign in with Google to join the conversation.",
+      }),
+      screen.getByRole("tablist", { name: "Filter guestbook comments" }),
+      await screen.findByText(/No conversations yet/),
+    ];
+
+    orderedContent.slice(1).forEach((element, index) => {
+      expect(
+        orderedContent[index].compareDocumentPosition(element) &
+          Node.DOCUMENT_POSITION_FOLLOWING,
+      ).toBeTruthy();
+    });
+    expect(screen.getByRole("main").querySelectorAll("aside")).toHaveLength(1);
+  });
+
+  it("links Guestbook navigation back to Home sections", () => {
+    window.history.replaceState({}, "", "/guestbook");
+    renderApp();
+
+    expect(screen.getByTestId("navbar-logo-frame")).toHaveAttribute(
+      "href",
+      "/#home",
+    );
+    expect(screen.getByRole("link", { name: "About" })).toHaveAttribute(
+      "href",
+      "/#about",
+    );
+  });
+
+  it("keeps the mobile drawer focused on navigation", async () => {
     mockMediaPreferences({ desktopViewport: false });
     const { container } = renderApp();
 
     expect(
-      screen.queryByRole("button", { name: "Open discussion chat" }),
+      screen.queryByRole("link", { name: "Guestbook" }),
     ).not.toBeInTheDocument();
     expect(screen.queryByLabelText("Social profiles")).not.toBeInTheDocument();
 
@@ -1316,33 +1344,52 @@ describe("App", () => {
       "Guestbook",
     ]);
     expect(drawer?.querySelectorAll(".hero-mobile-social-link")).toHaveLength(
-      4,
+      0,
     );
     expect(
       container.querySelector(".mobile-social-nav"),
     ).not.toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole("button", { name: "Guestbook" }));
+    const guestbookLink = screen.getByRole("link", { name: "Guestbook" });
+    expect(guestbookLink).toHaveAttribute("href", "/guestbook");
+    fireEvent.click(guestbookLink);
 
     await waitFor(() => {
       expect(
-        screen.getByRole("dialog", { name: "Discussion" }),
+        screen.getByRole("heading", { name: "Visitor Perspectives." }),
       ).toBeInTheDocument();
       expect(screen.getByTestId("mobile-navigation-toggle")).toHaveAttribute(
         "aria-expanded",
         "false",
       );
     });
+  });
 
-    fireEvent.click(
-      screen.getByRole("button", { name: "Close discussion chat" }),
+  it("marks Guestbook as current in the mobile drawer", () => {
+    mockMediaPreferences({ desktopViewport: false });
+    window.history.replaceState({}, "", "/guestbook");
+    renderApp();
+
+    fireEvent.click(screen.getByTestId("mobile-navigation-toggle"));
+    const guestbookLink = screen.getByRole("link", { name: "Guestbook" });
+    expect(guestbookLink).toHaveAttribute("aria-current", "page");
+    expect(guestbookLink).toHaveAttribute("data-active", "true");
+    expect(guestbookLink).toHaveClass("active");
+    expect(screen.getByRole("link", { name: "About" })).not.toHaveClass(
+      "active",
     );
-    await waitFor(
-      () => {
-        expect(screen.queryByRole("dialog", { name: "Discussion" })).toBeNull();
-      },
-      { timeout: 3000 },
-    );
+  });
+
+  it("does not render the floating preview on the Guestbook route", () => {
+    window.history.replaceState({}, "", "/guestbook");
+    const { container } = renderApp();
+
+    expect(
+      container.querySelector(".floating-chat-root"),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "Open Guestbook preview" }),
+    ).not.toBeInTheDocument();
   });
 
   it("keeps widget hide controls out of tablet and desktop layouts", () => {
@@ -1351,10 +1398,10 @@ describe("App", () => {
     const chatRoot = container.querySelector(".floating-chat-root");
 
     expect(
-      screen.getByRole("button", { name: "Open discussion chat" }),
+      screen.getByRole("button", { name: "Open Guestbook preview" }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: "Open discussion chat" }),
+      screen.getByRole("button", { name: "Open Guestbook preview" }),
     ).toHaveClass("size-14", "sm:size-16", "lg:size-14");
     expect(chatRoot).toHaveClass("sm:right-6", "sm:bottom-6");
     expect(
@@ -1573,7 +1620,7 @@ describe("App", () => {
       ),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: "Buka ruang diskusi" }),
+      screen.getByRole("button", { name: "Buka pratinjau Buku Tamu" }),
     ).toBeInTheDocument();
   });
 
@@ -1648,7 +1695,7 @@ describe("App", () => {
       "tablet-social-rail",
     );
     expect(
-      screen.getByRole("button", { name: "Open discussion chat" }),
+      screen.getByRole("button", { name: "Open Guestbook preview" }),
     ).toBeInTheDocument();
 
     const languageTrigger = screen.getByRole("button", {
@@ -1711,7 +1758,7 @@ describe("App", () => {
       }),
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole("button", { name: "Open discussion chat" }),
+      screen.queryByRole("link", { name: "Guestbook" }),
     ).not.toBeInTheDocument();
   });
 
@@ -1760,7 +1807,7 @@ describe("App", () => {
     renderApp();
 
     expect(
-      screen.queryByRole("button", { name: "Open discussion chat" }),
+      screen.queryByRole("button", { name: "Open Guestbook preview" }),
     ).not.toBeInTheDocument();
     expect(screen.queryByLabelText("Social profiles")).not.toBeInTheDocument();
 
@@ -1772,9 +1819,7 @@ describe("App", () => {
         .getAttribute("aria-controls") ?? "",
     );
 
-    expect(
-      screen.getByRole("button", { name: "Guestbook" }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Guestbook" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Skills" })).toHaveAttribute(
       "href",
       "/#skills",
@@ -1790,7 +1835,7 @@ describe("App", () => {
       "/#experience",
     );
     expect(screen.getByText("Contact")).toBeInTheDocument();
-    expect(screen.getByLabelText("Social profiles")).toBeInTheDocument();
+    expect(screen.queryByLabelText("Social profiles")).not.toBeInTheDocument();
     expect(drawer).toHaveAttribute("data-mobile-landscape-layout", "true");
     expect(drawer).toHaveClass("hero-mobile-menu");
     expect(drawer).toHaveClass("bg-surface");

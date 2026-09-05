@@ -5,6 +5,7 @@ import { ViewportEdgeBlur } from "./components/global/ViewportEdgeBlur";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import { ContactPage } from "./pages/ContactPage";
+import { GuestbookPage } from "./pages/GuestbookPage";
 import { HomePage } from "./pages/HomePage";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/guestbook" element={<GuestbookPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <FloatingChatWidget />

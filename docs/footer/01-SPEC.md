@@ -47,7 +47,7 @@ Menutup halaman setelah Contact/`WorkWithMe` dengan particle wordmark `EVINDO AM
 - Font otomatis diperkecil agar seluruh glyph dan titik memiliki inset aman.
 - Canvas memakai tinggi fluid dan mencegah horizontal overflow.
 - Device pixel ratio dibatasi ke `2`.
-- Jumlah partikel dibatasi dan render berhenti ketika footer di luar viewport.
+- Jumlah partikel dibatasi untuk menjaga respons pointer pada layar high-refresh dan render berhenti ketika footer di luar viewport.
 - Blur bawah viewport memudar saat halaman mencapai akhir.
 
 ## Kriteria Selesai

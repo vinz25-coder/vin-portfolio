@@ -18,7 +18,7 @@ Memperkenalkan Evindo Amanda sebagai pengembang front-end melalui komposisi edit
 - Konten utama: profesi, nama, deskripsi, CTA karya, dan CTA CV.
 - Portrait dominan dengan aset rim-light per tema, crossfade, dan pointer parallax ringan pada desktop/fine pointer.
 - Bagian bawah portrait memakai mask gradient gradual hingga transparan agar membaur ke About tanpa cutoff.
-- Sidebar sosial tetap tampil di seluruh section pada tablet/desktop; sosial masuk ke menu pada layar ringkas.
+- Sidebar sosial tetap tampil di seluruh section pada tablet/desktop; layar ringkas memprioritaskan hamburger menu khusus navigasi tanpa social links.
 - Scanner interaktif global yang merespons posisi pointer tanpa menangkap input, blur tepi viewport, chat shell, dan custom cursor.
 - Batas Hero ke section berikutnya transparan tanpa gradient warna solid agar gerak scanner tidak terpotong.
 

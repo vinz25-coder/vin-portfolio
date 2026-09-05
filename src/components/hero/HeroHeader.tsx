@@ -1,22 +1,13 @@
-import { Github, Instagram, Mail, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion } from "motion/react";
-import {
-  useEffect,
-  useId,
-  useRef,
-  useState,
-  type MouseEvent,
-} from "react";
+import { useEffect, useId, useRef, useState, type MouseEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { useLanguage } from "../../hooks/useLanguage";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import { useTheme } from "../../hooks/useTheme";
-import { socialLinks } from "../../data/social-links";
 import { mobileViewportQuery } from "../../lib/media-queries";
 import { scrollToSection } from "../../lib/scroll-to-section";
-import { OPEN_MOBILE_GUESTBOOK_EVENT } from "../global/FloatingChatWidget";
-import { BrandXIcon } from "../global/BrandXIcon";
 import {
   navInteractionMotion,
   socialSidebarMotion,
@@ -41,19 +32,12 @@ const mobileNavItems = [
   "projects",
   "contact",
 ] as const;
-const mobileSocialIcons = {
-  github: Github,
-  x: BrandXIcon,
-  instagram: Instagram,
-  email: Mail,
-};
-
 const tabletHeaderQuery = "(min-width: 640px) and (max-width: 1023px)";
 const MotionLink = motion.create(Link);
 
 interface HeroHeaderProps {
   isScrolled: boolean;
-  page?: "home" | "contact";
+  page?: "home" | "contact" | "guestbook";
 }
 
 export function HeroHeader({ isScrolled, page = "home" }: HeroHeaderProps) {
@@ -81,11 +65,6 @@ export function HeroHeader({ isScrolled, page = "home" }: HeroHeaderProps) {
     activeSection === "skills" ||
     activeSection === "experience" ||
     activeSection === "work-with-me";
-
-  const openMobileGuestbook = () => {
-    setIsMenuOpen(false);
-    window.dispatchEvent(new Event(OPEN_MOBILE_GUESTBOOK_EVENT));
-  };
 
   const navigateToSection = (
     event: MouseEvent<HTMLAnchorElement>,
@@ -251,7 +230,7 @@ export function HeroHeader({ isScrolled, page = "home" }: HeroHeaderProps) {
       className="hero-header pointer-events-none fixed inset-x-0 top-0 isolate z-50 flex h-24 items-center px-3 min-[320px]:px-5 sm:h-18 sm:px-12 lg:h-[7.75rem] lg:px-[3.35vw]"
     >
       <Link
-        to={page === "contact" ? "/" : "#home"}
+        to={page === "home" ? "#home" : page === "guestbook" ? "/#home" : "/"}
         aria-label={copy.a11y.homeLink}
         data-testid="navbar-logo-frame"
         className="navbar-logo-frame pointer-events-auto relative z-10 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-500 sm:left-2"
@@ -287,7 +266,7 @@ export function HeroHeader({ isScrolled, page = "home" }: HeroHeaderProps) {
               item === "about" ? (
                 <MotionLink
                   key={item}
-                  to={page === "contact" ? "/#about" : "#about"}
+                  to={page === "home" ? "#about" : "/#about"}
                   data-testid={`hero-nav-${item}`}
                   data-active={isAboutActive}
                   aria-current={isAboutActive ? "page" : undefined}
@@ -326,7 +305,7 @@ export function HeroHeader({ isScrolled, page = "home" }: HeroHeaderProps) {
               item === "about" || item === "skills" || item === "experience" ? (
                 <Link
                   key={item}
-                  to={`${page === "contact" ? "/" : ""}#${item}`}
+                  to={`${page === "home" ? "" : "/"}#${item}`}
                   data-active={
                     item === "about"
                       ? activeSection === "about" ||
@@ -380,53 +359,15 @@ export function HeroHeader({ isScrolled, page = "home" }: HeroHeaderProps) {
                 </span>
               ),
             )}
-            <button
-              type="button"
-              className="hero-mobile-menu-item text-left"
-              onClick={openMobileGuestbook}
+            <Link
+              to="/guestbook"
+              data-active={page === "guestbook"}
+              aria-current={page === "guestbook" ? "page" : undefined}
+              className={`hero-mobile-menu-item ${page === "guestbook" ? "active" : ""}`}
+              onClick={() => setIsMenuOpen(false)}
             >
               {copy.chat.guestbook}
-            </button>
-          </div>
-        ) : null}
-
-        {isMobileViewport && isMenuOpen ? (
-          <div className="border-t border-border pt-4">
-            <div
-              className="flex items-center gap-2"
-              aria-label={copy.a11y.socialSidebar}
-            >
-              {socialLinks.map((link) => {
-                const Icon = mobileSocialIcons[link.platform];
-
-                return link.href ? (
-                  <a
-                    key={link.platform}
-                    href={link.href}
-                    aria-label={link.label}
-                    target={link.href.startsWith("http") ? "_blank" : undefined}
-                    rel={
-                      link.href.startsWith("http")
-                        ? "noopener noreferrer"
-                        : undefined
-                    }
-                    className="hero-mobile-social-link"
-                  >
-                    <Icon aria-hidden="true" size={21} strokeWidth={1.7} />
-                  </a>
-                ) : (
-                  <span
-                    key={link.platform}
-                    role="link"
-                    aria-disabled="true"
-                    aria-label={link.label}
-                    className="hero-mobile-social-link cursor-not-allowed opacity-40"
-                  >
-                    <Icon aria-hidden="true" size={21} strokeWidth={1.7} />
-                  </span>
-                );
-              })}
-            </div>
+            </Link>
           </div>
         ) : null}
 

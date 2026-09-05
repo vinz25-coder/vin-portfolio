@@ -13,6 +13,19 @@
   display: block;
   width: 100%;
   height: 100%;
+  filter: drop-shadow(0 0 0.4rem var(--particle-text-glow));
+}
+
+@media (max-width: 639.98px) {
+  .particle-text__canvas {
+    filter: drop-shadow(0 0 0.2rem var(--particle-text-glow));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .particle-text__canvas {
+    filter: none;
+  }
 }
 
 .particle-text__sr {

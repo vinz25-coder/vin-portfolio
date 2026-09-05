@@ -22,6 +22,8 @@
 - Mobile di bawah 640px memakai glyph weight, ukuran partikel, glow, dan idle drift yang lebih ringan agar ruang negatif serta batas huruf tetap terbaca pada canvas sempit.
 - `ResizeObserver` membangun ulang target saat ukuran berubah.
 - `IntersectionObserver` menghentikan RAF ketika footer tidak terlihat.
+- Pointer memakai koordinat lokal event tanpa layout read per gerakan; kalkulasi release dan respons frame-rate-independent dilakukan sekali per frame.
+- Batas partikel desktop/fine pointer adalah 2.000 dan perangkat lain 1.200. Glow diterapkan sekali pada layer canvas, bukan dihitung per partikel, agar kepadatan visual mendekati baseline tanpa mengorbankan respons pointer.
 
 ## Layout
 
